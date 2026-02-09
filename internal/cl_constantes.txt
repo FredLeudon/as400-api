@@ -1,0 +1,863 @@
+cl_Constantes est une Classe
+	CONSTANTE
+
+		dpoDropFournisseur											= "--"
+
+		Bourgeat													= "38"
+		Calle														= "31"
+		Flo															= "02"
+		FloVending													= "15"
+		GMB															= "12"
+		InSitu														= "40"
+		Jacquemin													= "04"
+		JVillette													= "16"
+		MBI															= "00"
+		Matfer														= "06"
+		MatferIndustrie												= "07"
+		Matik														= "69"
+		MBHE														= "19"
+		Safran														= "20"
+		Sima														= "09"
+		SoGeMat														= "91"
+		TecMAT														= "96"
+		Vauconsant													= "54"
+		Générique													= ""
+
+		bibMATFER													= "MATFER"
+		bibINSITU													= "INSITU"
+		bibBOURGEAT													= "BOURGEAT"
+		bibMATIK													= "MATIK"
+		bibMBI														= "FCMBI"
+		bibSOGEMAT													= "SOGEMAT"
+		bibCALLE													= "CALLE"
+		bibFLOVENDING												= "FLOVENDING"
+		bibTECMAT													= "TECMAT"
+		bibMBHE														= "MBHE"
+		bibSafran													= "SAFRAN"
+		bibVauconsant												= "VAUCONSANT"
+		bibGMB														= "GMB"
+		bibMATIS													= "MATIS"
+
+		//bibDROPFournisseur											= "DROP_FOUR"
+
+		bibEnvBASE													= "BASE"
+		bibEnvMATFER												= "BLILAS"
+		bibEnvINSITU												= "BSEVRAN"
+		bibEnvBOURGEAT												= "BBOURGEAT"
+		bibEnvMATIK													= "BLYON"
+		bibEnvSAFRAN												= "PSBSAFRAN "
+		bibEnvSOGEMAT												= "BETRECHY"
+		bibEnvCALLE													= "BSTJEAN"
+		bibEnvFLOVENDING											= "BSEVRAN"
+		bibEnvTECMAT												= "BVAULX"
+		bibEnvMBHE													= "BEVRY"
+
+		//bibSVGDROPFournisseur										= "SVG_DROPFO"
+
+		bibSVGMATFER												=	"SVG_MATFER"
+		bibSVGINSITU												=	"SVG_INSITU"
+		bibSVGBOURGEAT												=	"SVG_BOURG"
+		bibSVGMATIK													=	"SVG_MATIK"
+		bibSVGMBI													=	"SVG_MBI"
+		bibSVGSOGEMAT												=	"SVG_SOGEMA"
+		bibSVGCALLE													=	"SVG_CALLE"
+		bibSVGFLOVENDING											=	"SVG_FLOVEN"
+		bibSVGVAUCONSANT											=	"SVG_VAUCON"
+		bibSVGTECMAT												=	"SVG_TECMAT"
+		bibSVGMBHE													=	"SVG_MBHE"
+		bibSVGSAFRAN												=	"SVG_SAFRAN"
+		bibSVGGMB													=	"SVG_GMB"
+		bibSVGMATIS													=	"SVG_MATIS"
+		// Les Sociétés
+
+		// les statuts pour les actions
+		cstRien														=	"rien"
+		cstAjouter													=	"ajout"
+		cstModifier													=	"modifie"
+		cstSupprimer												=	"supprime"
+		cstVerrouiller												=	"verrouille"
+		cstRestaurer												=	"restaure"
+		cstErreur													=	"erreur"
+
+		Mode_Ajout													=	"Ajout"
+		Mode_Copie													=	"Copie"
+		Mode_Modif													=	"Modifie"
+		Mode_Supprime												=	"Supprime"
+		Mode_Visu													=	"Visu"
+		Mode_Sélection												=	"Sélection"
+		Mode_Table													=	"Table"
+
+		// Les types de documents
+		e_BL														=	"E_BL"
+		e_MDP														=	"MDP_WEB"
+		e_AR_Commande												=	"AR_CDE_WEB"
+		e_AR_Assistante												=	"AR_CDE_ASS"
+		e_Assistante												=	"E_ASSIST"
+		e_AssistanteWeb												=	"E_ASSISTWE"
+
+		cstRéférent													=	"Référent"
+		cstClient													=	"Client"
+		cstComptable												=	"Comptable"
+
+		b_GestionMBI												=	"B_MBI"
+		b_EstStandard												=	"B_STANDARD"
+		b_AccèsCatalogue											=	"B_CATALOG"
+		b_MDP_Bloqué												=	"B_NOCHGMDP"
+		b_EstRéférent												=	"B_REFERENT"
+		e_Référent													=	"E_REFERENT"
+		e_RéférentValidation										=	"VALCDEREF"
+		b_EstComptable												=	"B_COMPTABL"
+		e_ComptableValidation										=	"VALCDECPT"
+		e_Comptable													=	"E_COMPTABL"
+		e_Budget													=	"BUDGET"
+		e_Budget_Montant											=	"BUD_MTT"
+		e_Budget_Encours											=	"BUD_ENC"
+		e_Budget_Reset												=	"BUD_RAZ"
+		e_PrixTTC													=	"PRIXTTC"
+		e_FraisDePort												=	"ART_PORT"
+
+		nMaxCaractPassword											=	8
+
+		lstTypeDocClient											=	::e_MDP+";"+::e_BL+";"+::e_AR_Commande+";"+::e_AssistanteWeb+";"+::e_RéférentValidation+";"+::e_PrixTTC+";"+::b_AccèsCatalogue+";"+::b_MDP_Bloqué+";"+::e_AR_Assistante+";"+::e_Budget+";"+::e_Budget_Montant+";"+::e_Budget_Encours+";"+::e_Budget_Reset+";"+::e_FraisDePort
+		lstTypeDecExclusProgescom									=	::e_RéférentValidation+";"+::e_PrixTTC+";"+::b_AccèsCatalogue+";"+::b_MDP_Bloqué+";"+::e_Budget+";"+::e_Budget_Montant+";"+::e_Budget_Encours+";"+::e_Budget_Reset+";"+::e_FraisDePort
+		lstTypeDocRéférent											=	::e_MDP+";"+::e_PrixTTC+";"+::e_ComptableValidation
+		lstTypeDocComptable											=	::e_MDP
+
+		cCouleurGris												= 	0x333333
+		cCouleurInfo												= 	0x666666
+		cCouleurErreur												=	0xFD7864
+		cCouleurWarning												=	0xFFC400
+
+		cVertClair													= 	0xD8FF84
+		cRougeClair													=	0xFFD1D1
+		cGrisé														=	0xDCDCDC
+
+		cstDispLiaisonFichier										=	12
+		cstDispLiaisonSQL											=	13
+
+		cstDispTypeSimple											=	8
+		cstDispTypeComplexe											=	9
+		cstDispEnsembleValeur										=	10
+
+		// --------------- Zone de chargement ---------------------- //
+		cstZoneClient												=	"Client"
+		//cstZoneWeb								=	"Web"
+		cstZoneChrono												=	"Chronomètre"
+		cstZoneAdressesLivraison									=	"Adresses_Livraison"
+		cstZoneClientPlus											=	"Client_Plus"
+		cstZoneContacts												=	"Contacts"
+		cstZoneRemisesArticle										=	"Remises_Client_Article"
+		cstZoneRéférencesArticle									=	"Références_Article_Client"
+		cstZoneNotes												=	"Notes"
+		cstZoneRépertoire											=	"Répertoire"
+		cstZoneStructureEmails										=	"Structure_Emails"
+		cstZoneStatistiques											=	"Statistiques"
+		cstZoneFacturation											=	"Facturation"
+		cstZoneCommande												=	"Commande"
+		cstZoneClientRisque											=	"Client_Risque"
+		cstZoneCorrespondanceCode									=	"Correspondance_Code"
+		cstZoneCommentaires											=	"Commentaires"
+		cstZoneCommercial											=	"Commercial"
+		cstZoneAdresse												=	"Adresse"
+		cstZoneComptabilité											=	"Comptabilité"
+		cstZoneDonnéesComplémentaires								=	"Données_Complémentaires"
+		cstZoneDocuments											=	"Documents"
+		cstZoneDocumentsWeb											=	"DocumentsWeb"
+		cstChargementTerminé										=	"Fini"
+		cstChargementTimeout										=	"TimeOut"
+
+
+		cstObjetMBI													=	"ObjetMBI"
+		cstObjetFiliale												=	"ObjetFiliale"
+
+
+		cstNonChargé												=	0
+		cstChargementEnCours										=	1
+		cstChargé													=	2
+
+		// Constantes pour la fiche client
+		cstChargementSynchrone										=	1
+		cstChargementAsynchrone										=	2
+		cstChargementSynchroneàlaDemande							=	3
+		cstChargementAsynchroneàLaDemande							=	4
+
+		cstModeFiche												=	1
+		cstModeFenêtreInterne										=	2
+
+
+		cstClientPlanFenêtreInterne									=	20
+		cstFournisseurPlanFenêtreInterne							=	21
+		cstArticlePlanFenêtreInterne								=	22
+
+		cstAfficherTDBClient										=	1
+		cstNePasAfficherTDBClient									=	0
+
+		cstRubanArticle												=	"article"
+		cstRubanClient												=	"client"
+		cstRubanFournisseur											=	"fournisseur"
+
+
+		cRemisePérimée												=	0x666666
+		cRemiseActive												=	0x009933
+		cRemiseFuture												=	0x0066FF
+
+		// Types d'éléments correspondants
+		olMailItem													=	0	// Mail
+
+		olNonMeeting												=	0
+		olMeeting													=	1
+		olMeetingAccepted											=	3
+		olMeetingCanceled											=	7
+
+		olFormatHTML												=	2
+		olFormatPlain												=	1
+		olFormatRichText											=	3
+		olFormatUnspecified											=	0
+
+		cTableAjouter												=	0x00C3FF
+		cTableModifier												=	0xFFC400
+		cTableSupprimer												=	0xDF7864
+
+
+		cstLivraison												=	"liv"
+		cstFacturation												=	"fac"
+
+		cstDefault													=	"DFT"
+		cstFrancais													=	"FRA"
+		cstAnglais													=	"ANG"
+		cstEspagnol													=	"ESP"
+		cstAllemand													=	"ALL"
+		cstItalien													=	"ITA"
+
+
+		cstLangueFrançais											=	"FRA"
+		cstLangueFrançaisISO										=	"fr"
+
+		cstLangueAnglais											=	"ANG"
+		cstLangueAnglaisISO											=	"en"
+
+		cstLangueAllemand											=	"ALL"
+		cstLangueAllemandISO										=	"de"
+
+		cstLangueItalien											=	"ITA"
+		cstLangueItalienISO											=	"it"
+
+		cstLangueEspagnol											=	"ESP"
+		cstLangueEspagnolISO										=	"es"
+
+		cstLangueIndéfinie											=	"---"
+		cstLangueVide												=	""
+
+
+
+		// Les groupes du GroupWare utilisés pour la gestion des accès à certaines fonctions
+		cstGpwAdminDigital											=	"Manage_Digital"
+		cstGpwAdminPrint											=	"Manage_Print"
+		cstGpwOrdimajor												=	"Ordimajor"
+		cstGpwInventaire											=	"Inventaire"
+		cstGroupeCEA												=	"CEA"
+		cstGroupePRA												=	"Gestion des PRAs"
+		cstGroupeMarketing06										=	"Marketing 06"
+		cstGroupeMarketing38										=	"Marketing 38"
+		cstGroupeMarketing40										=	"Marketing 40"
+
+
+		cstTableauDeBordArticle										=	"TDBArticle"
+		cstTableauDeBordClient										=	"TDBClient"
+		cstTableauDeBordFournisseur									=	"TDBFournisseur"
+
+		csNomRepertoireGabarits										=	"Gabarits"
+		csNomParametreGabarit										=	"GABARIT_DYNAMIQUE"
+
+		cstClair													=	"Clair"
+		cstSombre													=	"Sombre"
+
+		// Les modes d'ouvertures de fiches
+		cstSuperUtilisateurs										=	"LEDUR;AANDRE;ANTONIO;PATRICK;SANDRINE;GOUVERNEUR;MAGELAN"
+		nTaillePoliceJaugeArticle									=	11
+
+		Mode_Modif_PRA												=	"Modifie_PRA_Only"
+		Mode_Chargement												=	"Chargement"
+		Mode_Rien													=	"rien"
+		// Les sociétés
+
+		cstVL_01													=	"01"
+		cstVL_05													=	"05"
+		cstVL_10													=	"10"
+		cstVL_30													=	"30"
+
+		cstStructure												=	"structure"
+		cstClasse													=	"classe"
+		cstClasseFull												=	"classefull"
+
+		cstCodeTarifDuPersonnel										=	"P"
+
+		// Les touches du clavier
+		//VK_Return		= 13
+		//VK_Escape		= 27
+		// Les bornes pour les articles MATIK
+		nBorneMinMatik												= 400000
+		nBorneMaxMatik												= 410000
+		// Les bornes pour les articles SOGEMAT
+		nBorneMinSOGEMAT1											= 280000
+		nBorneMaxSOGEMAT1											= 299999
+		nBorneMinSOGEMAT2											= 277000
+		nBorneMaxSOGEMAT2											= 279999
+		// Les bornes pour les articles Calle
+		nBorneMinCalle												= 190000
+		nBorneMaxCalle												= 199999
+		// Les bornes pour les articles TecMAT
+		nBorneMinTecMat												= 200000
+		nBorneMaxTecMat												= 205000
+		// Mot de passe pour accès aux fichiers WEB
+		MotDePasseFichierCS											= "B9l8A7v6E5t4T3e2"
+
+		SogematComptaSage2012										=	"SAGECPTA2012"
+		TECMATComptaSage2014										=	"SAGECPTA2014"
+
+		TTTXT_Reflex												=	"REFLEX"
+
+		cstLangueConstante											=	"---"
+		cstNomenclatureGenre										=	"-+-"
+		cstNomenclatureAu											=	"+-+"
+		cstNomenclatureUnUne										=	"+++"
+		cstNomenclatureDuDeLa										=	"-++"
+
+		cstArticleMail												=	"ARTICLE"
+		cstArticleCCI												=	"ARTICLE_CCI"
+		cstGroupement												=	"GROUPEMENT"
+		cstGroupementCCI											=	"GROUPEMENT_CCI"
+
+		cstPaysFrance												=	"001"
+		cstPaysMonaco												=	"002"
+		cstTVA_20													=	2
+		cstDeviseEuro												=	"EUR"
+
+		cstTousLesTarifs											=	"*"
+
+		cstOngletNomenclature										=	3
+
+		cstAfficheAssertions										=	Faux			// Vrai = Ne pas afficher les assertions, Faux = Afficher les assertions
+
+		Fournisseur_MatferIndustrie									=	"00721"
+
+		cstPlanAssistArtInit										=	1
+		cstPlanAssistArtVendable									=	2
+
+		cstPlanAssistArtFournisseur									=	3
+		cstPlanAssistArtDépôt										=	4
+		cstPlanAssistArtFin											=	11
+
+		cstNoPage													=	-1
+
+		st_Annulé													=	1
+		st_Suspendu													=	2
+		st_Normal													=	3
+		st_Temporaire												=	4
+		st_Contremarque												=	5
+		st_Nouveauté												=	6
+
+		cstArtInconnu												=	""
+		cstArtNonVendable											=	"*"
+		cstArtAnnulé												=	"A"
+		cstArtSuspendu												=	"S"
+		cstArtNormal												=	"N"
+		cstArtTemporaire											=	"T"
+		cstArtPièceDétachée											=	"D"
+		cstArtContremarque											=	"C"
+		cstArtNouveauté												=	"Z"
+
+		st_Saisie_Pourcent											=	"pourcent"
+		st_Saisie_Valeur											=	"valeur"
+
+
+
+		gpwMotPasseInvalideFR										=	99999
+
+		cstImageVignette											=	1
+		cstImageMoyenne												=	2
+		cstImageGrande												=	3
+		cstImageServeur												=	"serveur"
+		cstImageWeb													=	"web"
+		cstBaliseImg												=	"balise_img"
+
+
+		cstTexteContrôleReception									=	"CTRLRECEP"
+
+		wlLiaisonFichier											=	-1
+		wlListeValeurs												=	-2
+		wlTexteMultiLangue											=	-4
+
+		cstRubanTables												= 1
+		cstRubanArticles											= 2
+		cstRubanTarifs												= 3
+		cstRubanClients												= 4
+		cstRubanFournisseurs										= 5
+		cstRubanInventaire											= 6
+		cstRubanRemises												= 7
+		cstRubanNotes												= 8
+		cstRubanParamètres											= 9
+		cstRubanProgescom											= 10
+		cstRubanBeta												= 11
+
+		cstNull														=	Vrai
+		cstNotNull													=	Faux
+
+		cstBase														=	1
+		cstLibBase													=	"Base"
+		cstLogistique												=	2
+		cstLibLogistique											=	"Logistique"
+		cstPrint													=	4
+		cstLibPrint													=	"Print"
+		cstDigital													=	8
+		cstLibDigital												=	"Digital"
+
+		cstSupprimeEnreg											=	"SUPPRIME"
+		cstRAZEnreg													=	"RAZ"
+
+		cstNonDéfini												=	0
+
+		cstVCmoins2													=	"-2"
+		cstVCmoins1													=	"-1"
+		cstVC01														=	" 1"
+		cstVL01														=	"01"
+		cstVL05														=	"05"
+		cstVL10														=	"10"
+		cstVL30														=	"30"
+
+
+		cstAttQteVCm1VC01											=	"QTE_VCM1_VC01"
+		cstAttQteVCm2VCm1											=	"QTE_VCM2_VCM1"
+		cstAttributMatière											=	"MATIERE_COM"
+
+		cstNiveauSegment											=	1
+		cstNiveauFamille											=	2
+		cstNiveauCatégorie											=	0
+		cstNiveauSousFamille										=	3
+		cstNiveauGamme												=	4
+		cstNiveauSérie												=	5
+		cstNiveauModèle												=	6
+
+
+		cst_Segment													=	1
+		cst_Famille													=	2
+		cst_Catégorie												=	3
+		cst_SousFamille												=	4
+		cst_Gamme													=	5
+		cst_Série													=	6
+		cst_Modèle													=	7
+
+		cst_Catégorie_Défaut										=	1
+		cst_Catégorie_Principal										=	1
+		cst_Catégorie_Accessoire									=	2
+		cst_Catégorie_Fonction										=	3
+
+		cstOrdre													=	8
+		cstTerminé													=	9
+
+		cstPremier													=	-10
+		cstPrécédent												=	-20
+		cstSuivant													=	-30
+		cstDernier													=	-40
+
+		cstCatPrincipal												=	"1 - Principal"
+		cstCatAccessoire											=	"2 - Accessoire"
+		cstCatFonction												=	"3 - Fonction"
+
+		cstArguDesc													=	"DESC"
+		cstArguPrint												=	"MEAP"
+		cstArguLOT													=	"LOT"
+		cstArguCEA													= 	"COMC"
+		cstArguFicheTechnique										=	"VCS"
+		cstArguPlusProduit											=	"PPRD"
+
+		cstTypTitreInconnu											=	"?????"
+		cstTypTitreStandard											=	"STD"
+		cstTypTitreAccroche											= 	"ACC"  // Gamme
+		cstTypTitrePlusProduit										=	"PLUSP" // Série
+		cstTypTitreIndex											=	"INDEX"
+		cstTypTitrePièceDétachée									=	"PD"
+
+
+		cstStandard													=	"STD"
+
+		cstFrère													=	0
+		cstFils														=	1
+
+		cstLiaisonCombo												=	"Liaison_Combo"
+		cstLiaisonRequeteSQL										=	"Liaison_SQL"
+		cstLiaisonFichier											=	"Liaison_Fichier"
+
+		cstStatutInconnu											=	"inconnu"
+		cstStatutErreur												=	"erreur"
+		cstStatutWarning											=	"warning"
+		cstStatutOk													=	"ok"
+
+
+		cstAppliDigital												=	"DIGITAL"
+		cstAppliCatalogue											=	"CATALOG"
+
+		cstAttributStandard											=	"STANDARD"
+		cstAttributFicheArticle										=	"FICHE_ARTICLE"
+		cstAttributFournisseur										=	"SPECIF_FOUR"
+		cstAttributSpécifique										=	"SPECIF"
+
+		cstTypeDansSérie											=	"TYPE_DS_SERIE"
+
+		//	Vider tout le cache:
+		cstCacheFull												=	"/api/cache/flush"
+		//	Vider les données d'une sous-famille:
+		cstCacheSousFamille											=	"/api/cache/subfamily/%1"
+		//	Vider les données d'une gamme :
+		cstCacheGamme												=	"/api/cache/range/%1"
+		//	Vider les données d'un modèle :
+		cstCacheModèle												=	"/api/cache/model/%1"	// %1 = Code_Article
+		//	Vider la liste des marques :
+		cstCacheMarques												=	"/api/cache/brands"
+		//	Vider les données d'une marque :
+		cstCacheMarque												=	"/api/cache/brand/%1"
+		//	Vider les données d'une sous-marque :
+		//"/api/cache/brand/ID_SOUS_MARQUE"
+		//	Vider la liste des segments :
+		cstCacheListeSegment										=	"/api/cache/segments"
+		//	Vider la liste des familles d'un segment :
+		cstCacheListeFamille										=	"/api/cache/families/%1"
+		//	Vider la liste des sous-familles d'une famille :
+		cstCacheListeSousFamille									=	"/api/cache/subfamilies/%1/%2"
+		//	Vider la liste des gammes d'une sous-famille :
+		cstCacheListeGamme											=	"/api/cache/ranges/%1/%2/%3"
+		//	Vider la liste des séries d'une gamme :
+		cstCacheListeSérie											=	"/api/cache/series/%1/%2/%3/%4"
+		//	Vider les données d'une série :
+		cstCacheListeModèle											=	"/api/cache/serie/%1/%2/%3/%4/%5"
+		//	Vider la liste des nouveautés d'une famille :
+		//"/api/cache/news/ID_SEGMENT/ID_FAMILLE"
+
+
+		// WebService d'édition des FP
+		cstToken													=	"4FF238F0-9D38-490B-AA60-041D963EE4A2"
+		cstApiToken													=	"ProgescomApi-4d00edea2ee16ad1d4d10d21799fedd933da79d58f03b12ff0b69f9ce9bf8ef7"
+
+
+		// Les types
+		cstTypPhoto													=	"PC/photos"
+		cstTypVidéo													=	"PC/videos"
+		cstPhotoPicto												=	"picto"
+		cstPhotoMarques												=	"marques"
+		cstPhotoModèle												=	"modele"
+
+		cstPlanAttente												=	1
+		cstPlanNomenclature											=	2
+		cstPlanElement												=	3
+		cstPlanHistorique											=	4
+
+		cstSynchroAttend											=	1
+		cstSynchroLance												=	2
+		cstSynchroEnCours											=	3
+
+
+		cstDélaiRendu												=	"R"
+		cstDélaiMiseàDisposition									=	"M"
+
+		// Les Variables
+		cstVarSegment												=	"%segment%"
+		cstVarFamille												=	"%famille%"
+		cstVarSousFamille											=	"%sousfamille%"
+		cstVarGamme													=	"%gamme%"
+		cstVarSérie													=	"%serie%"
+		cstVarModèle												=	"%modele%"
+
+		cstVarIDSegment												=	"%id_segment%"
+		cstVarIDFamille												=	"%id_famille%"
+		cstVarIDSousFamille											=	"%id_sous_famille%"
+		cstVarIDGamme												=	"%id_gamme%"
+		cstVarIDSérie												=	"%id_serie%"
+		cstVarIDModèle												=	"%id_modele%"
+
+		cstVarLibSegment											=	"%segment_lib%"
+		cstVarLibFamille											=	"%famille_lib%"
+		cstVarLibSousFamille										=	"%sousfamille_lib%"
+		cstVarLibGamme												=	"%gamme_lib%"
+		cstVarLibSérie												=	"%serie_lib%"
+		cstVarLibModèle												=	"%modele_lib%"
+
+		cstVarCodeAttribut											=	"%code_att%"
+		cstVarCodeArticle											=	"%code_art%"
+		cstVarCodeFournisseur										=	"%code_four%"
+		cstVarCodeSociété											=	"%code_soc%"
+		cstVarCodeLangue											=	"%code_langue%"
+		cstVarCatégorie												=	"%catégorie%"
+		cstVarVarianteCommerciale									=	"%code_vc%"
+		cstVarVarianteLogistique									=	"%code_vl%"
+		cstVarTypeAccessoire										=	"%type_accessoire%"
+		cstVarCodePays												=	"%code_pays_num%"
+		cstVarNumOrdre												=	"%num_ordre%"
+		cstVarRawValue												=	"%raw_value%"
+
+		cstValeurSimble												=	"SIMPLE"
+		cstValeurComplexe											=	"COMPLEXE"
+		cstEnsenbleDeValeur											=	"ENSVAL"
+
+		cstVarFormat												=	"%format_numérique%"
+
+		cstRacineLight												=	"cl_Racine_Light"
+		cstSegmentLight												=	"cl_Segment_Light"
+		cstFamilleLight												=	"cl_Famille_Light"
+		cstCatégorieFamilleLight									=	"cl_Catégorie_Famille_Light"
+		cstSousFamilleLight											=	"cl_SousFamille_Light"
+		cstGammeLight												=	"cl_Gamme_Light"
+		cstSerieLight												=	"cl_Série_Light"
+		cstModèleLight												=	"cl_Modèle_Light"
+
+		cstCatégorieFonctionnelle									=	"CAT_FONCT"
+		cstDateValidationFicheDigital								=	"DAT_DEB_VAL_FCDIG"
+		cstDateModificationFicheDigital								=	"DAT_MAJ_FCDIG"
+
+		cstDatePublicationCatalogueDigital							=	"DAT_PUB_CATA_PRT"
+
+		cstRubCourt													=	1
+		cstRubLong													=	2
+		//cstRubType												=	3
+		cstCheminTrace												=	"\\mbsrv-devinstal.matferbourgeat.com\windev.debug\NomCat\%1-%2-%3.log"
+
+
+		cstChampsGroupware											=	"GR_GROUPWARE"
+		nETATELEMENTDEFAUT											=	gpwEtatAutorisé					// par défaut l'état des éléments est accessible
+		nVERSIONCOLGPU												=	8								// numéro de version
+		cst_préfixe_groupe_application								=	"Utilisateurs autorisés de "
+		cstGPUParamAvecSociété										=	"avecsociété"
+
+
+		cstEditionVersRepertoire									=	"répertoire"
+		cstEditionVersFTP											=	"ftp"
+		cstEditionVersInterface										=	"interface"
+
+		cstImage340x230												=	""
+		cstImage90x60												=	"90x60"
+		cstImage640x480												=	"640x480"
+		cstImageFull												=	"origine"
+		cstImageDétourée											=	"détouré"
+
+		// ------------------------- Constantes pour RTREPTEL -----------------------//
+		cstDisp_Téléphone											=	1
+		cstDisp_Web													=	2
+		cstDisp_Mail												=	3
+
+		cstTypeOffice												=	1
+		cstTypeFax													=	4
+		cstTypeMobile												=	2
+		cstTypeMail													=	62
+		cstTypeWeb													=	71
+
+		cstDftTéléphonie											=	6	//	Autre
+		cstDftMail													=	64	// Autre
+		cstDftWeb													=	71	// Autre
+
+		cstContactFournisseur										=	"F"
+		cstContactClient											=	"C"
+		cstContactLivraison											=	"L"
+		
+		cstTéléphonie												= 1
+		cstRéseauxSociaux											= 2
+		csteMail													= 3
+		
+		cstTelephoneBureau											= 1
+		cstTelephoneMobile											= 2
+		cstFaxBureau												= 4
+		csteMailBureau												= 62
+
+		// Constantes pour les prix
+		cstPrixActuel												=	"actuel"
+		cstPrixProchain												=	"prochain"
+		cstPrixPrécédent											=	"précédent"
+		cstPrixAucun												=	""
+
+		cstR4RARTPL													=	"r4rartpl"
+		cstC5RARTCO													=	"c5rartco"
+		cstB0RARTQT													=	"b0rartqt"
+		cstB2RCLIAR													=	"b2rcliar"
+		cstG5CLFOFA													=	"g5clfofa"
+		cstG6RGRPAR													=	"g6rgrpar"
+
+		//KeyConst.wl
+		VK_LBUTTON													= 0x01
+		VK_RBUTTON													= 0x02
+		VK_CANCEL													= 0x03
+		VK_MBUTTON													= 0x04
+
+		VK_BACK														= 0x08
+		VK_TAB														= 0x09
+
+		VK_CLEAR													= 0x0C
+		VK_RETURN													= 0x0D
+
+		VK_SHIFT													= 0x10
+		VK_CONTROL													= 0x11
+		VK_MENU														= 0x12
+		VK_PAUSE													= 0x13
+		VK_CAPITAL													= 0x14
+
+		VK_KANA														= 0x15
+		VK_HANGUL													= 0x15
+		VK_JUNJA													= 0x17
+		VK_FINAL													= 0x18
+		VK_HANJA													= 0x19
+		VK_KANJI													= 0x19
+
+		VK_ESCAPE													= 0x1B
+
+		VK_CONVERT													= 0x1C
+		VK_NONCONVERT												= 0x1D
+		VK_ACCEPT													= 0x1E
+		VK_MODECHANGE												= 0x1F
+
+		VK_SPACE													= 0x20
+		VK_PRIOR													= 0x21
+		VK_NEXT														= 0x22
+		VK_END														= 0x23
+		VK_HOME														= 0x24
+		VK_LEFT														= 0x25
+		VK_UP														= 0x26
+		VK_RIGHT													= 0x27
+		VK_DOWN														= 0x28
+		VK_SELECT													= 0x29
+		VK_PRINT													= 0x2A
+		VK_EXECUTE													= 0x2B
+		VK_SNAPSHOT													= 0x2C
+		VK_INSERT													= 0x2D
+		VK_DELETE													= 0x2E
+		VK_HELP														= 0x2F
+
+		VK_LWIN														= 0x5B
+		VK_RWIN														= 0x5C
+		VK_APPS														= 0x5D
+
+		VK_NUMPAD0													= 0x60
+		VK_NUMPAD1													= 0x61
+		VK_NUMPAD2													= 0x62
+		VK_NUMPAD3													= 0x63
+		VK_NUMPAD4													= 0x64
+		VK_NUMPAD5													= 0x65
+		VK_NUMPAD6													= 0x66
+		VK_NUMPAD7													= 0x67
+		VK_NUMPAD8													= 0x68
+		VK_NUMPAD9													= 0x69
+		VK_MULTIPLY													= 0x6A
+		VK_ADD														= 0x6B
+		VK_SEPARATOR												= 0x6C
+		VK_SUBTRACT													= 0x6D
+		VK_DECIMAL													= 0x6E
+		VK_DIVIDE													= 0x6F
+		VK_F1														= 0x70
+		VK_F2														= 0x71
+		VK_F3														= 0x72
+		VK_F4														= 0x73
+		VK_F5														= 0x74
+		VK_F6														= 0x75
+		VK_F7														= 0x76
+		VK_F8														= 0x77
+		VK_F9														= 0x78
+		VK_F10														= 0x79
+		VK_F11														= 0x7A
+		VK_F12														= 0x7B
+		VK_F13														= 0x7C
+		VK_F14														= 0x7D
+		VK_F15														= 0x7E
+		VK_F16														= 0x7F
+		VK_F17														= 0x80
+		VK_F18														= 0x81
+		VK_F19														= 0x82
+		VK_F20														= 0x83
+		VK_F21														= 0x84
+		VK_F22														= 0x85
+		VK_F23														= 0x86
+		VK_F24														= 0x87
+
+		VK_NUMLOCK													= 0x90
+		VK_SCROLL													= 0x91
+
+		// Ces constantes ne peuvent être utilsées qu'avec ToucheEnfoncée() et
+		// les API GetAsyncKeyState() et GetKeyState().
+		// Aucun message ou API ne renvoie ces valeurs. Ne les Testez PAS dans WM_KEYDOWN.
+		VK_LSHIFT													= 0xA0
+		VK_RSHIFT													= 0xA1
+		VK_LCONTROL													= 0xA2
+		VK_RCONTROL													= 0xA3
+		VK_LMENU													= 0xA4
+		VK_RMENU													= 0xA5
+
+		VK_PROCESSKEY												= 0xE5
+
+		VK_ATTN														= 0xF6
+		VK_CRSEL													= 0xF7
+		VK_EXSEL													= 0xF8
+		VK_EREOF													= 0xF9
+		VK_PLAY														= 0xFA
+		VK_ZOOM														= 0xFB
+		VK_NONAME													= 0xFC
+		VK_PA1														= 0xFD
+		VK_OEM_CLEAR												= 0xFE
+	FIN
+
+GLOBALE
+PUBLIC
+
+	// ======================================================================================================================================================
+	// ==   ATTENTION :                                                                                                                                    ==
+	// ==         Les "constantes" définies ci-dessous sont initialisées via le fichier base.wdparam.                                                      ==
+	// ==         L'affectation des ces "constantes" ne sert que pour l'intialisation de la valeur dans le fichier                                         ==
+	// ==                                                                                                                                                  ==
+	// ==                                                                                                                                                  ==
+	// ======================================================================================================================================================
+
+
+	// Production
+	cst_sFTP_Server						est une chaîne						=	"sftp://159.223.221.103"
+	cst_sFTP_User						est une chaîne						=	"sftpuser"
+	cst_sFTP_Password					est une chaîne						=	"7x$Kt#fD9@pY"
+	// Staging
+	cst_Staging_sFTP_Server				est une chaîne						=	"sftp://159.223.221.103"
+	cst_Staging_SFTP_User				est une chaîne						=	"sftpuser_staging"
+	cst_Staging_SFTP_Password			est une chaîne						=	"$4v$Gz#f8T@jL"
+	// Médial
+	cst_URL_Site						est une chaîne						=	"https://digital.matferbourgeat.com"
+	cst_Staging_Url_Site				est une chaîne						=	"https://digital-staging.matferbourgeat.com"
+	cst_URL_Media						est une chaîne						=	"https://medias.matferbourgeat.com/"
+	cst_Staging_URL_Media				est une chaîne						=	"https://medias-staging.matferbourgeat.com/"
+	cst_addOk_Url						est une chaîne						=	"http://mbsrv-mqtt.matferbourgeat.com:7878"
+
+	cst_Images_Photos_Web				est une chaîne						=	"\\mbsrv-web5.matferbourgeat.com\Web_Client_MBI_photos\"
+	cst_Staging_Images_Photos_Web		est une chaîne						=	"\\mbsrv-web5.matferbourgeat.com\webdev.photos.staging\"
+	cst_URL_Photos_Web					est une chaîne						=	"https://www5.matferbourgeat.com/web_client_mbi_photos/"
+
+	cst_URL_SiteWebClient				est une chaîne						=	"https://www5.matferbourgeat.com"
+	cst_url_Logos						est une chaîne						=	"https://www4.matferbourgeat.com/logo_applications"
+	cst_DBG_WSFicPro					est un booléen						=	Vrai
+
+	cstNBJoursPRAIdentiques				est un entier						=	90
+
+	cst_Production_Backup_Serveur		est une chaîne						=	"mbsrv-hfsqln02"
+	cst_Production_Backup_Port			est un entier						=	4900
+	cst_Production_Backup_Utilisateur	est une chaîne						=	"progescom"
+	cst_Production_Backup_Password		est une chaîne						=	"8Wj7Fi+E2y*b"
+	cst_Production_Backup_Base			est une chaîne						=	"production_journal"
+
+	cst_Production_GED_Serveur			est une chaîne						=	"mbsrv-hfsqln02"
+	cst_Production_GED_Port				est un entier						=	4900
+	cst_Production_GED_Utilisateur		est une chaîne						=	"progescom"
+	cst_Production_GED_Password			est une chaîne						=	"8Wj7Fi+E2y*b"
+	cst_Production_GED_Base				est une chaîne						=	"production_ged"
+
+	cst_Staging_Backup_Serveur			est une chaîne						=	"mbsrv-hfsqln02"
+	cst_Staging_Backup_Port				est un entier						=	4900
+	cst_Staging_Backup_Utilisateur		est une chaîne						=	"progescom"
+	cst_Staging_Backup_Password			est une chaîne						=	"8Wj7Fi+E2y*b"
+	cst_Staging_Backup_Base				est une chaîne						=	"staging_journal"
+
+	cst_Staging_GED_Serveur				est une chaîne						=	"mbsrv-hfsqln02"
+	cst_Staging_GED_Port				est un entier						=	4900
+	cst_Staging_GED_Utilisateur			est une chaîne						=	"progescom"
+	cst_Staging_GED_Password			est une chaîne						=	"8Wj7Fi+E2y*b"
+	cst_Staging_GED_Base				est une chaîne						=	"staging_ged"
+
+FIN
