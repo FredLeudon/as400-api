@@ -529,8 +529,10 @@ if ($method === 'GET' && preg_match('#^/digital/attributs/definitions$#i', $path
 }
 
 if ($method === 'GET' && preg_match('#^/digital/attributs/fichiers$#i', $path)) {
+    $mode = (string)($_GET['mode'] ?? 'standard');
+    $mode = strtoupper($mode);
     $pdo = $pdoProvider();
-    $defs = Digital::getDefAttributsFichier($pdo, 'STANDARD');
+    $defs = Digital::getDefAttributsFichier($pdo, $mode);
     if (empty($defs)) {
         Http::respond(404, ['error' => 'Aucune définition trouvée'], $__REQUEST_START__);
     }
@@ -552,7 +554,6 @@ if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/definition$#i',
 // --------------------
 if ($method === 'PUT' && preg_match('#^/company/([^/]+)/supplier/order/(\d+)$#', $path, $m)) {
     [, $company, $orderId] = $m;
-
     $companyCode = Company::codeOf((string)$company);
     if ($companyCode === null) {
         Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
