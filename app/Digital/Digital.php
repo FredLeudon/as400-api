@@ -116,13 +116,9 @@ final class Digital
 		$sKeys 				= $unAttributFichier->ta_cles;
 		$tabKeys			= explode(",",$sKeys);
 		$bTraiterMulti		= (in_array(cst::cstVarNumOrdre, $tabKeys));
-		$Attributs			= explode(',',$unAttributFichier->ta_liste_attributs);	
-		$Rubriques			= explode(',',$unAttributFichier->ta_liste_rubriques);	
-		//$tabAttributRubrique = [];
-		//foreach($Attributs as $i => $codeAttribut) {
-		//	$tabAttributRubrique[$codeAttribut] = $Rubriques[$i];
-		//}
+		$Attributs			= explode(',',$unAttributFichier->ta_liste_attributs);			
 		$nMaxIndice 		= 0;
+		//echo "by Défaut $sBibliothèque, $sFichier,$sLogique, $sKeys \n";
 		if(!$bTraiterMulti) {
 			$nMaxIndice = $unAttributFichier->ta_nb_max_val;
 			if ($nMaxIndice == 0) {
@@ -177,24 +173,27 @@ final class Digital
 			}else {
 				$sKey									= "";				
 				$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
-				foreach($criteria as $crit => $val) {
-					if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
-					$sKey								= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
-				}
-
-				//$datas[$sFichier][$sKey]				= $tabAttributRubrique;
-				$taVariables[cst::cstVarNumOrdre]		= $nIndice + 1;								
-				$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
-				$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
-				// Lecture du fichier avec la condition construite
-				$rows = $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
-				if($rows) {
-					foreach($rows as $numRow => $row) {
-						$datas[$sFichier][$sKey][]	= $row;							
+				if($criteria) {
+					foreach($criteria as $crit => $val) {
+						if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
+						$sKey								= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
 					}
+					//$datas[$sFichier][$sKey]				= $tabAttributRubrique;
+					$taVariables[cst::cstVarNumOrdre]		= $nIndice + 1;								
+					$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+					$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+					// Lecture du fichier avec la condition construite
+					$rows = $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
+					if($rows) {
+						foreach($rows as $numRow => $row) {
+							$datas[$sFichier][$sKey][]	= $row;							
+						}
+					} else {
+						$datas[$sFichier][$sKey][]		= null;
+					}		
 				} else {
-					$datas[$sFichier][$sKey][]		= null;
-				}		
+					//echo "Erreur crit $sBibliothèque, $sFichier,$sLogique, $sKeys \n";
+				}
 			}
 		}
 	}
@@ -204,7 +203,7 @@ final class Digital
 		$start = microtime(true);	
 		$datas = [];		
 		// Aller lire la vue tatabatt pour récuperer les attributs "fichier"
-		$AttributsFichier = VUE_TATABATT::getAttributes($pdo);
+		$AttributsFichier = VUE_TATABATT::getAttributes($pdo, 'STANDARD');
 		if (!empty($AttributsFichier)) {
 			foreach($AttributsFichier as $unAttributFichier) {
 				$taVariables = null;
