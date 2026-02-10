@@ -39,6 +39,70 @@ final class Digital
 		return APAVTPRD::getModelsByID($pdo, $type, $productCode, $numordre);
 	}
 
+	public static function getMedias(PDO $pdo, string $productCode, string $fileType, string $subType) : ?array
+	{
+		try {
+			$productCode = trim($productCode);
+			$fileType = trim($fileType);
+			$subType = trim($subType);
+
+			if ($productCode === '' || $fileType === '' || $subType === '') {
+				return null;
+			}
+
+			$sql = "SELECT DISTINCT
+						na_code_segment,
+						na_code_famille,
+						na_code_ssf,
+						na_code_gamme,
+						na_code_serie,
+						na_code_modele,
+						matis.tftabfic.tf_url,
+						matis.nfnomfic.nf_num_ordre
+					FROM matis.nanomart
+					LEFT OUTER JOIN matis.nfnomfic
+						ON na_code_segment = nf_segment
+						AND na_code_famille = nf_famille
+						AND na_code_ssf = nf_sous_famille
+						AND na_code_gamme = nf_gamme
+						AND na_code_serie = nf_serie
+						AND na_code_modele = nf_modele
+					LEFT OUTER JOIN matis.tftabfic
+						ON nf_id_fic = tf_id_fic
+						AND nf_code_type_fic = tf_code_type_fic
+						AND nf_code_ss_type = tf_code_ss_type
+					WHERE na_code_article = :product_code
+						AND nf_code_type_fic = :file_type
+						AND nf_code_ss_type = :sub_type
+					ORDER BY
+						na_code_segment,
+						na_code_famille,
+						na_code_ssf,
+						na_code_gamme,
+						na_code_serie,
+						na_code_modele,
+						nf_num_ordre";
+
+			$stmt = $pdo->prepare($sql);
+			$stmt->bindValue(':product_code', $productCode, PDO::PARAM_STR);
+			$stmt->bindValue(':file_type', $fileType, PDO::PARAM_STR);
+			$stmt->bindValue(':sub_type', $subType, PDO::PARAM_STR);
+			$stmt->execute();
+
+			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			if (!$rows) {
+				return null;
+			}
+
+			return array_map(
+				static fn(array $row): array => array_change_key_case($row, CASE_LOWER),
+				$rows
+			);
+		} catch (Throwable $e) {
+			Http::respond(500, Http::exceptionPayload($e, __METHOD__));
+		}
+	}
+
 	private static function buildKey(PDO $pdo, string $bib, string $fic, string $logique, string $variables, array $taVariables) : ? array
 	{
 		$logique = strtoupper(trim($logique));

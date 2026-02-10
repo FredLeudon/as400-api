@@ -549,6 +549,41 @@ if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/definition$#i',
     Http::respond(200, ['attribut' => (string)$attr, 'definitions' => $defs], $__REQUEST_START__);
 }
 
+if ($method === 'GET' && preg_match('#^/digital/medias$#i', $path)) {
+    // Type : 
+    $productCode = trim((string)($_GET['article'] ?? $_GET['code_article'] ?? $_GET['product'] ?? ''));
+    $fileType = trim((string)($_GET['type'] ?? $_GET['type_fichier'] ?? ''));
+    $subType = trim((string)($_GET['sous_type'] ?? $_GET['sub_type'] ?? ''));
+
+    if ($productCode === '' || $fileType === '' || $subType === '') {
+        Http::respond(400, [
+            'error' => 'Paramètres requis: article, type, sous_type',
+            'article' => $productCode,
+            'type' => $fileType,
+            'sous_type' => $subType,
+        ], $__REQUEST_START__);
+    }
+
+    $pdo = $pdoProvider();
+    $medias = Digital::getMedias($pdo, $productCode, $fileType, $subType);
+    if (empty($medias)) {
+        Http::respond(404, [
+            'error' => 'Aucun média trouvé',
+            'article' => $productCode,
+            'type' => $fileType,
+            'sous_type' => $subType,
+        ], $__REQUEST_START__);
+    }
+
+    Http::respond(200, [
+        'article' => $productCode,
+        'type' => $fileType,
+        'sous_type' => $subType,
+        'count' => count($medias),
+        'medias' => $medias,
+    ], $__REQUEST_START__);
+}
+
 // --------------------
 // Suppliers
 // --------------------

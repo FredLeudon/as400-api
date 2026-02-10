@@ -280,43 +280,44 @@ final class cst
     public const cstTVA_20 = 2;
     public const cstDeviseEuro = 'EUR';
 
-    public const  cstArguDesc												=	"DESC";
-    public const  cstArguPrint												=	"MEAP";
-	public const  cstArguLOT												=	"LOT";
-	public const  cstArguCEA											    = 	"COMC";
-	public const  cstArguFicheTechnique										=	"VCS";
-	public const  cstArguPlusProduit										=	"PPRD";
+    public const  cstArguDesc												= "DESC";
+    public const  cstArguPrint												= "MEAP";
+	public const  cstArguLOT												= "LOT";
+	public const  cstArguCEA											    = "COMC";
+	public const  cstArguFicheTechnique										= "VCS";
+	public const  cstArguPlusProduit										= "PPRD";
 
     // Types de titres
-    public const cstTypTitreInconnu         = "?????";
-    public const cstTypTitreStandard        = "STD";
-    public const cstTypTitreAccroche        = "ACC";
-    public const cstTypTitrePlusProduit     = "PLUSP";
-    public const cstTypTitreIndex           = "INDEX";
-    public const cstTypTitrePieceDetachee   = "PD";
+    public const cstTypTitreInconnu                                         = "?????";
+    public const cstTypTitreStandard                                        = "STD";
+    public const cstTypTitreAccroche                                        = "ACC";
+    public const cstTypTitrePlusProduit                                     = "PLUSP";
+    public const cstTypTitreIndex                                           = "INDEX";
+    public const cstTypTitrePieceDetachee                                   = "PD";
 
     // Types de médias
-    public const cstTypPhoto    = "PC/photos";
-    public const cstTypVideo    = "PC/videos";
-    public const cstPhotoPicto  = "picto";
-    public const cstPhotoMarques = "marques";
+    public const cstTypPhoto                                                = "PC/photos";
+    public const cstTypVideo                                                = "PC/videos";
+    public const cstPhotoPicto                                              = "picto";
+    public const cstPhotoMarques                                            = "marques";
+	public const cstPhotoModèle												= "modele";
 
-    public const  cstVarCodeAttribut										=	"%code_att%";
-	public const  cstVarCodeArticle											=	"%code_art%";
-	public const  cstVarCodeFournisseur										=	"%code_four%";
-	public const  cstVarCodeSociété											=	"%code_soc%";
-	public const  cstVarCodeLangue											=	"%code_langue%";
-	public const  cstVarCatégorie											=	"%catégorie%";
-	public const  cstVarVarianteCommerciale									=	"%code_vc%";
-	public const  cstVarVarianteLogistique									=	"%code_vl%";
-	public const  cstVarTypeAccessoire										=	"%type_accessoire%";
-	public const  cstVarCodePays											=	"%code_pays_num%";
-	public const  cstVarNumOrdre											=	"%num_ordre%";
-	public const  cstVarRawValue											=	"%raw_value%";
+    public const  cstVarCodeAttribut										= "%code_att%";
+	public const  cstVarCodeArticle											= "%code_art%";
+	public const  cstVarCodeFournisseur										= "%code_four%";
+	public const  cstVarCodeSociété											= "%code_soc%";
+	public const  cstVarCodeLangue											= "%code_langue%";
+	public const  cstVarCatégorie											= "%catégorie%";
+	public const  cstVarVarianteCommerciale									= "%code_vc%";
+	public const  cstVarVarianteLogistique									= "%code_vl%";
+	public const  cstVarTypeAccessoire										= "%type_accessoire%";
+	public const  cstVarCodePays											= "%code_pays_num%";
+	public const  cstVarNumOrdre											= "%num_ordre%";
+	public const  cstVarRawValue											= "%raw_value%";
 
-    public const  cstValeurSimble											=	"SIMPLE";
-	public const  cstValeurComplexe											=	"COMPLEXE";
-	public const  cstEnsenbleDeValeur										=	"ENSVAL";
+    public const  cstValeurSimble											= "SIMPLE";
+	public const  cstValeurComplexe											= "COMPLEXE";
+	public const  cstEnsenbleDeValeur										= "ENSVAL";
 
     // Applications
     public const cstAppliDigital   = "DIGITAL";

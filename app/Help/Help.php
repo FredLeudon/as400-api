@@ -350,6 +350,19 @@ HTML;
                         '/digital/attribut/COLOR/definition',
                     ],
                 ],
+                [
+                    'method' => 'GET',
+                    'path' => '/digital/medias',
+                    'description' => 'Get media links for one article and one media type/subtype.',
+                    'query' => [
+                        'article' => 'required, product code (aliases: code_article, product)',
+                        'type' => 'required, media type (alias: type_fichier). Example: PC/photos',
+                        'sous_type' => 'required, media subtype (alias: sub_type). Example: modele',
+                    ],
+                    'examples' => [
+                        '/digital/medias?article=707634&type=PC%2Fphotos&sous_type=modele',
+                    ],
+                ],
 
                 // ---------- Supplier orders ----------
                 [
