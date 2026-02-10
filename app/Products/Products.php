@@ -355,6 +355,7 @@ final class Products
 			$product['APAVTPRD'][cst::cstArguPrint] = Digital::getAvtPrd($pdo,$productCode, cst::cstArguPrint,1);
 			$product['APAVTPRD'][cst::cstArguLOT]	= Digital::getAvtPrd($pdo,$productCode, cst::cstArguLOT,1);
 			$product['APAVTPRD'][cst::cstArguDesc]	= Digital::getAvtPrd($pdo,$productCode, cst::cstArguDesc,1);
+			$product['MEDIAS']						= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
 			$product['ATTRIBUTS_FICHIER']			= Digital::lireAttributs($pdo,$productCode);
 			//$product['DefAttributs']				= Digital::getDefAttributes($pdo);
 						
