@@ -34,6 +34,8 @@ abstract class clFichier
     protected array $row = [];
     /** @var array<string,string> Optional per-instance map of column types (COL => TYPE) including long names */
     protected array $fieldTypes = [];
+    /** @var array<string,string> Optional per-instance map short <-> long column names */
+    protected array $fieldAliases = [];
 
     final public function __construct(PDO $pdo, string $library)
     {
@@ -55,6 +57,8 @@ abstract class clFichier
             $dbTable = new DbTable($library, static::$table, static::$primaryKey, array_keys(static::$columns));
             $types = $dbTable->fieldTypes($pdo);
             if (!empty($types)) $inst->withFieldTypes($types);
+            $aliases = $dbTable->shortLong($pdo);
+            if (!empty($aliases)) $inst->withFieldAliases($aliases);
         } catch (\Throwable $e) {
             trigger_error(sprintf('Failed to load field metadata for %s.%s: %s', $library, static::$table, $e->getMessage()), E_USER_WARNING);
         }
@@ -83,6 +87,17 @@ abstract class clFichier
     public function withFieldTypes(array $map): static
     {
         $this->fieldTypes = array_change_key_case($map, CASE_UPPER);
+        return $this;
+    }
+
+    /**
+     * Attach a per-instance map of short <-> long column names.
+     *
+     * @param array<string,string> $map
+     */
+    public function withFieldAliases(array $map): static
+    {
+        $this->fieldAliases = array_change_key_case($map, CASE_UPPER);
         return $this;
     }
 
@@ -189,38 +204,19 @@ abstract class clFichier
      */
     public function __get(string $name): mixed
     {
-        $col = strtoupper($name);
-        $hasUnderscore = strpos($name, '_') !== false;
-
-        // If caller used a long-name with underscores, require exact match
-        if ($hasUnderscore) {
-            if (array_key_exists($col, $this->row)) return $this->row[$col];
+        $col = strtoupper(trim($name));
+        if ($col === '') {
             trigger_error(sprintf("Undefined column '%s' for %s", $name, static::class), E_USER_WARNING);
             return null;
         }
 
-        // No underscore: try short-name then long-name (exact long-name with underscore)
+        // 1) Exact key (short or long)
         if (array_key_exists($col, $this->row)) return $this->row[$col];
 
-        // Try exact long-name key (may be present if rows were augmented)
-        foreach ($this->row as $k => $v) {
-            if (!is_string($k)) continue;
-            if (strtoupper($k) === $col) continue; // already checked
-            if (strpos($k, '_') !== false && strtoupper($k) === strtoupper($k)) {
-                // exact long-name match
-                if (strtoupper($k) === strtoupper($name)) return $v;
-            }
-        }
-
-        // As last resort, check against known fieldTypes mapping: if a long-name exists for this short-name, prefer it
-        $shortUp = $col;
-        if (isset($this->fieldTypes[$shortUp])) {
-            // find long name key in row
-            foreach ($this->row as $k => $v) {
-                if (!is_string($k)) continue;
-                if (strtoupper($k) === strtoupper($shortUp)) continue;
-                if (str_replace('_', '', strtoupper($k)) === str_replace('_', '', $shortUp)) return $v;
-            }
+        // 2) Alias short <-> long from metadata
+        $alias = $this->fieldAliases[$col] ?? null;
+        if (is_string($alias) && $alias !== '' && array_key_exists($alias, $this->row)) {
+            return $this->row[$alias];
         }
 
         trigger_error(sprintf("Undefined column '%s' for %s", $name, static::class), E_USER_WARNING);

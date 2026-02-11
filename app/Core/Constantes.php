@@ -326,6 +326,10 @@ final class cst
 	public const  cstValeurComplexe											= "COMPLEXE";
 	public const  cstEnsenbleDeValeur										= "ENSVAL";
 
+    public const  cstCatPrincipal											= "1 - Principal";
+	public const  cstCatAccessoire											= "2 - Accessoire";
+	public const  cstCatFonction											= "3 - Fonction";
+
     // Applications
     public const cstAppliDigital   = "DIGITAL";
     public const cstAppliCatalogue = "CATALOG";

@@ -13,6 +13,7 @@ use App\Core\cst;
 use App\Domain\Company;
 use App\Core\DbTable;
 use App\Digital\APAVTPRD;
+use App\Digital\LNLIBNOM;
 use App\Digital\NANOMART;
 use App\Digital\TATXTATT;
 use App\Digital\EVENSVAL;
@@ -26,8 +27,18 @@ final class Digital
 		$nanomart = NANOMART::getModelsByArticle($pdo, $productCode);
 		if($nanomart) {
 			$datas = [];
-			foreach($nanomart as $na) {
-				$datas[] = $na->toArrayLower();
+			foreach($nanomart as $na) {				
+				$data["NANOMART"]					= $na->toArrayLower();
+				
+				$data["LNLIBNOM"]["segment"]		= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment]);
+				$data["LNLIBNOM"]["famille"]		= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille]);
+				$data["LNLIBNOM"]["categorie"]		= NCNOMCAT::DonneLibelléCatégorie($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf]); 		
+				$data["LNLIBNOM"]["sous_famille"]	= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf]);
+				$data["LNLIBNOM"]["gamme"]			= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf, $na->na_code_gamme]);
+				$data["LNLIBNOM"]["serie"]			= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf, $na->na_code_gamme, $na->na_code_serie]);
+				$data["LNLIBNOM"]["modele"]			= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf, $na->na_code_gamme, $na->na_code_serie, $na->na_code_modele]);
+				$datas[] = $data;
+				
 			}
 			return $datas;
 		}
