@@ -262,18 +262,51 @@ final class Digital
 		}
 	}
 
-	public static function lireAttributs(PDO $pdo, string $productCode) : ?array
+	public static function getValeurAttribut(PDO $pdo, string $productCode, string $attribut, ?int $indice = 1) {
+		$datas = self::lireAttributs($pdo,$productCode,$attribut);
+		$defAttributs = TATABATT::getByAttribute($pdo,'',$attribut);
+		foreach($defAttributs as $defAttribut) {
+			$sBibliothèque		= $defAttribut->ta_bibliotheque;
+			$sFichier			= $defAttribut->ta_Fichier;
+			$sLogique			= $defAttribut->ta_logique;
+			$sKeys 				= $defAttribut->ta_cles;
+	
+			$taVariables[cst::cstVarCodeArticle]	=	$productCode;
+			if(array_key_exists($sFichier,$datas)) {
+				$sKey									= "";				
+				$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+				if($criteria) {
+					foreach($criteria as $crit => $val) {
+						if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
+						$sKey								= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
+					}
+				}
+				$ind = $indice -1;
+				// trouver le nom court/long
+				$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+				$mapping								= $dbTable->loadFieldMetadata($pdo);
+				$rubrique								= $mapping[$defAttribut->ta_zone]['long'];		
+				if(array_key_exists($sKey,$datas[$defAttribut->ta_fichier])) {		
+					if(array_key_exists($ind,$datas[$defAttribut->ta_fichier][$sKey])) {		
+						return $datas[$defAttribut->ta_fichier][$sKey][$ind][$rubrique];
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public static function lireAttributs(PDO $pdo, string $productCode, ? string $attribut = '') : ?array
 	{
 		$start = microtime(true);	
 		$datas = [];		
 		// Aller lire la vue tatabatt pour récuperer les attributs "fichier"
-		$AttributsFichier = VUE_TATABATT::getAttributes($pdo, 'STANDARD');
+		$AttributsFichier = VUE_TATABATT::getAttributes($pdo, 'STANDARD', $attribut);
 		if (!empty($AttributsFichier)) {
 			foreach($AttributsFichier as $unAttributFichier) {
 				$taVariables = null;
 				$taVariables[cst::cstVarCodeArticle] = $productCode;
-				// Pour chaque 'fichier', lire les attribut 		
-				$sFichier			= $unAttributFichier->ta_Fichier;		
+				// Pour chaque 'fichier', lire les attribut 			
 				$sKeys 				= $unAttributFichier->ta_cles;
 				$tabKeys			= explode(",",$sKeys);
 				if(in_array(cst::cstVarVarianteCommerciale,$tabKeys,true)) {

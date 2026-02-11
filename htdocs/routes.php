@@ -549,6 +549,32 @@ if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/definition$#i',
     Http::respond(200, ['attribut' => (string)$attr, 'definitions' => $defs], $__REQUEST_START__);
 }
 
+if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/valeur$#i', $path, $m)) {
+    [, $attr] = $m;
+    $productCode = trim((string)($_GET['article'] ?? $_GET['code_article'] ?? $_GET['product'] ?? ''));
+    $indiceRaw = $_GET['indice'] ?? $_GET['index'] ?? 1;
+    $indice = is_numeric($indiceRaw) ? (int)$indiceRaw : 0;
+
+    if ($productCode === '') {
+        Http::respond(400, [
+            'error' => 'Paramètre requis: article',
+            'article' => $productCode,
+            'attribut' => (string)$attr,
+        ], $__REQUEST_START__);
+    }
+    if ($indice <= 0) $indice = 1;
+
+    $pdo = $pdoProvider();
+    $value = Digital::getValeurAttribut($pdo, $productCode, (string)$attr, $indice);
+    
+    Http::respond(200, [
+        'article' => $productCode,
+        'attribut' => (string)$attr,
+        'indice' => $indice,
+        'valeur' => $value,
+    ], $__REQUEST_START__);
+}
+
 if ($method === 'GET' && preg_match('#^/digital/medias$#i', $path)) {
     // Type : 
     $productCode = trim((string)($_GET['article'] ?? $_GET['code_article'] ?? $_GET['product'] ?? ''));

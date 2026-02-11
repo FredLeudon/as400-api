@@ -352,6 +352,19 @@ HTML;
                 ],
                 [
                     'method' => 'GET',
+                    'path' => '/digital/attribut/{attributeCode}/valeur',
+                    'description' => 'Get one digital attribute value for an article.',
+                    'query' => [
+                        'article' => 'required, product code (aliases: code_article, product)',
+                        'indice' => 'optional, integer >= 1 (alias: index, default: 1)',
+                    ],
+                    'examples' => [
+                        '/digital/attribut/DAT_PUB_CATA_PRT/valeur?article=707634',
+                        '/digital/attribut/DAT_PUB_CATA_PRT/valeur?article=707634&indice=1',
+                    ],
+                ],
+                [
+                    'method' => 'GET',
                     'path' => '/digital/medias',
                     'description' => 'Get media links for one article and one media type/subtype.',
                     'query' => [

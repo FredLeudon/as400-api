@@ -31,14 +31,15 @@ final class VUE_TATABATT extends clFichier
         'RUBRIQUES'  => ['label' => 'TA_LISTE_RUBRIQUES', 'type' => 'VARCHAR', 'nullable' => false],
     ];
 
-   public static function getAttributes(PDO $pdo, ? string $mode = '') : array
+   public static function getAttributes(PDO $pdo, ? string $mode = '', ? string $codeAttribut = '') : array
     {
         try {
             $library = 'MATIS';            
             $models = self::for($pdo, $library)->select(['*']) ;            
-            if ($mode != '' ) {
-                $models->whereEq('TA_MODE_GESTION', $mode);
-            }
+            $models->whereEq('TA_MODE_GESTION', $mode);
+            if ($codeAttribut != '' ) {
+                $models->where('TA_LISTE_ATTRIBUTS','LIKE', "%$codeAttribut%");
+            }            
             return $models->orderBy('TA_BIBLIOTHEQUE','ASC')                
                 ->orderBy('TA_FICHIER','ASC')                
                 ->orderBy('TA_LOGIQUE','ASC')                

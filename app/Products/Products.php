@@ -304,6 +304,7 @@ final class Products
             // Les fichiers satellites			
             $model = A1ARTICL::getModelById($pdo, $companyCode, $productCode);
             if (!$model) return null;
+			
 			$product['A1ARTICL']				= $model->toArrayLower();            			
 			$product['bNomenclature']			= D4NOMENC::bEstNomenclature($pdo, $companyCode, $productCode);
 			$product['libelle']					= C0LIBART::labelFor($pdo,$companyCode,$productCode,'FRA');
@@ -344,20 +345,22 @@ final class Products
 					}	
 				}
 			}
-			$artnoweb								= ARTNOWEB::getByArticle($pdo,$productCode);
-			$product['ARTNOWEB']					= ($artnoweb ? $artnoweb->toArrayLower() : null);
-			$product['PXROUGE']						= self::getPrixRouges($pdo,$productCode);
-			$product['PXNROUGE']					= self::getNouveauPrixRouges($pdo,$productCode);
-			$product['EAECOART']					= self::getEcoPart($pdo, $productCode);
-			$product['TTTXT']						= self::getProductTextes($pdo, '06'  , $productCode);
-			$product['NANOMART']					= Digital::getNomenclatureDigitale($pdo, $productCode);
-			$product['APAVTPRD'][cst::cstArguCEA]	= Digital::getAvtPrd($pdo,$productCode, cst::cstArguCEA,1);
-			$product['APAVTPRD'][cst::cstArguPrint] = Digital::getAvtPrd($pdo,$productCode, cst::cstArguPrint,1);
-			$product['APAVTPRD'][cst::cstArguLOT]	= Digital::getAvtPrd($pdo,$productCode, cst::cstArguLOT,1);
-			$product['APAVTPRD'][cst::cstArguDesc]	= Digital::getAvtPrd($pdo,$productCode, cst::cstArguDesc,1);
-			$product['MEDIAS']						= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
-			$product['ATTRIBUTS_FICHIER']			= Digital::lireAttributs($pdo,$productCode);
-			//$product['DefAttributs']				= Digital::getDefAttributes($pdo);
+			$artnoweb											= ARTNOWEB::getByArticle($pdo,$productCode);
+			$product['ARTNOWEB']								= ($artnoweb ? $artnoweb->toArrayLower() : null);
+			$product['PXROUGE']									= self::getPrixRouges($pdo,$productCode);
+			$product['PXNROUGE']								= self::getNouveauPrixRouges($pdo,$productCode);
+			$product['EAECOART']								= self::getEcoPart($pdo, $productCode);
+			$product['TTTXT']									= self::getProductTextes($pdo, '06'  , $productCode);
+			$product['NANOMART']								= Digital::getNomenclatureDigitale($pdo, $productCode);
+			$product[cst::cstDatePublicationCatalogueDigital]	= Digital::getValeurAttribut($pdo,$productCode,cst::cstDatePublicationCatalogueDigital);
+			$product[cst::cstCatégorieFonctionnelle]			= Digital::getValeurAttribut($pdo,$productCode,cst::cstCatégorieFonctionnelle);
+			$product['APAVTPRD'][cst::cstArguCEA]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguCEA,1);
+			$product['APAVTPRD'][cst::cstArguPrint]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguPrint,1);
+			$product['APAVTPRD'][cst::cstArguLOT]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguLOT,1);
+			$product['APAVTPRD'][cst::cstArguDesc]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguDesc,1);
+			$product['MEDIAS']									= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
+			$product['ATTRIBUTS_FICHIER']						= Digital::lireAttributs($pdo,$productCode);
+			//$product['DefAttributs']							= Digital::getDefAttributes($pdo);
 						
 		} catch (Throwable $e) {
     		$debug = (getenv('APP_DEBUG') === '1');

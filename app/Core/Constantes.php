@@ -280,6 +280,13 @@ final class cst
     public const cstTVA_20 = 2;
     public const cstDeviseEuro = 'EUR';
 
+    public const cstCatégorieFonctionnelle									= "CAT_FONCT";
+	public const cstDateValidationFicheDigital								= "DAT_DEB_VAL_FCDIG";
+	public const cstDateModificationFicheDigital							= "DAT_MAJ_FCDIG";
+
+	public const cstDatePublicationCatalogueDigital							= "DAT_PUB_CATA_PRT";
+
+
     public const  cstArguDesc												= "DESC";
     public const  cstArguPrint												= "MEAP";
 	public const  cstArguLOT												= "LOT";

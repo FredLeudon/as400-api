@@ -145,7 +145,7 @@ final class DbTable
      * @param string[] $uniqueKeyCols ex: ['SOC','CODE']
      * @param array<string,mixed> $data
      */
-    public function upsertByUnique(PDO $pdo, array $uniqueKeyCols, array $data): bool
+    private function upsertByUnique(PDO $pdo, array $uniqueKeyCols, array $data): bool
     {
         $uk = [];
         foreach ($uniqueKeyCols as $c) {
@@ -510,7 +510,7 @@ final class DbTable
      *
      * @return array<string,array{long:string,type:string}>
      */
-    private function loadFieldMetadata(PDO $pdo): array
+    public function loadFieldMetadata(PDO $pdo): array
     {
         $key = $this->fqtn();
         if (isset(self::$fieldMetaCache[$key])) return self::$fieldMetaCache[$key];
