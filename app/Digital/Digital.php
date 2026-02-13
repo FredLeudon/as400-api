@@ -294,16 +294,28 @@ final class Digital
 				}
 				$ind = $indice -1;
 				// trouver le nom court/long
-				$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
-				$mapping								= $dbTable->loadFieldMetadata($pdo);
-				$rubrique								= $mapping[$defAttribut->ta_zone]['long'];		
-				if(array_key_exists($sKey,$datas[$defAttribut->ta_fichier])) {		
-					if(array_key_exists($ind,$datas[$defAttribut->ta_fichier][$sKey])) {		
-						return $datas[$defAttribut->ta_fichier][$sKey][$ind][$rubrique];
+					$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+					$mapping								= $dbTable->loadFieldMetadata($pdo);
+					$rubrique = $mapping[$defAttribut->ta_zone]['long'] ?? null;
+					$fileData = $datas[$sFichier] ?? null;
+					if (!is_array($fileData)) {
+						continue;
+					}
+
+					$itemData = $fileData[$sKey][$ind] ?? null;
+					if (!is_array($itemData)) {
+						continue;
+					}
+
+					if ($rubrique !== null && array_key_exists($rubrique, $itemData)) {
+						return $itemData[$rubrique];
+					}
+
+					if (array_key_exists($defAttribut->ta_zone, $itemData)) {
+						return $itemData[$defAttribut->ta_zone];
 					}
 				}
 			}
-		}
 		return null;
 	}
 
@@ -400,6 +412,70 @@ final class Digital
 		$data['nombre'] = $nb;
 		//var_dump($data);
 		return $data;
+	}
+
+	public function getGroupeFamille(PDO $pdo): ?array 
+	{
+		$sql = "Select ta_groupe As ngroupe,
+			       groupe.ta_ordre As nordregroupe,
+			       groupe.ta_libelle As libgroupe,
+			       ta_famille As nfamille,
+			       Ifnull(famille.ta_ordre , 0) As nordrefamille,
+			       Ifnull(famille.ta_libelle , '') As libfamille,
+			       ta_sous_famille As nsousfamille,
+			       Ifnull(sousfamille.ta_ordre , 0) As nordresousfamille,
+			       Ifnull(sousfamille.ta_libelle, '') As libsousfamille,
+			       Listagg(tatabatt.ta_ordre || ':' || Rtrim(ta_code_attribut) , ',') Within Group ( Order By tatabatt.ta_ordre ) As codesattributs,
+			       groupe.ta_calcul_workflow As groupeworkflow,
+			       groupe.ta_verouille As groupeverouille,
+			       famille.ta_calcul_workflow As familleworkflow,
+			       famille.ta_verouille As familleverouille,
+			       sousfamille.ta_calcul_workflow As sousfamilleworkflow,
+			       sousfamille.ta_verouille As sousfamilleverouille
+			  From (
+			         Select *
+			           From matis.tatabatt
+			           Order By ta_groupe,
+			                    ta_famille,
+			                    ta_sous_famille,
+			                    ta_ordre
+			       ) As tatabatt
+			       Left Outer Join matis.tafam groupe
+			         On groupe.ta_code_groupe = ta_groupe And
+			           groupe.ta_code_famille = 0
+			       Left Outer Join matis.tafam famille
+			         On famille.ta_code_groupe = ta_groupe And
+			           famille.ta_code_famille = ta_famille And
+			           famille.ta_code_sous_famille = 0
+			       Left Outer Join matis.tafam sousfamille
+			         On sousfamille.ta_code_groupe = ta_groupe And
+			           sousfamille.ta_code_famille = ta_famille And
+			           sousfamille.ta_code_sous_famille = ta_sous_famille And
+			           sousfamille.ta_code_sous_famille <> 0
+			  Where (ta_groupe <> 0 And ta_mode_gestion <> 'FICHE_ARTICLE')
+			  Group By ta_groupe,
+			           groupe.ta_ordre,
+			           groupe.ta_libelle,
+			           ta_famille,
+			           famille.ta_ordre,
+			           famille.ta_libelle,
+			           ta_sous_famille,
+			           sousfamille.ta_ordre,
+			           sousfamille.ta_libelle,
+			           groupe.ta_calcul_workflow,
+			           groupe.ta_verouille,
+			           famille.ta_calcul_workflow,
+			           famille.ta_verouille,
+			           sousfamille.ta_calcul_workflow,
+			           sousfamille.ta_verouille
+			  Order By groupe.ta_ordre,
+			           Ifnull(famille.ta_ordre , 0 ),
+			           Ifnull(sousfamille.ta_ordre , 0 )
+		";
+ 		$stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+		return $rows;
 	}
 
 }

@@ -150,14 +150,39 @@ final class Products
 		return null;
 	}
 
+	public static function getLibelleTarifs(PDO $pdo,string $companyCode) :? array 
+	{
+		$datas = null;
+		$c3libtar = C3LIBTAR::allModels($pdo,$companyCode);
+		if($c3libtar) {
+			foreach($c3libtar as $c3) {
+				$datas[] = $c3->toArrayLower();
+			}			
+		}
+		return $datas;
+	}
+
+	public static function getLibelleArticle(PDO $pdo, string $companyCode, string $productCode): ?array
+	{
+		$datas = [];
+		$rows = C0LIBART::allModels($pdo, $companyCode,$productCode);
+		if($rows) {
+			foreach($rows as $row) {
+				$datas[$row->c0lang] = $row::toArrayLower();
+			}
+		} 
+		return $datas;
+	}
+
 	private static function getFloVendingDatas(PDO $pdo, string $productCode) :? array 
 	{
 		$datas				 		    = [];		
-		$asartsoc = ASARTSOC::getModelByCompanyProduct($pdo, '15' , $productCode);
+		$asartsoc						= ASARTSOC::getModelByCompanyProduct($pdo, '15' , $productCode);
 		$datas['ASARTSOC']	    		= $asartsoc ? $asartsoc->toArrayLower() : null;
-		$datas['C0LIBART']	    		= C0LIBART::allLabelsFor($pdo, '15', $productCode);
+		$datas['C0LIBART']	    		= self::getLibelleArticle($pdo, '15', $productCode);
 		$datas['K1ARTCP']       		= self::getCompteComptable($pdo,'15',$productCode);
 		$datas['D7RFARFO']      		= self::getSuppliers($pdo, '15' , $productCode);
+		$datas['C3LIBTAR']				= self::getLibelleTarifs($pdo,'15');
 		$datas['A3GESPVP']      		= self::getPrices($pdo, '15' , $productCode);
 		$datas['ACARTCAT']      		= self::getPagesCatalogues($pdo,'15',$productCode);
 		return $datas;
@@ -165,50 +190,53 @@ final class Products
 
 	private static function getVauconsantDatas(PDO $pdo, string $productCode) :? array 
 	{
-		$datas				    = [];		
-		$asartsoc = ASARTSOC::getModelByCompanyProduct($pdo, '54' , $productCode);
-		$datas['ASARTSOC']	    = $asartsoc ? $asartsoc->toArrayLower() : null;
-		$datas['C0LIBART']	    = C0LIBART::allLabelsFor($pdo, '54', $productCode);
-		$datas['K1ARTCP']       = self::getCompteComptable($pdo,'54',$productCode);
-		$datas['D7RFARFO']      = self::getSuppliers($pdo, '54' , $productCode);
-		$datas['A3GESPVP']      = self::getPrices($pdo, '54' , $productCode);
-		$datas['ACARTCAT']      = self::getPagesCatalogues($pdo,'54',$productCode);
+		$datas				 		    = [];		
+		$asartsoc						= ASARTSOC::getModelByCompanyProduct($pdo, '54' , $productCode);
+		$datas['ASARTSOC']	 			= $asartsoc ? $asartsoc->toArrayLower() : null;
+		$datas['C0LIBART']	 			= self::getLibelleArticle($pdo, '54', $productCode);
+		$datas['K1ARTCP']    			= self::getCompteComptable($pdo,'54',$productCode);
+		$datas['D7RFARFO']   			= self::getSuppliers($pdo, '54' , $productCode);
+		$datas['C3LIBTAR']				= self::getLibelleTarifs($pdo,'54');
+		$datas['A3GESPVP']   			= self::getPrices($pdo, '54' , $productCode);
+		$datas['ACARTCAT']   			= self::getPagesCatalogues($pdo,'54',$productCode);
 		return $datas;
 		}
 
 	private static function getMBIDatas(PDO $pdo, string $productCode) :? array 
 	{
-		$datas                  = [];
-		$asartsoc               = ASARTSOC::getModelByCompanyProduct($pdo, '06' , $productCode);
-		$datas['ASARTSOC']	    = $asartsoc ? $asartsoc->toArrayLower() : null;
-		$datas['C0LIBART']      = C0LIBART::allLabelsFor($pdo, '06' , $productCode);
-		$datas['K1ARTCP']['06'] = self::getCompteComptable($pdo,'06',$productCode);
-		$datas['K1ARTCP']['38'] = self::getCompteComptable($pdo,'38',$productCode);
-		$datas['K1ARTCP']['40'] = self::getCompteComptable($pdo,'40',$productCode);
-		$DépotPrincipal         = ADARTDEP::getMainDepotByArticle($pdo, $productCode);
-		$datas['ADARTDEP']      = ADARTDEP::getDepotsArrayByProduct($pdo, $productCode);
+		$datas                  		= [];
+		$asartsoc               		= ASARTSOC::getModelByCompanyProduct($pdo, '06' , $productCode);
+		$datas['ASARTSOC']	    		= $asartsoc ? $asartsoc->toArrayLower() : null;
+		$datas['C0LIBART']      		= self::getLibelleArticle($pdo, '06' , $productCode);
+		$datas['K1ARTCP']['06'] 		= self::getCompteComptable($pdo,'06',$productCode);
+		$datas['K1ARTCP']['38'] 		= self::getCompteComptable($pdo,'38',$productCode);
+		$datas['K1ARTCP']['40'] 		= self::getCompteComptable($pdo,'40',$productCode);
+		$DépotPrincipal         		= ADARTDEP::getMainDepotByArticle($pdo, $productCode);
+		$datas['ADARTDEP']      		= ADARTDEP::getDepotsArrayByProduct($pdo, $productCode);
 		if(!in_array($DépotPrincipal,['06','38','40'], true )) {
 			// On va chercher le dépot Principal pour le fournisseur DROP
-			$dep                = self::getDépôtPrincipalPourDropFournisseur($pdo, $productCode);
+			$dep              			= self::getDépôtPrincipalPourDropFournisseur($pdo, $productCode);
 			//echo "Recherche dépot principal pour fournisseur DROP : ".$dep;
 			if($dep) $DépotPrincipal = $dep;
 		}
-		$datas['D7RFARFO']      = self::getSuppliers($pdo, $DépotPrincipal , $productCode);
-		$datas['A3GESPVP'] 	    = self::getPrices($pdo, '' , $productCode);
-		$datas['ACARTCAT']      = self::getPagesCatalogues($pdo,'',$productCode);		
+		$datas['D7RFARFO']     			= self::getSuppliers($pdo, $DépotPrincipal , $productCode);
+		$datas['C3LIBTAR']				= self::getLibelleTarifs($pdo,'06');
+		$datas['A3GESPVP'] 	    		= self::getPrices($pdo, '' , $productCode);
+		$datas['ACARTCAT']      		= self::getPagesCatalogues($pdo,'',$productCode);		
 		return $datas;
 	}
 	
 		private static function getFilialeDatas(PDO $pdo, string $companyCode, string $productCode) :? array 
 	{
-		$datas                  = [];
-		$asartsoc			    = ASARTSOC::getModelByCompanyProduct($pdo, $companyCode , $productCode);	
-		$datas['ASARTSOC']	    = $asartsoc ? $asartsoc->toArrayLower() : null;
-		$datas['C0LIBART']	    = C0LIBART::allLabelsFor($pdo, $companyCode, $productCode);
-		$datas['K1ARTCP']       = self::getCompteComptable($pdo,$companyCode,$productCode);
-		$datas['D7RFARFO']      = self::getSuppliers($pdo, $companyCode, $productCode);
-		$datas['A3GESPVP'] 	    = self::getPrices($pdo, $companyCode, $productCode);
-		$datas['ACARTCAT']      = self::getPagesCatalogues($pdo,$companyCode,$productCode);
+		$datas                  		= [];
+		$asartsoc			    		= ASARTSOC::getModelByCompanyProduct($pdo, $companyCode , $productCode);	
+		$datas['ASARTSOC']	    		= $asartsoc ? $asartsoc->toArrayLower() : null;
+		$datas['C0LIBART']	    		= self::getLibelleArticle($pdo, $companyCode, $productCode);
+		$datas['K1ARTCP']       		= self::getCompteComptable($pdo,$companyCode,$productCode);
+		$datas['D7RFARFO']      		= self::getSuppliers($pdo, $companyCode, $productCode);
+		$datas['C3LIBTAR']				= self::getLibelleTarifs($pdo,$companyCode);
+		$datas['A3GESPVP'] 	    		= self::getPrices($pdo, $companyCode, $productCode);
+		$datas['ACARTCAT']      		= self::getPagesCatalogues($pdo,$companyCode,$productCode);
 		return $datas;
 	}
 
@@ -289,9 +317,20 @@ final class Products
 
 	public static function getEcoPart(PDO $pdo, string $productCode): ? array 
 	{
+		$data = [];
 		$model = EAECOART::getEcoPartArticle($pdo,$productCode);
-		if($model) return $model->toArrayLower();
-		return null;
+		if($model) {
+			$data =  $model->toArrayLower();
+		} else {
+			$data['eaart'] = null;
+			$data['eateco'] = null;
+			$data['eaprix'] = null;
+			$data['eahoro'] = null;
+			$data['eautil'] = null;
+			$data['eapgm'] = null;
+			$data['numenreg'] = null;
+		}
+		return $data;
 	}
 
 	public static function get(PDO $pdo, string $companyCode, string $productCode)
@@ -359,7 +398,7 @@ final class Products
 			$product['APAVTPRD'][cst::cstArguLOT]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguLOT,1);
 			$product['APAVTPRD'][cst::cstArguDesc]				= Digital::getAvtPrd($pdo,$productCode, cst::cstArguDesc);
 			$product['MEDIAS']									= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
-			$product['ATTRIBUTS_FICHIER']						= Digital::lireAttributs($pdo,$productCode);
+			$product['ATTRIBUTS_FICHIER']						= Digital::lireAttributs($pdo,$productCode);			
 			//$product['DefAttributs']							= Digital::getDefAttributes($pdo);
 						
 		} catch (Throwable $e) {

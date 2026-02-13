@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Domain;
 
+use PDO;
+use App\Core\Http;
 use App\Core\clFichier;
 
 final class C0LIBART extends clFichier
@@ -46,7 +48,7 @@ final class C0LIBART extends clFichier
      * - On privilégie C0NUM = '0' (libellé principal) quand il existe.
      * - Sinon on prend le premier enregistrement trouvé (C0NUM le plus petit).
      */
-    public static function labelFor(\PDO $pdo, string $companyCode, string $productId, string $lang ): ?string 
+    public static function labelFor(PDO $pdo, string $companyCode, string $productId, string $lang ): ?string 
     {
         try {
             $company = Company::get($companyCode);
@@ -66,10 +68,11 @@ final class C0LIBART extends clFichier
                 return null;
             }            
         } catch (\Throwable $e) {
-            \App\Core\Http::respond(500, \App\Core\Http::exceptionPayload($e, __METHOD__));
+            Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }
     }    
-    public static function allLabelsFor(\PDO $pdo, string $companyCode, string $productId ): ?array 
+    
+    public static function allLabelsFor(PDO $pdo, string $companyCode, string $productId ): ?array 
     {
         $labels = [];
         try {
@@ -92,7 +95,30 @@ final class C0LIBART extends clFichier
                 return null;
             }            
         } catch (\Throwable $e) {
-            \App\Core\Http::respond(500, \App\Core\Http::exceptionPayload($e, __METHOD__));
+            Http::respond(500, Http::exceptionPayload($e, __METHOD__));
+        }
+    }    
+
+    public static function allModels(PDO $pdo, string $companyCode, string $productId ): ?array 
+    {        
+        try {
+            $company = Company::get($companyCode);
+            if (!$company) {
+                return null;
+            }
+            $c0soc = self::c0socOf($companyCode);
+            $library = (string)($company['main_library'] ?? '');
+            if ($library === '') {
+                return null;
+            }
+            return self::for($pdo, $library)
+                ->whereEq('C0ART', $productId)
+                ->whereEq('C0SOC', $c0soc)
+                ->orderBy('C0LANG')
+                ->orderBy('C0NUM')
+                ->getModels();            
+        } catch (\Throwable $e) {
+            Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }
     }    
 }

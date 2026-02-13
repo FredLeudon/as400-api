@@ -518,14 +518,17 @@ if ($method === 'GET' && $path === '/phone/check') {
 
 // --------------------
 // Digital - définitions d'attributs
+// /digital/attributs/definitions
+// /digital/attributs/definitions/{mode}
 // --------------------
-if ($method === 'GET' && preg_match('#^/digital/attributs/definitions$#i', $path)) {
+if ($method === 'GET' && preg_match('#^/digital/attributs/definitions(?:/([^/]+))?$#i', $path, $m)) {
+    $mode = strtoupper((string)($m[1] ?? 'STANDARD'));
     $pdo = $pdoProvider();
-    $defs = Digital::getDefAttributes($pdo,'STANDARD','');
+    $defs = Digital::getDefAttributes($pdo, $mode, '');
     if (empty($defs)) {
-        Http::respond(404, ['error' => 'Aucune définition trouvée'], $__REQUEST_START__);
+        Http::respond(404, ['error' => 'Aucune définition trouvée', 'mode' => $mode], $__REQUEST_START__);
     }
-    Http::respond(200, ['definitions' => $defs], $__REQUEST_START__);
+    Http::respond(200, ['mode' => $mode, 'definitions' => $defs], $__REQUEST_START__);
 }
 
 if ($method === 'GET' && preg_match('#^/digital/attributs/fichiers$#i', $path)) {
@@ -607,6 +610,19 @@ if ($method === 'GET' && preg_match('#^/digital/medias$#i', $path)) {
         'sous_type' => $subType,
         'count' => count($medias),
         'medias' => $medias,
+    ], $__REQUEST_START__);
+}
+
+if ($method === 'GET' && preg_match('#^/digital/(?:groupe-famille|getgroupefamille)$#i', $path)) {
+    $pdo = $pdoProvider();
+    $digital = new Digital();
+    $rows = $digital->getGroupeFamille($pdo);
+    if (empty($rows)) {
+        Http::respond(404, ['error' => 'Aucun groupe/famille trouvé'], $__REQUEST_START__);
+    }
+
+    Http::respond(200, [
+        'groupes_familles' => $rows,
     ], $__REQUEST_START__);
 }
 

@@ -12,7 +12,7 @@ final class cst
     public const cstDépotBourgeat = '40';
 
     // Langues
-    public const cstLangues = ['FRA','ANG','ALL','ITA','ESP'];
+    public const cstLangues = ['FRA', 'FRB', 'ANG', 'ANB', 'ALL','ITA','ESP'];
 
     // Sociétés / codes
     public const Bourgeat = '38';
