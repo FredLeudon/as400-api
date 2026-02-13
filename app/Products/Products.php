@@ -168,7 +168,7 @@ final class Products
 		$rows = C0LIBART::allModels($pdo, $companyCode,$productCode);
 		if($rows) {
 			foreach($rows as $row) {
-				$datas[$row->c0lang] = $row::toArrayLower();
+				$datas[$row->c0lang] = $row->toArrayLower();
 			}
 		} 
 		return $datas;
