@@ -99,6 +99,9 @@ final class cst
 
     public const nMaxCaractPassword = 8;
 
+    public const cstTexteControleReception = 'CTRLRECEP';
+    public const cstTexteReflex = 'REFLEX';
+
     // Couleurs
     public const cCouleurGris = 0x333333;
     public const cCouleurInfo = 0x666666;

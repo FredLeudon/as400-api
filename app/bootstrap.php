@@ -93,6 +93,7 @@ require_once $APP_DIR . '/Digital/Digital.php';
 require_once $APP_DIR . '/Domain/A1ARTICL.php';
 require_once $APP_DIR . '/Domain/A3GESPVP.php';
 require_once $APP_DIR . '/Domain/ACARTCAT.php';
+require_once $APP_DIR . '/Domain/ACNARTCAT.php';
 require_once $APP_DIR . '/Domain/ADARTDEP.php';
 require_once $APP_DIR . '/Domain/ARTNOWEB.php';
 require_once $APP_DIR . '/Domain/ASARTSOC.php';

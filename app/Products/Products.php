@@ -15,6 +15,7 @@ use App\Digital\Digital;
 use App\Domain\A1ARTICL;
 use App\Domain\A3GESPVP;
 use App\Domain\ACARTCAT;
+use App\Domain\ACNARTCAT;
 use App\Domain\ADARTDEP;
 use App\Domain\ARTNOWEB;
 use App\Domain\ASARTSOC;
@@ -113,9 +114,17 @@ final class Products
 						$p[] = $d->toArrayLower();
 					}
 				}
+				$datas = ACNARTCAT::getModelsByCompanyCatalogArticle($pdo,'',$caid,$productCode);
+				$np = null;
+				if($datas) {
+					foreach($datas as $d) {
+						$np[] = $d->toArrayLower();
+					}
+				}
 				$pages[] = [
 					'CATALOGUE'	=> $c->toArrayLower(),
-					'ACARTCAT'	=> $p
+					'ACARTCAT'	=> $p,
+					'ACNARTCAT'	=> $np
 				];
 			}
 		} else {
@@ -126,12 +135,20 @@ final class Products
 					$p[] = $d->toArrayLower();
 				}
 			}
+			$datas = ACNARTCAT::getModelsByCompanyCatalogArticle($pdo,$companyCode,'0',$productCode);
+			$np = null;
+			if($datas) {
+				foreach($datas as $d) {
+					$np[] = $d->toArrayLower();
+				}
+			}				
 			$pages[] = [
 					'CATALOGUE'	=> [
 						'caid' => '0', 
 						'calib' => 'catalogue'
 					],
-					'ACARTCAT'	=> $p
+					'ACARTCAT'	=> $p,
+					'ACNARTCAT'	=> $np
 				];
 		}
 		return $pages;
@@ -176,6 +193,30 @@ final class Products
 		return $datas;
 	}
 
+	private static function getControleReception(PDO $pdo, string $productCode) :? array
+	{
+		$datas = [];
+		$reflex = TTTXT::allModels($pdo,'',$productCode,'ART',cst::cstTexteReflex);
+		$dataReflex = [];
+		if ($reflex) {
+			foreach($reflex as $r) {
+				$dataReflex[] = $r->toArrayLower();
+			}
+		}
+		$texte = TTTXT::allModels($pdo,'',$productCode,'ART',cst::cstTexteControleReception);
+		$dataCtrl = [];
+		if($texte) {
+			foreach($texte as $t) {
+				$dataCtrl[] = $t->toArrayLower();
+			}
+		}
+		$datas = [
+			'REFLEX' => $dataReflex,
+			'CTRLRECEP' => $dataCtrl
+		];
+		return $datas;
+	}
+
 	private static function getFloVendingDatas(PDO $pdo, string $productCode) :? array 
 	{
 		return self::getFilialeDatas($pdo, '15', $productCode);
@@ -205,7 +246,8 @@ final class Products
 		}
 		$datas['FOURNISSEUR']  			= self::getSuppliers($pdo, $DépotPrincipal , $productCode);		
 		$datas['PRIX_VENTE'] 	   		= self::getPrices($pdo, '' , $productCode);
-		$datas['ACARTCAT']      		= self::getPagesCatalogues($pdo,'',$productCode);		
+		$datas['CATALOGUES']      		= self::getPagesCatalogues($pdo,'',$productCode);	
+		$datas['CTRL_RECEP']			= self::getControleReception($pdo,$productCode);	
 		return $datas;
 	}
 	
@@ -218,7 +260,7 @@ final class Products
 		$datas['K1ARTCP']       		= self::getCompteComptable($pdo,$companyCode,$productCode);
 		$datas['FOURNISSEUR']      		= self::getSuppliers($pdo, $companyCode, $productCode);		
 		$datas['PRIX_VENTE'] 	   		= self::getPrices($pdo, $companyCode, $productCode);
-		$datas['ACARTCAT']      		= self::getPagesCatalogues($pdo,$companyCode,$productCode);
+		$datas['CATALOGUES']      		= self::getPagesCatalogues($pdo,$companyCode,$productCode);
 		return $datas;
 	}
 
@@ -247,7 +289,7 @@ final class Products
 			case '54':
 				return [
 					'SOCIETE' => $companyCode,
-					'DATAS' => self::getFloVendingDatas($pdo,$productCode),
+					'DATAS' => self::getVauconsantDatas($pdo,$productCode),
 					'time' => microtime(true) - $start
 				];				
 				break;				
@@ -266,8 +308,9 @@ final class Products
 		$textes = [];		
 		$types = TTTXT::getModelsByType($pdo, $companyCode, 'ART');
 		foreach($types as $tttyp) {
-			$affichage = TTTXT::isDisplayable($pdo,$companyCode,$tttyp->tttype, $tttyp->tttypcmt); 
 			$typeTTTXT = $tttyp->tttypcmt;			
+			if ($typeTTTXT === cst::cstTexteControleReception) continue;
+			$affichage = TTTXT::isDisplayable($pdo,$companyCode,$tttyp->tttype, $tttyp->tttypcmt); 			
 			if(str_contains($typeTTTXT,"_")) {				
 				foreach(cst::cstLangues as $langue ) {
 					$txtLangue = [];
