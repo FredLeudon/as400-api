@@ -37,6 +37,7 @@ $GLOBALS['APP_DIR'] = $APP_DIR;
 // Core
 require_once $APP_DIR . '/Core/Constantes.php';
 require_once $APP_DIR . '/Core/Debug.php';
+require_once $APP_DIR . '/Core/helpers.php';
 require_once $APP_DIR . '/Core/Http.php';
 require_once $APP_DIR . '/Core/Db.php';
 require_once $APP_DIR . '/Core/DbTable.php';
@@ -96,6 +97,7 @@ require_once $APP_DIR . '/Domain/ADARTDEP.php';
 require_once $APP_DIR . '/Domain/ARTNOWEB.php';
 require_once $APP_DIR . '/Domain/ASARTSOC.php';
 // B*
+require_once $APP_DIR . '/Domain/B3CLIENT.php';
 require_once $APP_DIR . '/Domain/B6DEVISE.php';
 require_once $APP_DIR . '/Domain/B8ACTFOU.php';
 // C*

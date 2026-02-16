@@ -39,6 +39,26 @@ final class TTTXT extends clFichier
             return 'FCMBI';
         }
     }
+
+    private static function decodeTextFromHex(string $hex): string
+    {
+        $hex = strtoupper(trim($hex));
+        if ($hex === '') return '';
+
+        $bin = @hex2bin($hex);
+        if ($bin === false) return '';
+
+        foreach (['CP297', 'IBM297', 'CP037', 'IBM037', 'CP500', 'IBM500'] as $enc) {
+            $converted = @iconv($enc, 'UTF-8//IGNORE', $bin);
+            if ($converted !== false && $converted !== '') {
+                return (string)$converted;
+            }
+        }
+
+        $fallback = @iconv('ISO-8859-1', 'UTF-8//IGNORE', $bin);
+        return $fallback !== false ? (string)$fallback : '';
+    }
+
     public static function getModelsByType(PDO $pdo, string $companyCode, string $typeCode):array
     {
         //select * from fcmbi.tttxt where tttype = 'ART' and ttcode = '*INIT' and ttligne = 1 order by tttypcmt
@@ -87,12 +107,45 @@ final class TTTXT extends clFichier
             $companyKey = trim($companyCode);            
             $library = self::libraryOf($companyKey);
             if ($library === null) return [];
-            $rows = self::for($pdo, $library)                
-                ->whereEq('TTCODE',$objectCode)
-                ->whereEq('TTTYPE',$typeCode)
+
+            // Ancien code conserve temporairement pour rollback rapide:
+            // $rows = self::for($pdo, $library)
+            //     ->whereEq('TTCODE',$objectCode)
+            //     ->whereEq('TTTYPE',$typeCode)
+            //     ->whereEq('TTTYPCMT', $typeCommentaire)
+            //     ->orderBy('TTLIGNE', 'ASC')
+            //     ->getModels();
+            // return $rows;
+
+            // Workaround IBM i ODBC: read TTTEXTE as HEX to avoid driver hang on some bytes during fetch.
+            $rawRows = self::for($pdo, $library)
+                ->select([
+                    'TTCODE',
+                    'TTTYPE',
+                    'TTTYPCMT',
+                    'TTLIGNE',
+                    '#HEX(TTTEXTE) AS TTTEXTE_HEX',
+                ])
+                ->whereEq('TTCODE', $objectCode)
+                ->whereEq('TTTYPE', $typeCode)
                 ->whereEq('TTTYPCMT', $typeCommentaire)
                 ->orderBy('TTLIGNE', 'ASC')
-                ->getModels();
+                ->get();
+
+            $prototype = self::for($pdo, $library);
+            $types = $prototype->db()->fieldTypes($pdo);
+            $rows = [];
+
+            foreach ($rawRows as $rawRow) {
+                $hex = isset($rawRow['TTTEXTE_HEX']) ? (string)$rawRow['TTTEXTE_HEX'] : '';
+                $rawRow['TTTEXTE'] = self::decodeTextFromHex($hex);
+                unset($rawRow['TTTEXTE_HEX']);
+
+                $model = clone $prototype;
+                $model->fill($rawRow)->withFieldTypes($types);
+                $rows[] = $model;
+            }
+
             return $rows;
 
         } catch (\Throwable $e) {

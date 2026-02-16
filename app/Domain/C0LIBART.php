@@ -71,8 +71,8 @@ final class C0LIBART extends clFichier
             Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }
     }    
-    
-    public static function allLabelsFor(PDO $pdo, string $companyCode, string $productId ): ?array 
+     
+    public static function allLabelsFor(PDO $pdo, string $companyCode, string $productCode, ? string  $codeLangue = ''): ?array 
     {
         $labels = [];
         try {
@@ -85,7 +85,11 @@ final class C0LIBART extends clFichier
             if ($library === '') {
                 return null;
             }
-            $m = self::for($pdo, $library)->select([])->whereEq('C0ART', $productId)->whereEq('C0SOC', $c0soc)->orderBy('C0LANG')->orderBy('C0NUM')->getModels();
+            $m = self::for($pdo, $library)
+                ->whereEq('C0ART', $productCode)
+                ->whereEq('C0SOC', $c0soc);
+                if($codeLangue !== '') $m->whereEq('C0LANG',$codeLangue);
+            $m->orderBy('C0LANG')->orderBy('C0NUM')->getModels();
             if ($m) {
                 foreach($m as $label){
                     $labels[$label->c0lang] = $label->c0lib;
@@ -99,7 +103,7 @@ final class C0LIBART extends clFichier
         }
     }    
 
-    public static function allModels(PDO $pdo, string $companyCode, string $productId ): ?array 
+    public static function allModels(PDO $pdo, string $companyCode, string $productId, ?string $codeLangue = ''): ?array
     {        
         try {
             $company = Company::get($companyCode);
@@ -111,12 +115,19 @@ final class C0LIBART extends clFichier
             if ($library === '') {
                 return null;
             }
-            return self::for($pdo, $library)
+            $query = self::for($pdo, $library)
                 ->whereEq('C0ART', $productId)
-                ->whereEq('C0SOC', $c0soc)
-                ->orderBy('C0LANG')
-                ->orderBy('C0NUM')
-                ->getModels();            
+                ->whereEq('C0SOC', $c0soc);
+
+            if ($codeLangue !== null && $codeLangue !== '') {
+                $query->whereEq('C0LANG', $codeLangue);
+            }
+
+            $rows = $query->orderBy('C0NUM')
+                ->orderBy('C0LANG')             
+                ->getModels();  
+
+            return $rows !== [] ? $rows : null;
         } catch (\Throwable $e) {
             Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }

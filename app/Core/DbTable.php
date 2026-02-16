@@ -412,7 +412,7 @@ final class DbTable
         if ($dumpSql) {
             var_dump(['sql' => $sql, 'params' => $params]);
         }
-        
+
         $stmt = $pdo->prepare($sql);
         foreach ($params as $p => $v) $stmt->bindValue($p, $v);
         $stmt->execute();
@@ -449,7 +449,11 @@ final class DbTable
         foreach ($params as $p => $v) $stmt->bindValue($p, $v);
         $stmt->execute();
 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $rows = [];
+        while (($row = $stmt->fetch(PDO::FETCH_ASSOC)) !== false) {
+            $rows[] = $row;
+        }
+
         if (!$rows) return [];
         return $rows;
     }
