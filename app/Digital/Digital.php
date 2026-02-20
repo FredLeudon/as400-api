@@ -24,6 +24,7 @@ final class Digital
 {
 	/** @var array<string,array<string,mixed>|null> */
 	private static array $attributeDefinitionCache = [];
+	private static bool $attributeUiStyleInjected = false;
 
 	public static function divUnAttribut(array $defAttribut, array $mapping, ?array $row): ?string
 	{
@@ -42,7 +43,7 @@ final class Digital
     		$inputType = 'number';
 		}
 
-		$html  = '';
+		$html  = self::attributeUiStyleBlock();
 		$html .= '<div class="attr"';
 		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
@@ -50,15 +51,18 @@ final class Digital
 		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
 		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
 		$html .= '>';
-		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
-		$html .= htmlspecialchars($codeAttr);
-		$html .= '</div>';
+		$html .= '<div class="attr-text">';
 		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($libelle);
 		$html .= '</div>';
 		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($indication);
 		$html .= '</div>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '<div class="attr-input-zone">';
 		$html .= '<input class="attr-input"';
 		$html .= ' id="attr_input_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' name="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
@@ -68,6 +72,7 @@ final class Digital
 		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
 		$html .= ' />';
+		$html .= '</div>';
 		$html .= '</div>';
 
 		return $html;
@@ -88,29 +93,46 @@ final class Digital
 		$trueValue = (($defAttribut['ta_est_numerique'] ?? '0') === '1') ? '1' : 'O';
 		$falseValue = (($defAttribut['ta_est_numerique'] ?? '0') === '1') ? '0' : 'N';
 
-		$checkboxId = 'attr_input_' . $codeAttr;
+		$switchId = 'attr_input_' . $codeAttr;
 		$hiddenId = 'attr_hidden_' . $codeAttr;
-
-		$ariaChecked = 'mixed';
+		$initialPosition = 1;
 		if ($state === 'yes') {
-			$ariaChecked = 'true';
+			$initialPosition = 2;
 		} elseif ($state === 'no') {
-			$ariaChecked = 'false';
+			$initialPosition = 0;
+		} elseif ($hasValue) {
+			$initialPosition = 0;
 		}
+		$lockUndefinedInitially = $hasValue;
 
 		$hiddenValue = '';
-		if ($state === 'yes') {
+		if ($initialPosition === 2) {
 			$hiddenValue = $trueValue;
-		} elseif ($state === 'no') {
+		} elseif ($initialPosition === 0) {
 			$hiddenValue = $falseValue;
 		}
 
-		$checkboxIdJs = json_encode($checkboxId, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+		$initialState = 'undefined';
+		if ($initialPosition === 2) {
+			$initialState = 'yes';
+		} elseif ($initialPosition === 0) {
+			$initialState = 'no';
+		}
+
+		$switchIdJs = json_encode($switchId, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 		$hiddenIdJs = json_encode($hiddenId, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 		$trueValueJs = json_encode($trueValue, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
 		$falseValueJs = json_encode($falseValue, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+		$initialPositionJs = (string)$initialPosition;
+		$lockUndefinedInitiallyJs = $lockUndefinedInitially ? 'true' : 'false';
+		$ariaChecked = 'mixed';
+		if ($initialPosition === 2) {
+			$ariaChecked = 'true';
+		} elseif ($initialPosition === 0) {
+			$ariaChecked = 'false';
+		}
 
-		$html  = '';
+		$html  = self::attributeUiStyleBlock();
 		$html .= '<div class="attr"';
 		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
@@ -118,14 +140,16 @@ final class Digital
 		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
 		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
 		$html .= '>';
-		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
-		$html .= htmlspecialchars($codeAttr);
-		$html .= '</div>';
+		$html .= '<div class="attr-text">';
 		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($libelle);
 		$html .= '</div>';
 		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($indication);
+		$html .= '</div>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
 		$html .= '</div>';
 		$html .= '<input type="hidden"';
 		$html .= ' id="' . htmlspecialchars($hiddenId, ENT_QUOTES) . '"';
@@ -134,37 +158,51 @@ final class Digital
 		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
 		$html .= ' />';
-		$html .= '<input class="attr-input attr-input-ouinon"';
-		$html .= ' id="' . htmlspecialchars($checkboxId, ENT_QUOTES) . '"';
-		$html .= ' type="checkbox"';
+		$html .= '<div class="attr-input-zone">';
+		$html .= '<button class="attr-input attr-input-ouinon-switch"';
+		$html .= ' id="' . htmlspecialchars($switchId, ENT_QUOTES) . '"';
+		$html .= ' type="button"';
+		$html .= ' role="checkbox"';
+		$html .= ' aria-checked="' . htmlspecialchars($ariaChecked, ENT_QUOTES) . '"';
+		$html .= ' aria-label="' . htmlspecialchars($libelle, ENT_QUOTES) . '"';
 		$html .= ' title="' . htmlspecialchars($bulle, ENT_QUOTES) . '"';
 		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
-		$html .= ' data-state="' . htmlspecialchars($state, ENT_QUOTES) . '"';
-		$html .= ' aria-checked="' . htmlspecialchars($ariaChecked, ENT_QUOTES) . '"';
-		if ($state === 'yes') {
-			$html .= ' checked';
-		}
-		$html .= ' />';
+		$html .= ' data-state="' . htmlspecialchars($initialState, ENT_QUOTES) . '"';
+		$html .= '><span class="attr-input-ouinon-knob"></span></button>';
+		$html .= '</div>';
 		$html .= '<script>(function(){';
-		$html .= 'const cb=document.getElementById(' . $checkboxIdJs . ');';
+		$html .= 'const sw=document.getElementById(' . $switchIdJs . ');';
 		$html .= 'const hidden=document.getElementById(' . $hiddenIdJs . ');';
-		$html .= 'if(!cb||!hidden){return;}';
+		$html .= 'if(!sw||!hidden){return;}';
 		$html .= 'const trueValue=' . $trueValueJs . ';';
 		$html .= 'const falseValue=' . $falseValueJs . ';';
-		$html .= 'const applyState=function(state){';
-		$html .= 'cb.dataset.state=state;';
-		$html .= 'cb.indeterminate=(state==="undefined");';
-		$html .= 'cb.checked=(state==="yes");';
+		$html .= 'let lockUndefined=' . $lockUndefinedInitiallyJs . ';';
+		$html .= 'let currentPos=' . $initialPositionJs . ';';
+		$html .= 'const posToState=function(pos){return (pos===2)?"yes":((pos===0)?"no":"undefined");};';
+		$html .= 'const applyPos=function(pos){';
+		$html .= 'currentPos=pos;';
+		$html .= 'if(!lockUndefined&&pos!==1){lockUndefined=true;}';
+		$html .= 'const state=posToState(pos);';
+		$html .= 'sw.dataset.state=state;';
 		$html .= 'hidden.value=(state==="yes")?trueValue:((state==="no")?falseValue:"");';
-		$html .= 'cb.setAttribute("aria-checked",(state==="undefined")?"mixed":((state==="yes")?"true":"false"));';
+		$html .= 'sw.classList.toggle("is-off",pos===0);';
+		$html .= 'sw.classList.toggle("is-undef",pos===1);';
+		$html .= 'sw.classList.toggle("is-on",pos===2);';
+		$html .= 'sw.setAttribute("aria-checked",(state==="undefined")?"mixed":((state==="yes")?"true":"false"));';
 		$html .= '};';
-		$html .= 'applyState(cb.dataset.state||"undefined");';
-		$html .= 'cb.addEventListener("click",function(event){';
-		$html .= 'event.preventDefault();';
-		$html .= 'const current=cb.dataset.state||"undefined";';
-		$html .= 'const next=(current==="undefined")?"yes":((current==="yes")?"no":"undefined");';
-		$html .= 'applyState(next);';
+		$html .= 'const nextPos=function(){';
+		$html .= 'if(lockUndefined){return currentPos===0?2:0;}';
+		$html .= 'if(currentPos===0){return 1;}';
+		$html .= 'if(currentPos===1){return 2;}';
+		$html .= 'return 0;';
+		$html .= '};';
+		$html .= 'applyPos(currentPos);';
+		$html .= 'sw.addEventListener("click",function(){applyPos(nextPos());});';
+		$html .= 'sw.addEventListener("keydown",function(event){';
+		$html .= 'if(event.key===" "||event.key==="Enter"){event.preventDefault();applyPos(nextPos());return;}';
+		$html .= 'if(event.key==="ArrowLeft"||event.key==="ArrowDown"){event.preventDefault();applyPos(0);}';
+		$html .= 'if(event.key==="ArrowRight"||event.key==="ArrowUp"){event.preventDefault();applyPos(2);}';
 		$html .= '});';
 		$html .= '})();</script>';
 		$html .= '</div>';
@@ -184,7 +222,7 @@ final class Digital
 		$bulle      = $fra['tx_texte_bulle'] ?? '';
 		$val        = self::normalizeDateForInput($rawValue, $hasValue);
 
-		$html  = '';
+		$html  = self::attributeUiStyleBlock();
 		$html .= '<div class="attr"';
 		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
@@ -192,15 +230,18 @@ final class Digital
 		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
 		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
 		$html .= '>';
-		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
-		$html .= htmlspecialchars($codeAttr);
-		$html .= '</div>';
+		$html .= '<div class="attr-text">';
 		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($libelle);
 		$html .= '</div>';
 		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
 		$html .= htmlspecialchars($indication);
 		$html .= '</div>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
+		$html .= '</div>';
+		$html .= '<div class="attr-input-zone">';
 		$html .= '<input class="attr-input attr-input-date"';
 		$html .= ' id="attr_input_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
 		$html .= ' name="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
@@ -211,6 +252,7 @@ final class Digital
 		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
 		$html .= ' />';
 		$html .= '</div>';
+		$html .= '</div>';
 
 		return $html;
 	}
@@ -218,6 +260,35 @@ final class Digital
 	public static function unAttributDate(array $defAttribut, array $mapping, ?array $row): ?string
 	{
 		return self::divUnAttributDate($defAttribut, $mapping, $row);
+	}
+
+	private static function attributeUiStyleBlock(): string
+	{
+		if (self::$attributeUiStyleInjected) {
+			return '';
+		}
+		self::$attributeUiStyleInjected = true;
+
+		$html = '<style>';
+		$html .= '.attr{display:grid;grid-template-columns:minmax(0,75%) minmax(0,25%);column-gap:8px;align-items:stretch;min-height:58px;padding:6px 8px;box-sizing:border-box;}';
+		$html .= '.attr-text{min-width:0;display:flex;flex-direction:column;height:100%;overflow:hidden;}';
+		$html .= '.attr-label{font-size:.86rem;line-height:1.1;font-weight:600;margin:0;}';
+		$html .= '.attr-hint{flex:1;display:flex;align-items:center;font-size:.77rem;line-height:1.15;color:#5f6b7a;overflow:hidden;}';
+		$html .= '.attr-code{font-size:.61rem;line-height:1;color:#8f98a6;margin-top:2px;letter-spacing:.02em;}';
+		$html .= '.attr-input-zone{display:flex;align-items:center;justify-content:center;}';
+		$html .= '.attr-input-zone .attr-input:not(.attr-input-ouinon-switch){width:90%;max-width:100%;}';
+		$html .= '.attr-input-ouinon-switch{position:relative;display:inline-block;width:54px;height:30px;padding:0;border:0;border-radius:999px;cursor:pointer;transition:background-color .2s ease;vertical-align:middle;}';
+		$html .= '.attr-input-ouinon-switch .attr-input-ouinon-knob{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.35);transition:transform .2s ease;}';
+		$html .= '.attr-input-ouinon-switch.is-off{background:#f97373;}';
+		$html .= '.attr-input-ouinon-switch.is-undef{background:#cbd5e1;}';
+		$html .= '.attr-input-ouinon-switch.is-on{background:#34c759;}';
+		$html .= '.attr-input-ouinon-switch.is-off .attr-input-ouinon-knob{transform:translateX(0);}';
+		$html .= '.attr-input-ouinon-switch.is-undef .attr-input-ouinon-knob{transform:translateX(11px);}';
+		$html .= '.attr-input-ouinon-switch.is-on .attr-input-ouinon-knob{transform:translateX(22px);}';
+		$html .= '.attr-input-ouinon-switch:focus-visible{outline:2px solid #0f172a;outline-offset:2px;}';
+		$html .= '</style>';
+
+		return $html;
 	}
 
 	private static function resolveZoneAndRawValue(array $defAttribut, array $mapping, ?array $row): array
