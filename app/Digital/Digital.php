@@ -100,10 +100,8 @@ final class Digital
 			$initialPosition = 2;
 		} elseif ($state === 'no') {
 			$initialPosition = 0;
-		} elseif ($hasValue) {
-			$initialPosition = 0;
 		}
-		$lockUndefinedInitially = $hasValue;
+		$lockUndefinedInitially = ($state !== 'undefined');
 
 		$hiddenValue = '';
 		if ($initialPosition === 2) {
