@@ -22,14 +22,384 @@ use App\Digital\VUE_TATABATT;
 
 final class Digital
 {
+	/** @var array<string,array<string,mixed>|null> */
+	private static array $attributeDefinitionCache = [];
+
+	public static function divUnAttribut(array $defAttribut, array $mapping, ?array $row): ?string
+	{
+		$fra = $defAttribut['TATXTATT']['FRA'] ?? [];
+
+		$codeAttr = $defAttribut['ta_code_attribut'] ?? '';
+		[$zone, $rawValue, $hasValue] = self::resolveZoneAndRawValue($defAttribut, $mapping, $row);
+
+		$libelle    = $fra['tx_libelle'] ?? $codeAttr;
+		$indication = $fra['tx_texte_indication'] ?? '';
+		$bulle      = $fra['tx_texte_bulle'] ?? '';
+		$val        = $hasValue ? (string)$rawValue : '';
+
+		$inputType = 'text';
+		if (($defAttribut['ta_est_numerique'] ?? '0') === '1') {
+    		$inputType = 'number';
+		}
+
+		$html  = '';
+		$html .= '<div class="attr"';
+		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
+		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
+		$html .= '>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
+		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($libelle);
+		$html .= '</div>';
+		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($indication);
+		$html .= '</div>';
+		$html .= '<input class="attr-input"';
+		$html .= ' id="attr_input_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' name="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' type="' . $inputType . '"';
+		$html .= ' value="' . htmlspecialchars($val, ENT_QUOTES) . '"';
+		$html .= ' title="' . htmlspecialchars($bulle, ENT_QUOTES) . '"';
+		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' />';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public static function divUnAttributOuiNon(array $defAttribut, array $mapping, ?array $row): ?string
+	{
+		$fra = $defAttribut['TATXTATT']['FRA'] ?? [];
+
+		$codeAttr = $defAttribut['ta_code_attribut'] ?? '';
+		[$zone, $rawValue, $hasValue] = self::resolveZoneAndRawValue($defAttribut, $mapping, $row);
+
+		$libelle    = $fra['tx_libelle'] ?? $codeAttr;
+		$indication = $fra['tx_texte_indication'] ?? '';
+		$bulle      = $fra['tx_texte_bulle'] ?? '';
+
+		$state = self::normalizeOuiNonState($rawValue, $hasValue);
+		$trueValue = (($defAttribut['ta_est_numerique'] ?? '0') === '1') ? '1' : 'O';
+		$falseValue = (($defAttribut['ta_est_numerique'] ?? '0') === '1') ? '0' : 'N';
+
+		$checkboxId = 'attr_input_' . $codeAttr;
+		$hiddenId = 'attr_hidden_' . $codeAttr;
+
+		$ariaChecked = 'mixed';
+		if ($state === 'yes') {
+			$ariaChecked = 'true';
+		} elseif ($state === 'no') {
+			$ariaChecked = 'false';
+		}
+
+		$hiddenValue = '';
+		if ($state === 'yes') {
+			$hiddenValue = $trueValue;
+		} elseif ($state === 'no') {
+			$hiddenValue = $falseValue;
+		}
+
+		$checkboxIdJs = json_encode($checkboxId, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+		$hiddenIdJs = json_encode($hiddenId, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+		$trueValueJs = json_encode($trueValue, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+		$falseValueJs = json_encode($falseValue, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+		$html  = '';
+		$html .= '<div class="attr"';
+		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
+		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
+		$html .= '>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
+		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($libelle);
+		$html .= '</div>';
+		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($indication);
+		$html .= '</div>';
+		$html .= '<input type="hidden"';
+		$html .= ' id="' . htmlspecialchars($hiddenId, ENT_QUOTES) . '"';
+		$html .= ' name="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' value="' . htmlspecialchars($hiddenValue, ENT_QUOTES) . '"';
+		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' />';
+		$html .= '<input class="attr-input attr-input-ouinon"';
+		$html .= ' id="' . htmlspecialchars($checkboxId, ENT_QUOTES) . '"';
+		$html .= ' type="checkbox"';
+		$html .= ' title="' . htmlspecialchars($bulle, ENT_QUOTES) . '"';
+		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' data-state="' . htmlspecialchars($state, ENT_QUOTES) . '"';
+		$html .= ' aria-checked="' . htmlspecialchars($ariaChecked, ENT_QUOTES) . '"';
+		if ($state === 'yes') {
+			$html .= ' checked';
+		}
+		$html .= ' />';
+		$html .= '<script>(function(){';
+		$html .= 'const cb=document.getElementById(' . $checkboxIdJs . ');';
+		$html .= 'const hidden=document.getElementById(' . $hiddenIdJs . ');';
+		$html .= 'if(!cb||!hidden){return;}';
+		$html .= 'const trueValue=' . $trueValueJs . ';';
+		$html .= 'const falseValue=' . $falseValueJs . ';';
+		$html .= 'const applyState=function(state){';
+		$html .= 'cb.dataset.state=state;';
+		$html .= 'cb.indeterminate=(state==="undefined");';
+		$html .= 'cb.checked=(state==="yes");';
+		$html .= 'hidden.value=(state==="yes")?trueValue:((state==="no")?falseValue:"");';
+		$html .= 'cb.setAttribute("aria-checked",(state==="undefined")?"mixed":((state==="yes")?"true":"false"));';
+		$html .= '};';
+		$html .= 'applyState(cb.dataset.state||"undefined");';
+		$html .= 'cb.addEventListener("click",function(event){';
+		$html .= 'event.preventDefault();';
+		$html .= 'const current=cb.dataset.state||"undefined";';
+		$html .= 'const next=(current==="undefined")?"yes":((current==="yes")?"no":"undefined");';
+		$html .= 'applyState(next);';
+		$html .= '});';
+		$html .= '})();</script>';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public static function divUnAttributDate(array $defAttribut, array $mapping, ?array $row): ?string
+	{
+		$fra = $defAttribut['TATXTATT']['FRA'] ?? [];
+
+		$codeAttr = $defAttribut['ta_code_attribut'] ?? '';
+		[$zone, $rawValue, $hasValue] = self::resolveZoneAndRawValue($defAttribut, $mapping, $row);
+
+		$libelle    = $fra['tx_libelle'] ?? $codeAttr;
+		$indication = $fra['tx_texte_indication'] ?? '';
+		$bulle      = $fra['tx_texte_bulle'] ?? '';
+		$val        = self::normalizeDateForInput($rawValue, $hasValue);
+
+		$html  = '';
+		$html .= '<div class="attr"';
+		$html .= ' id="attr_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-code="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-attr-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' data-attr-type="' . htmlspecialchars($defAttribut['ta_type_attribut'] ?? '', ENT_QUOTES) . '"';
+		$html .= ' data-attr-multivaleur="' . htmlspecialchars($defAttribut['ta_est_multivaleur'] ?? '0', ENT_QUOTES) . '"';
+		$html .= '>';
+		$html .= '<div class="attr-code" id="attr_code_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($codeAttr);
+		$html .= '</div>';
+		$html .= '<div class="attr-label" id="attr_label_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($libelle);
+		$html .= '</div>';
+		$html .= '<div class="attr-hint" id="attr_hint_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '">';
+		$html .= htmlspecialchars($indication);
+		$html .= '</div>';
+		$html .= '<input class="attr-input attr-input-date"';
+		$html .= ' id="attr_input_' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' name="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' type="date"';
+		$html .= ' value="' . htmlspecialchars($val, ENT_QUOTES) . '"';
+		$html .= ' title="' . htmlspecialchars($bulle, ENT_QUOTES) . '"';
+		$html .= ' data-wd-attr="' . htmlspecialchars($codeAttr, ENT_QUOTES) . '"';
+		$html .= ' data-wd-zone="' . htmlspecialchars($zone, ENT_QUOTES) . '"';
+		$html .= ' />';
+		$html .= '</div>';
+
+		return $html;
+	}
+
+	public static function unAttributDate(array $defAttribut, array $mapping, ?array $row): ?string
+	{
+		return self::divUnAttributDate($defAttribut, $mapping, $row);
+	}
+
+	private static function resolveZoneAndRawValue(array $defAttribut, array $mapping, ?array $row): array
+	{
+		$zone = (string)($defAttribut['ta_zone'] ?? '');
+
+		if ($row === null || $zone === '') {
+			return [$zone, null, false];
+		}
+
+		if (!array_key_exists($zone, $row)) {
+			$zoneMapped = $mapping[$zone] ?? null;
+			if (is_array($zoneMapped) && isset($zoneMapped['long'])) {
+				$mappedZone = (string)$zoneMapped['long'];
+				if ($mappedZone !== '' && array_key_exists($mappedZone, $row)) {
+					$zone = $mappedZone;
+				}
+			}
+		}
+
+		if (!array_key_exists($zone, $row)) {
+			return [$zone, null, false];
+		}
+
+		return [$zone, $row[$zone], true];
+	}
+
+	private static function normalizeOuiNonState(mixed $rawValue, bool $hasValue): string
+	{
+		if (!$hasValue) {
+			return 'undefined';
+		}
+
+		if (is_bool($rawValue)) {
+			return $rawValue ? 'yes' : 'no';
+		}
+
+		$value = strtoupper(trim((string)$rawValue));
+		if ($value === '') {
+			return 'undefined';
+		}
+
+		$yesValues = ['1', 'O', 'OUI', 'Y', 'YES', 'TRUE', 'T', 'ON'];
+		if (in_array($value, $yesValues, true)) {
+			return 'yes';
+		}
+
+		$noValues = ['0', 'N', 'NON', 'NO', 'FALSE', 'F', 'OFF'];
+		if (in_array($value, $noValues, true)) {
+			return 'no';
+		}
+
+		return 'undefined';
+	}
+
+	private static function normalizeDateForInput(mixed $rawValue, bool $hasValue): string
+	{
+		if (!$hasValue || $rawValue === null) {
+			return '';
+		}
+
+		if ($rawValue instanceof \DateTimeInterface) {
+			return $rawValue->format('Y-m-d');
+		}
+
+		$value = trim((string)$rawValue);
+		if ($value === '') {
+			return '';
+		}
+
+		$formats = ['!Y-m-d', '!Ymd', '!Y/m/d', '!d/m/Y', '!d-m-Y', '!Y-m-d H:i:s', '!Y-m-d H:i'];
+		foreach ($formats as $format) {
+			$date = DateTimeImmutable::createFromFormat($format, $value);
+			if ($date === false) {
+				continue;
+			}
+
+			$errors = DateTimeImmutable::getLastErrors();
+			$warningCount = is_array($errors) ? (int)($errors['warning_count'] ?? 0) : 0;
+			$errorCount = is_array($errors) ? (int)($errors['error_count'] ?? 0) : 0;
+			if ($warningCount === 0 && $errorCount === 0) {
+				return $date->format('Y-m-d');
+			}
+		}
+
+		return '';
+	}
+	public static function buildHtml(PDO $pdo, array $attributs, array $mapping, ?array $row): ?string
+	{
+		// Récuperer la définition de l'attribut		
+		//echo "Je traite les attributs (".var_dump($attributs).") pour (".var_dump($row).")";
+		$html = "";
+		$bTraité = false;
+		// Traiter les cas à la con
+		if (array_key_exists('DIM_REFLEX', $attributs)) {
+			// DIM_REFLEX ....							
+		} else if (array_key_exists('QTE_VCM1_VC01', $attributs)) {
+			// QTE_VCM1_VC01
+		} else if (array_key_exists('MATIERE_COM', $attributs)) {
+			// MATIERE_COM						
+		} else {					
+			foreach($attributs as $attribut) {
+				$defAttribut = null;
+				if (array_key_exists($attribut,self::$attributeDefinitionCache)) {
+					$defAttribut = self::$attributeDefinitionCache[$attribut];
+				} else {
+					$defAttribut = self::getDefAttributs($pdo,cst::cstAttributStandard,$attribut);
+				}
+				if ($defAttribut) {
+					if(array_key_exists($attribut, $defAttribut)) {
+						$defAttribut = $defAttribut[$attribut];
+						switch(strtoupper($defAttribut['ta_mode_gestion'])){							
+							case cst::cstAttributStandard;							
+								$Combo = ($defAttribut['ta_fichier_lie'] =='1' || $defAttribut['type_valeur'] == 'ENSVAL' );
+								// Ok, c'est un attribut 'standard', on va encore extraire les cas tordus
+								switch(strtoupper($attribut)) {
+									case 'CODE_ACCESSOIRE':
+										break;
+									case 'CAPACITE_TYPE':
+										break;
+									case 'CAPACITE_NB':
+										break;
+									default:
+										// pour se concentrer sur les attributs dits 'simples' et pas déconnants
+										if($Combo ) {
+											// combo
+										} else {
+											// pas combo
+											switch(strtolower($defAttribut['ta_type_attribut'])){
+												case 'booleen':
+												case 'interrupteur':
+												case 'ouinon':
+													$html .= self::divUnAttributOuiNon($defAttribut,$mapping, $row);
+													break;
+												case 'date':
+													$html .= self::divUnAttributDate($defAttribut,$mapping, $row);
+													break;													
+												default:
+													$html .= self::divUnAttribut($defAttribut,$mapping, $row);
+													break;
+											}
+										}
+										break;
+								}		
+								break;
+							case cst::cstAttributSpécif:
+								// Gérer les attributs spécifs non encore traités par les spécificités ci-dessus
+								switch(strtoupper($attribut)) {
+									case 'COMMENTAIRE_PRD':
+										break;									
+									case 'ARG_MEA_CATA_PRINT':
+										break;
+									case 'EMPL_NUM_LOT':
+										break;
+									case 'AVANTAGE_PRD':
+										break;
+									default:
+										$html = $html . "<div id='$attribut'>";
+										$html = $html . "attribut spécifique non traité !";
+										$html = $html . "</div>";				
+										break;
+								}
+								break;
+						}
+					}
+				} else {
+					$html = $html . "<div id='$attribut'>";
+					$html = $html . "attribut inconnu !";
+					$html = $html . "</div>";
+				}				
+			}			
+		}
+		return $html;
+	}
+
 	public static function getNomenclatureDigitale(PDO $pdo, string $productCode) :?array
 	{
 		$nanomart = NANOMART::getModelsByArticle($pdo, $productCode);
 		if($nanomart) {
 			$datas = [];
 			foreach($nanomart as $na) {				
-				$data["NANOMART"]					= $na->toArrayLower();
-				
+				$data["NANOMART"]					= $na->toArrayLower();				
 				$data["LNLIBNOM"]["segment"]		= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment]);
 				$data["LNLIBNOM"]["famille"]		= LNLIBNOM::DonneLibelléNomenclatureLangue($pdo,[$na->na_code_segment,$na->na_code_famille]);
 				$data["LNLIBNOM"]["categorie"]		= NCNOMCAT::DonneLibelléCatégorie($pdo,[$na->na_code_segment,$na->na_code_famille, $na->na_code_ssf]); 		
@@ -129,7 +499,10 @@ final class Digital
 		$criteria = [];		
 		for ($i = 0; $i < count($fields); $i++) {
 			$field   = $fields[$i];
-			$varName = $varNames[$i];
+			$varName = $varNames[$i] ?? '';
+			if ($varName === '') {
+				continue;
+			}
 			// Le nom fourni peut être soit la clé de $taVariables (placeholder), soit le nom de constante cst::<X>
 			$value   = $taVariables[$varName] ?? null;			
 			if ($value === null) {
@@ -198,7 +571,6 @@ final class Digital
 			$nMaxIndice = $unAttributFichier->ta_nb_max_val;
 			if ($nMaxIndice == 0) {
 				if ($unAttributFichier->ta_multi_valeur == 1) {
-					// ta_nb_max_val_type stocke un JSON de la forme {"%type_accessoire%":{"CD":10,"CP":10,"PD":30,"OP":30}}
 					$nbMaxTypeJson = $unAttributFichier->ta_nb_max_val_type;
 					$decoded = json_decode((string)$nbMaxTypeJson, true);
 					if (is_array($decoded)) {
@@ -224,47 +596,51 @@ final class Digital
 		for($nIndice = 0 ; $nIndice < $nMaxIndice; $nIndice++) {
 			if(in_array(cst::cstVarCodeAttribut,$tabKeys,true)) {						
 				foreach($Attributs as $unAttribut) {
-					$sKey									= "";
-					$taVariables[cst::cstVarCodeAttribut]	= $unAttribut;					
-					$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+					$sKey											= "";
+					$taVariables[cst::cstVarCodeAttribut]			= $unAttribut;					
+					$criteria										= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
 					foreach($criteria as $crit => $val) {
 						if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
-						$sKey								= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
-					}
-					//$datas[$sFichier][$sKey]				= $tabAttributRubrique;
-					$taVariables[cst::cstVarNumOrdre]		= $nIndice + 1;								
-					$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
-					$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+						$sKey										= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
+					}					
+					$taVariables[cst::cstVarNumOrdre]				= $nIndice + 1;								
+					$criteria										= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+					$dbTable  										= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+					$mapping										= $dbTable->loadFieldMetadata($pdo);
 					// Lecture du fichier avec la condition construite
-					$rows = $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
+					$rows											= $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
 					if($rows) {
 						foreach($rows as $numRow => $row) {
-							$datas[$sFichier][$sKey][]	= $row;							
+							$datas[$sFichier][$sKey][]				= ['DATAS'		=> $row, 																		
+																		'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping,$row)];	
 						}
 					} else {
-						$datas[$sFichier][$sKey][]		= null;
+							$datas[$sFichier][$sKey][]				= ['DATAS'		=> null, 																		
+																		'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping, null)];	;
 					}									
 				} 
-			}else {
-				$sKey									= "";				
-				$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+			} else {
+				$sKey												= "";				
+				$criteria											= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
 				if($criteria) {
 					foreach($criteria as $crit => $val) {
 						if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
-						$sKey								= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
+						$sKey										= $sKey . (strlen($sKey) <> 0 ? ',' : '') . (string)$val ;
 					}
-					//$datas[$sFichier][$sKey]				= $tabAttributRubrique;
-					$taVariables[cst::cstVarNumOrdre]		= $nIndice + 1;								
-					$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
-					$dbTable  								= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
+					$taVariables[cst::cstVarNumOrdre]				= $nIndice + 1;								
+					$criteria										= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+					$dbTable  										= new DbTable($sBibliothèque, $sFichier, primaryKey: [], columns: []);
 					// Lecture du fichier avec la condition construite
-					$rows = $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
+					$mapping										= $dbTable->loadFieldMetadata($pdo);
+					$rows											= $criteria ? $dbTable->listWhere($pdo, $criteria, [], null, ['*']) : null;					
 					if($rows) {
 						foreach($rows as $numRow => $row) {
-							$datas[$sFichier][$sKey][]	= $row;							
+							$datas[$sFichier][$sKey][]				= ['DATAS'		=> $row, 																		
+																		'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,$row)];		
 						}
 					} else {
-						$datas[$sFichier][$sKey][]		= null;
+						$datas[$sFichier][$sKey][]					= ['DATAS'		=> null, 																		
+																		'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,null)];	
 					}		
 				} else {
 					//echo "Erreur crit $sBibliothèque, $sFichier,$sLogique, $sKeys \n";
@@ -274,18 +650,18 @@ final class Digital
 	}
 
 	public static function getValeurAttribut(PDO $pdo, string $productCode, string $attribut, ?int $indice = 1) {
-		$datas = self::lireAttributs($pdo,$productCode,$attribut);
-		$defAttributs = TATABATT::getByAttribute($pdo,'',$attribut);
+		$datas												= self::lireAttributs($pdo,$productCode,$attribut);
+		$defAttributs										= TATABATT::getByAttribute($pdo,'',$attribut);
 		foreach($defAttributs as $defAttribut) {
-			$sBibliothèque		= $defAttribut->ta_bibliotheque;
-			$sFichier			= $defAttribut->ta_Fichier;
-			$sLogique			= $defAttribut->ta_logique;
-			$sKeys 				= $defAttribut->ta_cles;
+			$sBibliothèque									= $defAttribut->ta_bibliotheque;
+			$sFichier										= $defAttribut->ta_Fichier;
+			$sLogique										= $defAttribut->ta_logique;
+			$sKeys 											= $defAttribut->ta_cles;
 	
-			$taVariables[cst::cstVarCodeArticle]	=	$productCode;
+			$taVariables[cst::cstVarCodeArticle]			=	$productCode;
 			if(array_key_exists($sFichier,$datas)) {
-				$sKey									= "";				
-				$criteria								= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
+				$sKey										= "";				
+				$criteria									= self::buildKey($pdo, $sBibliothèque, $sFichier, $sLogique, $sKeys, $taVariables );
 				if($criteria) {
 					foreach($criteria as $crit => $val) {
 						if($crit === cst::cstVarNumOrdre) continue;	// ignore order index in composite key
@@ -323,8 +699,10 @@ final class Digital
 	{
 		$start = microtime(true);	
 		$datas = [];		
+		self::getDefAttributsFichier($pdo,cst::cstAttributStandard);
+		self::getDefAttributs($pdo, cst::cstAttributSpécif);
 		// Aller lire la vue tatabatt pour récuperer les attributs "fichier"
-		$AttributsFichier = VUE_TATABATT::getAttributes($pdo, 'STANDARD', $attribut);
+		$AttributsFichier = VUE_TATABATT::getAttributes($pdo, cst::cstAttributStandard, $attribut);
 		if (!empty($AttributsFichier)) {
 			foreach($AttributsFichier as $unAttributFichier) {
 				$taVariables = null;
@@ -371,8 +749,13 @@ final class Digital
 		return $datas;
 	}
 
-	public static function getDefAttributes(PDO $pdo, string $mode, ?string $attribut = ''): ?array
+	public static function getDefAttributs(PDO $pdo, string $mode, ?string $attribut = ''): ?array
 	{
+		if ($attribut != '' ) {
+			if(array_key_exists($attribut,self::$attributeDefinitionCache)) {
+				return self::$attributeDefinitionCache[$attribut];
+			}
+		}
 		$tabNbEvEnsVal = EVENSVAL::getNbEnsVal($pdo);		
 		$tatabatt = TATABATT::getByAttribute($pdo,$mode, $attribut);
 		$data = [];
@@ -408,11 +791,66 @@ final class Digital
 						break;
 				}
 			}
+			self::$attributeDefinitionCache[$model->ta_code_attribut]		= $data;
 		}
 		$data['nombre'] = $nb;
 		//var_dump($data);
 		return $data;
 	}
+
+public static function getDefAttribut(PDO $pdo, string $attribut): ?array
+	{
+		if ($attribut != '' ) {
+			if(array_key_exists($attribut,self::$attributeDefinitionCache)) {
+				return self::$attributeDefinitionCache[$attribut];
+			}
+		}
+		$tabNbEvEnsVal = EVENSVAL::getNbEnsVal($pdo);		
+		$tatabatt = TATABATT::getByAttribute($pdo,'' , $attribut);
+		$data = null;
+		$nb = 0 ;
+		if($tatabatt) {
+			$first_key = array_key_first($tatabatt);
+			$model = $tatabatt[$first_key];
+			if ($model) {
+				$nb++;
+				$data[$model->ta_code_attribut] = $model->toArrayLower();
+				$data[$model->ta_code_attribut]['groupe'] = null;
+				$data[$model->ta_code_attribut]['famille'] = null;
+				$data[$model->ta_code_attribut]['sousfamille'] = null;
+				$data[$model->ta_code_attribut]['TATXTATT'] = TATXTATT::getLibelle($pdo,$model->ta_code_attribut);
+				$groupe = TAFAM::getElement($pdo,(int)$model->ta_groupe);			
+				$famille = TAFAM::getElement($pdo,(int)$model->ta_groupe, (int)$model->ta_famille);
+				$sousfamille = TAFAM::getElement($pdo,(int)$model->ta_groupe, (int)$model->ta_famille,(int)$model->ta_sous_famille);
+				if($groupe) $data[$model->ta_code_attribut]['groupe'] = $groupe->toArrayLower();
+				if($famille) $data[$model->ta_code_attribut]['famille'] = $famille->toArrayLower();
+				if($sousfamille && $model->ta_sous_famille <> 0 ) $data[$model->ta_code_attribut]['sousfamille'] = $sousfamille->toArrayLower();
+				if($model->ta_type_attribut !== '') {
+					$nbEnsVal = 0;
+					if(array_key_exists($model->ta_type_attribut,$tabNbEvEnsVal)) $nbEnsVal = $tabNbEvEnsVal[$model->ta_type_attribut];
+					switch($nbEnsVal) {
+						case 0:
+							$data[$model->ta_code_attribut]["type_valeur"]		= cst::cstValeurSimble;
+							$data[$model->ta_code_attribut]["EVENSVAL"]			= null;
+							break;
+						case 1:
+							$data[$model->ta_code_attribut]["type_valeur"]		= cst::cstValeurComplexe;
+							$data[$model->ta_code_attribut]["EVENSVAL"]			= EVENSVAL::getEVENSVAL($pdo,$model->ta_type_attribut);
+							break;
+						default:
+							$data[$model->ta_code_attribut]["type_valeur"]		= cst::cstEnsenbleDeValeur;
+							$data[$model->ta_code_attribut]["EVENSVAL"]			= EVENSVAL::getEVENSVAL($pdo,$model->ta_type_attribut);
+							break;
+					}
+				}
+				self::$attributeDefinitionCache[$model->ta_code_attribut]		= $data;
+			}
+		} 
+		$data['nombre'] = $nb;
+		//var_dump($data);
+		return $data;
+	}
+
 
 	public function getGroupeFamille(PDO $pdo): ?array 
 	{

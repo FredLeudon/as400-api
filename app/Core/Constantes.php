@@ -289,6 +289,8 @@ final class cst
 
 	public const cstDatePublicationCatalogueDigital							= "DAT_PUB_CATA_PRT";
 
+    public const cstAttributStandard                                        = "STANDARD";
+    public const cstAttributSpécif                                          = "SPECIF";
 
     public const  cstArguDesc												= "DESC";
     public const  cstArguPrint												= "MEAP";

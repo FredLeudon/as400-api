@@ -328,6 +328,18 @@ HTML;
                 // ---------- Digital ----------
                 [
                     'method' => 'GET',
+                    'path' => '/digital/product/{productCode}/attributs',
+                    'description' => 'Read digital attributes for one product (without company).',
+                    'query' => [
+                        'attribut' => 'optional, one attribute code to filter (alias: attribute)',
+                    ],
+                    'examples' => [
+                        '/digital/product/707634/attributs',
+                        '/digital/product/707634/attributs?attribut=DAT_PUB_CATA_PRT',
+                    ],
+                ],
+                [
+                    'method' => 'GET',
                     'path' => '/digital/attributs/definitions',
                     'description' => 'Get digital attributes definitions (STANDARD).',
                     'examples' => [

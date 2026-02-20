@@ -298,9 +298,8 @@ final class Products
 					'SOCIETE' => $companyCode,
 					'DATAS' => self::getFilialeDatas($pdo,$companyCode,$productCode),
 					'time' => microtime(true) - $start
-				];										}
-		
-		
+				];										
+		}		
 	}
 
 	public static function getProductTextes(PDO $pdo, string $companyCode, string $productCode) :? array 
@@ -474,7 +473,7 @@ final class Products
 																];
 			$product['MEDIAS']									= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
 			$product['ATTRIBUTS_FICHIER']						= Digital::lireAttributs($pdo,$productCode);			
-			//$product['DefAttributs']							= Digital::getDefAttributes($pdo);
+			//$product['DefAttributs']							= Digital::getDefAttributs($pdo);
 						
 		} catch (Throwable $e) {
     		$debug = (getenv('APP_DEBUG') === '1');

@@ -521,10 +521,104 @@ if ($method === 'GET' && $path === '/phone/check') {
 // /digital/attributs/definitions
 // /digital/attributs/definitions/{mode}
 // --------------------
+if ($method === 'GET' && preg_match('#^/digital/(?:product|article)/([^/]+)/attributs/html$#i', $path, $m)) {
+    [, $productCode] = $m;
+    $attribut = strtoupper(trim((string)($_GET['attribut'] ?? $_GET['attribute'] ?? '')));
+
+    $pdo = $pdoProvider();
+    $attributs = Digital::lireAttributs($pdo, (string)$productCode, $attribut);
+
+    $blocks = [];
+    $collectHtml = function ($node) use (&$collectHtml, &$blocks): void {
+        if (!is_array($node)) {
+            return;
+        }
+
+        if (array_key_exists('HTML', $node) && is_string($node['HTML']) && trim($node['HTML']) !== '') {
+            $blocks[] = $node['HTML'];
+        }
+
+        foreach ($node as $key => $child) {
+            if ($key === 'HTML') {
+                continue;
+            }
+            if (is_array($child)) {
+                $collectHtml($child);
+            }
+        }
+    };
+    $collectHtml($attributs);
+
+    $productEsc = htmlspecialchars((string)$productCode, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $attributEsc = htmlspecialchars($attribut, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $title = 'Attributs digitaux - ' . $productEsc;
+
+    $duration = '';
+    if (is_array($attributs) && array_key_exists('time', $attributs) && is_numeric($attributs['time'])) {
+        $duration = number_format((float)$attributs['time'] * 1000, 2, '.', ' ');
+    }
+
+    http_response_code(!empty($blocks) ? 200 : 404);
+    header('Content-Type: text/html; charset=utf-8');
+    echo "<!doctype html><html lang='fr'><head><meta charset='utf-8'>";
+    echo "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+    echo "<title>{$title}</title>";
+    echo "<style>
+            body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;margin:20px;line-height:1.4}
+            .meta{margin-bottom:14px;padding:10px;border:1px solid #ddd;border-radius:10px;background:#fafafa}
+            .attrs{display:grid;gap:10px}
+            .attr{padding:10px;border:1px solid #e4e4e4;border-radius:10px;background:#fff}
+            .attr-code{font-weight:700}
+            .attr-label{margin-top:4px}
+            .attr-hint{margin-top:4px;color:#666;font-size:.92rem}
+            .attr-input{margin-top:8px}
+          </style>";
+    echo "</head><body>";
+    echo "<h1>Attributs digitaux</h1>";
+    echo "<div class='meta'><b>Article:</b> {$productEsc}";
+    if ($attributEsc !== '') {
+        echo " | <b>Attribut:</b> {$attributEsc}";
+    }
+    if ($duration !== '') {
+        echo " | <b>Temps:</b> {$duration} ms";
+    }
+    echo "</div>";
+
+    if (empty($blocks)) {
+        echo "<p>Aucun bloc HTML généré.</p>";
+    } else {
+        echo "<div class='attrs'>" . implode("\n", $blocks) . "</div>";
+    }
+
+    echo "</body></html>";
+    exit;
+}
+
+if ($method === 'GET' && preg_match('#^/digital/(?:product|article)/([^/]+)/attributs$#i', $path, $m)) {
+    [, $productCode] = $m;
+    $attribut = strtoupper(trim((string)($_GET['attribut'] ?? $_GET['attribute'] ?? '')));
+
+    $pdo = $pdoProvider();
+    $attributs = Digital::lireAttributs($pdo, (string)$productCode, $attribut);
+    if ($attributs === null) {
+        Http::respond(404, [
+            'error' => 'Aucun attribut trouve',
+            'article' => (string)$productCode,
+            'attribut' => $attribut,
+        ], $__REQUEST_START__);
+    }
+
+    Http::respond(200, [
+        'article' => (string)$productCode,
+        'attribut' => $attribut !== '' ? $attribut : null,
+        'attributs' => $attributs,
+    ], $__REQUEST_START__);
+}
+
 if ($method === 'GET' && preg_match('#^/digital/attributs/definitions(?:/([^/]+))?$#i', $path, $m)) {
     $mode = strtoupper((string)($m[1] ?? 'STANDARD'));
     $pdo = $pdoProvider();
-    $defs = Digital::getDefAttributes($pdo, $mode, '');
+    $defs = Digital::getDefAttributs($pdo, $mode, '');
     if (empty($defs)) {
         Http::respond(404, ['error' => 'Aucune définition trouvée', 'mode' => $mode], $__REQUEST_START__);
     }
@@ -545,11 +639,12 @@ if ($method === 'GET' && preg_match('#^/digital/attributs/fichiers$#i', $path)) 
 if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/definition$#i', $path, $m)) {
     [, $attr] = $m;
     $pdo = $pdoProvider();
-    $defs = Digital::getDefAttributes($pdo, (string)$attr);
+    $attr = strtoupper((string)$attr);
+    $defs = Digital::getDefAttribut($pdo, (string)$attr);
     if (empty($defs)) {
         Http::respond(404, ['error' => 'Définition non trouvée', 'attribut' => (string)$attr], $__REQUEST_START__);
     }
-    Http::respond(200, ['attribut' => (string)$attr, 'definitions' => $defs], $__REQUEST_START__);
+    Http::respond(200, ['attribut' => $defs], $__REQUEST_START__);
 }
 
 if ($method === 'GET' && preg_match('#^/digital/attribut/([^/]+)/valeur$#i', $path, $m)) {
