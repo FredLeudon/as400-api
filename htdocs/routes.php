@@ -229,6 +229,44 @@ if ($method === 'GET' && preg_match('#^/company/([^/]+)/customer/(\d+)/product/(
     ], $__REQUEST_START__);
 }
 
+if ($method === 'GET' && preg_match('#^/company/([^/]+)/customer/(\d+)/product/([^/]+)/full_price$#', $path, $m)) {
+    [, $company, $customerId, $productCode] = $m;
+    $companyCode = Company::codeOf((string)$company);
+    if ($companyCode === null) {
+        Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
+    }
+    $quantity = isset($_GET['quantity']) ? (int)$_GET['quantity'] : 1;
+    if ($quantity <= 0) {
+        Http::respond(400, ['error' => 'Quantity must be >= 1'], $__REQUEST_START__);
+    }
+    $date = null;
+    if (isset($_GET['date'])) {
+        $date = Http::parseAndValidateDate((string)$_GET['date']);
+        if (!$date) {
+            Http::respond(400, ['error' => 'Invalid date format'], $__REQUEST_START__);
+        }
+    }
+    $pdo = $pdoProvider();
+    $price = Prices::getCustomerProductFullPrice(
+        pdo: $pdo,
+        companyCode: $companyCode,
+        customerCode: (string)$customerId,
+        productCode: (string)$productCode,
+        date: $date,
+        quantity: $quantity
+    );
+    if ($price === null) {
+        Http::respond(404, ['error' => 'Price not found'], $__REQUEST_START__);
+    }
+    Http::respond(200, [
+        'company'   => $companyCode,
+        'customer'  => (string)$customerId,
+        'product'   => (string)$productCode,
+        'quantity'  => $quantity,
+        'price'     => $price,
+    ], $__REQUEST_START__);
+}
+
 // --------------------
 // POST bulk prices
 // /company/{company}/customer/{id}/products/prices
@@ -257,7 +295,34 @@ if ($method === 'POST' && preg_match('#^/company/([^/]+)/customer/(\d+)/products
 
     Http::respond(200, $payload, $__REQUEST_START__);
 }
+// --------------------
+// POST bulk prices
+// /company/{company}/customer/{id}/products/prices
+// --------------------
+if ($method === 'POST' && preg_match('#^/company/([^/]+)/customer/(\d+)/products/full_prices$#', $path, $m)) {
+    [, $company, $customerId] = $m;
 
+    $companyCode = Company::codeOf((string)$company);
+    if ($companyCode === null) {
+        Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
+    }
+
+    $body = Http::readJsonBody();
+    if (!is_array($body)) {
+        Http::respond(400, ['error' => 'Invalid JSON body'], $__REQUEST_START__);
+    }
+
+    $pdo = $pdoProvider();
+
+    $payload = Prices::bulkCustomerProductsFullPrices(
+        pdo: $pdo,
+        companyCode: $companyCode,
+        customerCode: (string)$customerId,
+        body: $body
+    );
+
+    Http::respond(200, $payload, $__REQUEST_START__);
+}
 // --------------------
 // Customers routes
 // --------------------
