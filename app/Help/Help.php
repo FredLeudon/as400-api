@@ -290,6 +290,19 @@ HTML;
                     ],
                 ],
                 [
+                    'method' => 'GET',
+                    'path' => '/company/{company}/customer/{customerId}/product/{productCode}/full_price',
+                    'description' => 'Get full customer pricing payload for a single product',
+                    'query' => [
+                        'date' => 'optional, ISO: YYYY-MM-DD or YYYY-MM-DDTHH:MM or YYYY-MM-DDTHH:MM:SS',
+                        'quantity' => 'optional, integer >= 1 (default 1)',
+                    ],
+                    'examples' => [
+                        '/company/matfer/customer/03188/product/707634/full_price?date=2026-01-01&quantity=5',
+                        '/company/matfer/customer/03188/product/707634/full_price',
+                    ],
+                ],
+                [
                     'method' => 'POST',
                     'path' => '/company/{company}/customer/{customerId}/products/prices',
                     'description' => 'Get customer prices for multiple products (bulk).',
@@ -306,6 +319,26 @@ HTML;
                             'curl' => "curl -X POST -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
                                     . "  -d '{\"date\":\"2026-01-01\",\"defaultQuantity\":1,\"items\":[{\"code\":\"707634\",\"quantity\":5},{\"code\":\"707635\"}]}' \\\n"
                                     . "  http://<host>:8080/company/matfer/customer/03188/products/prices",
+                        ],
+                    ],
+                ],
+                [
+                    'method' => 'POST',
+                    'path' => '/company/{company}/customer/{customerId}/products/full_prices',
+                    'description' => 'Get full customer pricing payload for multiple products (bulk).',
+                    'body' => [
+                        'date' => 'optional, ISO',
+                        'defaultQuantity' => 'optional, integer >= 1',
+                        'items' => [
+                            ['code' => '707634', 'quantity' => 5],
+                            ['code' => '707635'],
+                        ],
+                    ],
+                    'examples' => [
+                        [
+                            'curl' => "curl -X POST -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
+                                    . "  -d '{\"date\":\"2026-01-01\",\"defaultQuantity\":1,\"items\":[{\"code\":\"707634\",\"quantity\":5},{\"code\":\"707635\"}]}' \\\n"
+                                    . "  http://<host>:8080/company/matfer/customer/03188/products/full_prices",
                         ],
                     ],
                 ],
