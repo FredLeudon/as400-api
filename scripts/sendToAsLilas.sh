@@ -72,6 +72,8 @@ for d in "${DIRS[@]}"; do
       --exclude='**/.DS_Store' \
       --exclude='.env' \
       --exclude='conf/httpd.conf' \
+      --exclude='conf/httpd.aslilas.conf' \
+      --exclude='conf/httpd.ordimajor.conf' \
       -e "ssh" \
       "${local_dir}/" \
       "${AS400_USER}@${AS400_HOST}:${remote_dir}/"
