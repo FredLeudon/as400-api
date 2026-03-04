@@ -43,6 +43,7 @@ require_once $APP_DIR . '/Core/Db.php';
 require_once $APP_DIR . '/Core/DbTable.php';
 require_once $APP_DIR . '/Core/clFichier.php';
 require_once $APP_DIR . '/Core/Mailer.php';
+require_once $APP_DIR . '/Core/xlsx.php';
 
 // Digital
 require_once $APP_DIR . '/Digital/AAACCART.php';
