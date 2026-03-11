@@ -9,3 +9,11 @@ enum ContactType: string
     case Fournisseur = 'F';
     case Livraison   = 'L';
 }
+
+enum CoordonneesType: int
+{
+    case TelephoneBureau  = 1;
+    case TelephoneMobile  = 2;
+    case FaxBureau        = 4;
+    case MailBureau       = 62;
+}

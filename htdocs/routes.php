@@ -59,7 +59,8 @@ if (method_exists(Debug::class, 'init')) {
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $uri    = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH);
 
-$path = preg_replace('#^/api#', '', (string)$uri);
+//$path = preg_replace('#^/api#', '', (string)$uri);
+$path = (string)$uri;
 $path = rtrim((string)$path, '/') ?: '/';
 
 // ------------------------------------------------------------
@@ -562,6 +563,25 @@ if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)$#', $pat
         pdo: $pdo,
         companyCode: $companyCode,
         productCode: (string)$productId
+    );
+
+    if ($product === null) {
+        Http::respond(404, ['error' => 'Unknown product', 'product' => (string)$productId], $__REQUEST_START__);
+    }
+
+    Http::respond(200, ['product' => $product], $__REQUEST_START__);
+}
+
+// Anciennes routes:
+if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([A-Za-z0-9]+)$#', $path, $m)) {
+    [, $productCode] = $m;
+    $productCode = strtoupper($productCode);
+    
+    $pdo = $pdoProvider();
+    
+    $product = Products::get_old(
+        pdo: $pdo,        
+        productCode: (string)$productCode
     );
 
     if ($product === null) {

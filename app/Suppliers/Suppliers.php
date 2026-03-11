@@ -9,6 +9,17 @@ use DateTimeImmutable;
 
 use App\Core\Http;
 use App\Domain\Company;
+use App\Domain\W1REFBAN;
+use App\Domain\U3FOURN;
+use App\Domain\FSFOUSOC;
+use App\Domain\C2LANGUE;
+use App\Domain\H7ZONECO;
+use App\Domain\B8ACTFOU;
+use App\Domain\D6CONTRN;
+use App\Domain\H6TRANSP;
+use App\Domain\C7REGLEM;
+use App\Domain\B6DEVISE;
+use App\Domain\G0ISO;
 
 final class Suppliers
 {
@@ -57,7 +68,7 @@ final class Suppliers
             Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }
     }
-/*
+    
     public static function get(PDO $pdo, 
                                 string $companyCode, 
                                 string $supplierId, 
@@ -80,18 +91,18 @@ final class Suppliers
             if (!$row) {
                 return null;
             }
-            W1REFBAN::get($pdo, $companyCode, $row['A6FOUR']);
-            U3FOURN::get($pdo, $companyCode, $row['A6FOUR']);
-            FSFOUSOC::get($pdo, $companyCode, $row['A6FOUR']);
-            C2LANGUE::getById($pdo, $companyCode, $row['A6CLGU']);
-            H7ZONECO::get($pdo, $companyCode, $row['A6ZECO']);
-            B8ACTFOU::get($pdo, $companyCode, $row['A6ACTI']);
-            D6CONTRN::get($pdo, $companyCode, $row['A6MODT']);
-            H6TRANSP::get($pdo, $companyCode, $row['A6TRAN']);
-            C7REGLEM::get($pdo, $companyCode, $row['A6CRGL']);
-            B6DEVISE::get($pdo, $companyCode, $row['A6DEVI']);
+            //W1REFBAN::getModel($pdo, $companyCode, $row['A6FOUR']);
+            //U3FOURN::getModel($pdo, $companyCode, $row['A6FOUR']);
+            //FSFOUSOC::getModel($pdo, $companyCode, $row['A6FOUR']);
+            //C2LANGUE::getById($pdo, $companyCode, $row['A6CLGU']);
+            //H7ZONECO::get($pdo, $companyCode, $row['A6ZECO']);
+            //B8ACTFOU::get($pdo, $companyCode, $row['A6ACTI']);
+            //D6CONTRN::get($pdo, $companyCode, $row['A6MODT']);
+            //H6TRANSP::get($pdo, $companyCode, $row['A6TRAN']);
+            //C7REGLEM::get($pdo, $companyCode, $row['A6CRGL']);
+            //B6DEVISE::get($pdo, $companyCode, $row['A6DEVI']);
 
-            $supplier['origine'] = ($company['code'] === Company::FLO_VENDING) ? 'flovending' : 'mbi';
+            //$supplier['origine'] = ($company['code'] === Company::FLO_VENDING) ? 'flovending' : 'mbi';
             $supplier['code'] = $row['A6FOUR'];
             $supplier['statut'] = $row['A6INAS'];
             $supplier['main_company'] = $row['A6SOC'];
@@ -132,7 +143,7 @@ final class Suppliers
                 $supplier['billing']['reglement']['code'] = $row['A6CRGL'];
                 $supplier['billing']['reglement']['libelle'] = C7REGLEM::get($pdo, $companyCode, $row['A6CRGL']);
                 $supplier['billing']['devise']['code'] = $row['A6DEVI'];
-                $supplier['billing']['devise']['libelle'] = B6DEVISE::get($pdo, $companyCode, $row['A6DEVI']);
+                //$supplier['billing']['devise']['libelle'] = B6DEVISE::get($pdo, $companyCode, $row['A6DEVI']);
                 $supplier['billing']['devise']['taux'] = $row['A6TAU'];
                 $supplier['billing']['code_tva_europeen'] = $row['A6TVA'];
                 $supplier['billing']['cote_expert'] = $row['A6CEXP'];
@@ -195,17 +206,44 @@ final class Suppliers
             } else {
                 $supplier['gestion_des_contacts'] = false;
             }
-            $supplier['contacts'] = ContactsFournisseurs::toJsonArray($pdo, $companyCode, $row['A6FOUR']);
+            //$supplier['contacts'] = ContactsFournisseurs::toJsonArray($pdo, $companyCode, $row['A6FOUR']);
             if ($withAdditionalInformation) {
-                if ($company['code'] !== Company::FLO_VENDING) {
-                    $supplier['bourgeat']['baan_code'] = substr((string)$row['A6FIL3'], 14, 6);
-                    $supplier['last_action']['horodatage'] = $row['A6HOACT'];
-                    $supplier['last_action']['profil'] = $row['A6UTIL'];
-                    $supplier['last_action']['acttion'] = $row['A6ACT'];
-                    $supplier['last_action']['programme'] = $row['A6PGM'];
-                }
+            //    if ($company['code'] !== Company::FLO_VENDING) {
+            //        $supplier['bourgeat']['baan_code'] = substr((string)$row['A6FIL3'], 14, 6);
+            //        $supplier['last_action']['horodatage'] = $row['A6HOACT'];
+            //        $supplier['last_action']['profil'] = $row['A6UTIL'];
+            //        $supplier['last_action']['acttion'] = $row['A6ACT'];
+            //        $supplier['last_action']['programme'] = $row['A6PGM'];
+            //    }
             }
-            
+            return $supplier;
+        } catch (Throwable $e) {
+            Http::respond(500, ['error' => 'Internal server error', 'from' => 'getSupplierOrder', 'data' => $e->getMessage()]);
+        }
+    } 
+    
+    public static function exists(PDO $pdo, string $companyCode, string $supplierId): ? bool
+    {
+        try {            
+            $company = Company::get($companyCode);
+            if (!$company) return false;
+            $sql = "SELECT A6FOUR
+            FROM {$company['library']}.A6FOURN
+            WHERE A6FOUR = :supplierID";
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindValue(':supplierID', $supplierId, PDO::PARAM_STR);
+            $stmt->execute();            
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$row) {
+                return false;
+            }
+            return true;
+        } catch (Throwable $e) {
+            Http::respond(500, ['error' => 'Internal server error', 'from' => 'getSupplierOrder', 'data' => $e->getMessage()]);
+        }
+    }              
+}    
+
 /*
 SI combinaisonRetour[articles] ALORS
 	jsFournisseur.articles = []
@@ -269,36 +307,4 @@ SI combinaisonRetour[articles] ALORS
 	FIN
 
 FIN
-
-return $supplier;
-
-} catch (Throwable $e) {
-    Http::respond(500, ['error' => 'Internal server error', 'from' => 'getSupplierOrder', 'data' => $e->getMessage()]);
-    }
-    }
-    
-    public static function exists(PDO $pdo, 
-    string $companyCode, 
-    string $supplierId): ? boolean
-    {
-        try {            
-            $company = Company::get($companyCode);
-            if (!$company) return false;
-            $sql = "SELECT A6FOUR
-            FROM {$company['library']}.A6FOURN
-            WHERE A6FOUR = :supplierID";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindValue(':supplierID', $supplierId, PDO::PARAM_STR);
-            $stmt->execute();            
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if (!$row) {
-                return false;
-                }
-                return true;
-                } catch (Throwable $e) {
-                    Http::respond(500, ['error' => 'Internal server error', 'from' => 'getSupplierOrder', 'data' => $e->getMessage()]);
-                    }
-                    }
-                    */
-    
-}
+*/

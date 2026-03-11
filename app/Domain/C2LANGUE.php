@@ -106,6 +106,35 @@ final class C2LANGUE extends clFichier
         }
     }
 
+    public static function getModelbyId(PDO $pdo, string $companyCode, string $Id): static
+    {
+        try {
+            $company = Company::get($companyCode);
+            if (!$company) null;
+
+            $library = (string)($company['main_library'] ?? '');
+            if ($library === '') null;
+                 
+            $row = self::for($pdo, $library)->whereEq('C2LANG', $Id)->firstModel();
+            
+            return $row;
+
+        } catch (Throwable $e) {
+            $debug = (getenv('APP_DEBUG') === '1');
+            $payload = [
+                'error' => 'Internal server error',
+                'from'  => 'C2LANGUE::getById()',
+                'data'  => $e->getMessage(),
+            ];
+            if ($debug) {
+                $payload['file']  = $e->getFile();
+                $payload['line']  = $e->getLine();
+                $payload['trace'] = $e->getTraceAsString();
+            }
+            Http::respond(500, $payload);
+        }
+    }
+
     public static function all(PDO $pdo, string $companyCode): array
     {
         try {

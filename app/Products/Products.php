@@ -472,7 +472,7 @@ final class Products
 																	'APAVTPRD' => Digital::getAvtPrd($pdo,$productCode, cst::cstArguDesc)
 																];
 			$product['MEDIAS']									= Digital::getMedias($pdo,$productCode,cst::cstTypPhoto,cst::cstPhotoModèle);
-			$product['ATTRIBUTS_FICHIER']						= Digital::lireAttributs($pdo,$productCode);			
+			$product['ATTRIBUTS']								= Digital::lireAttributs($pdo,$productCode);			
 			//$product['DefAttributs']							= Digital::getDefAttributs($pdo);
 						
 		} catch (Throwable $e) {
@@ -492,4 +492,203 @@ final class Products
 		$product['time'] = microtime(true) - $start;
 		return $product;
     }
+
+	public static function get_old(PDO $pdo, string $productCode) :?array
+	{
+		$datas = [];
+		$product = VUE_API_ARTICLE::getProduct($pdo,$productCode);
+		$datas['item'] = json_decode($product->jsdatas);
+		return $datas;
+		/*
+			{
+			    "error": false,
+			    "elapsed_time": 1094,
+			    "item": {
+			        "product": "681014",
+			        "labels": [
+			            {
+			                "lang": "ALL",
+			                "label": "STIELKASSEROL O/D TRAD 14"
+			            },
+			            {
+			                "lang": "ANG",
+			                "label": "TRADITION SAUCEPAN NO LID - 14"
+			            },
+			            {
+			                "lang": "ESP",
+			                "label": "CACEROLA \"TRADITION\" S/T - 14"
+			            },
+			            {
+			                "lang": "FRA",
+			                "label": "CASSEROLE \"TRADITION\" S/C - 14"
+			            },
+			            {
+			                "lang": "ITA",
+			                "label": "CASSERUOLA \"\"TRADITION\"\" S/C-"
+			            }
+			        ],
+			        "medias": [
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "accessoire",
+			                "order": 1,
+			                "url": "PC/photos/accessoire/a-681014.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "accessoire",
+			                "order": 2,
+			                "url": "PC/photos/accessoire/a-681014-coupe.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "devis",
+			                "order": 1,
+			                "url": "PC/photos/devis/d-681014.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "devis",
+			                "order": 2,
+			                "url": "PC/photos/devis/d-681014-coupe.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "modele",
+			                "order": 1,
+			                "url": "PC/photos/modele/681014.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "modele",
+			                "order": 2,
+			                "url": "PC/photos/modele/681014-coupe.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "modele",
+			                "order": 3,
+			                "url": "PC/photos/modele/681014-2.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "picto",
+			                "order": 1,
+			                "url": "PC/photos/picto/p-picto-matfer-bourgeat.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "picto",
+			                "order": 2,
+			                "url": "PC/photos/picto/p-picto-induction.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "picto",
+			                "order": 3,
+			                "url": "PC/photos/picto/p-picto-lave-vaisselle.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "picto",
+			                "order": 4,
+			                "url": "PC/photos/picto/p-picto-10-ans.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "thumbnail",
+			                "order": 1,
+			                "url": "PC/photos/thumbnail/t-681014.jpg"
+			            },
+			            {
+			                "type": "PC/photos",
+			                "ss_type": "thumbnail",
+			                "order": 2,
+			                "url": "PC/photos/thumbnail/t-681014-coupe.jpg"
+			            },
+			            {
+			                "type": "PC/videos",
+			                "ss_type": "modele",
+			                "order": 1,
+			                "url": "PC/photos/modele/GMB-CASSEROLE-TRADITION-681014-32-FR.mp4"
+			            }
+			        ],
+			        "status": {
+			            "code": "N",
+			            "label": "normal"
+			        },
+			        "supplier": {
+			            "supplier": "00249",
+			            "company_name": "BOURGEAT PRODUCTION",
+			            "address": {
+			                "adr1": "BP 19",
+			                "adr2": "",
+			                "adr3": "",
+			                "zip": "38490",
+			                "city": "LES ABRETS",
+			                "country": {
+			                    "internal": "001",
+			                    "iso": "FR",
+			                    "name": "FRANCE"
+			                }
+			            },
+			            "contacts": [
+			                {
+			                    "id": 502572530,
+			                    "order": 1,
+			                    "function": "",
+			                    "name": "",
+			                    "address": {
+			                        "company_name": "",
+			                        "adr1": "",
+			                        "adr2": "",
+			                        "adr3": "",
+			                        "zip": "",
+			                        "city": "",
+			                        "country": {
+			                            "internal": "   ",
+			                            "iso": null,
+			                            "name": null
+			                        }
+			                    },
+			                    "directory": {
+			                        "phone": "",
+			                        "fax": "0476322596",
+			                        "telex": "",
+			                        "mail": ""
+			                    }
+			                },
+			                {
+			                    "id": 502765220,
+			                    "order": 2,
+			                    "function": "Gestion industrielle",
+			                    "name": "DELAUZUN Marion",
+			                    "address": {
+			                        "company_name": "",
+			                        "adr1": "",
+			                        "adr2": "",
+			                        "adr3": "",
+			                        "zip": "",
+			                        "city": "",
+			                        "country": {
+			                            "internal": "001",
+			                            "iso": "FR",
+			                            "name": "FRANCE"
+			                        }
+			                    },
+			                    "directory": {
+			                        "phone": "04 76 32 68 9",
+			                        "fax": "",
+			                        "telex": "1",
+			                        "mail": "mdelauzun@matferbourgeat.com"
+			                    }
+			                }
+			            ]
+			        }
+			    }
+			}
+		*/
+		
+	}
+
 }

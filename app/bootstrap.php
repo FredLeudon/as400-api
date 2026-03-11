@@ -90,6 +90,9 @@ require_once $APP_DIR . '/Digital/VUE_TATABATT.php';
 // Domain
 require_once $APP_DIR . '/Domain/Company.php';
 require_once $APP_DIR . '/Digital/Digital.php';
+// Reflex
+require_once $APP_DIR . '/Reflex/HLACTIP.php';
+require_once $APP_DIR . '/Reflex/HLARTIP.php';
 // A*
 require_once $APP_DIR . '/Domain/A1ARTICL.php';
 require_once $APP_DIR . '/Domain/A3GESPVP.php';
@@ -122,6 +125,7 @@ require_once $APP_DIR . '/Domain/G0ISO.php';
 // H
 require_once $APP_DIR . '/Domain/H6TRANSP.php';
 require_once $APP_DIR . '/Domain/H7ZONECO.php';
+require_once $APP_DIR . '/Domain/HLACTIP.php';
 // I 
 require_once $APP_DIR . '/Domain/IAFAPPFOUR.php';
 // J 
@@ -147,8 +151,7 @@ require_once $APP_DIR . '/Domain/U3FOURN.php';
 require_once $APP_DIR . '/Domain/W1REFBAN.php';
 
 // Enums
-require_once $APP_DIR . '/Enums/ContactType.php';
-require_once $APP_DIR . '/Enums/CoordonneesType.php';
+require_once $APP_DIR . '/Enums/Enums.php';
 
 // Utils
 require_once $APP_DIR . '/Utils/Sql.php';
@@ -157,6 +160,8 @@ require_once $APP_DIR . '/Utils/Sql.php';
 require_once $APP_DIR . '/Help/Help.php';
 require_once $APP_DIR . '/Customers/Customers.php';
 require_once $APP_DIR . '/Products/Products.php';
+require_once $APP_DIR . '/Products/VUE_API_ARTICLE.php';
 require_once $APP_DIR . '/Prices/Prices.php';
 require_once $APP_DIR . '/Phone/Phone.php';
 require_once $APP_DIR . '/Suppliers/Suppliers.php';
+require_once $APP_DIR . '/Reflex/Reflex.php';
