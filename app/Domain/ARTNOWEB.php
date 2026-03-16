@@ -62,7 +62,7 @@ final class ARTNOWEB extends clFichier
      *
      * @return array<int,static>
      */
-    public static function allModels(\PDO $pdo): array
+    public static function readModels(\PDO $pdo): array
     {
         try {
             $library = 'MATIS';

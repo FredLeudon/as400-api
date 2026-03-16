@@ -274,6 +274,40 @@ HTML;
                         '/company/matfer/product/707634',
                     ],
                 ],
+                [
+                    'method' => 'GET',
+                    'path' => '/company/{company}/product/{productCode}/stock',
+                    'description' => 'Get stock for one product in one company.',
+                    'examples' => [
+                        '/company/matfer/product/707634/stock',
+                    ],
+                    'response' => [
+                        'product' => '707634',
+                        'company' => '06',
+                        'stocks' => [
+                            '010' => ['type' => '010', 'libellé' => '...', 'stock' => 12],
+                            '020' => ['type' => '020', 'libellé' => '...', 'stock' => 5],
+                        ],
+                    ],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/product/{productCode}/stock',
+                    'description' => 'Get stock by company code for 06, 38, 40 and 15 (alias: /article/{productCode}/stock).',
+                    'examples' => [
+                        '/product/707634/stock',
+                        '/article/707634/stock',
+                    ],
+                    'response' => [
+                        'product' => '707634',
+                        'stocks' => [
+                            '06' => ['010' => ['type' => '010', 'libellé' => '...', 'stock' => 12]],
+                            '38' => ['010' => ['type' => '010', 'libellé' => '...', 'stock' => 0]],
+                            '40' => ['010' => ['type' => '010', 'libellé' => '...', 'stock' => 5]],
+                            '15' => ['010' => ['type' => '010', 'libellé' => '...', 'stock' => 3]],
+                        ],
+                    ],
+                ],
 
                 // ---------- Pricing ----------
                 [

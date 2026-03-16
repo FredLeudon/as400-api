@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Reflex;
 
-use App\Domain\Company;
+use App\Reflex\Dépot;
 use App\Core\clFichier;
 
 final class HLSUBSP extends clFichier
@@ -50,12 +50,26 @@ final class HLSUBSP extends clFichier
         'SBTOPD' => ['label' => 'Top desactivation',                              'type' => 'CHAR',    'nullable' => false],
     ];
 
-    private static function libraryOf(string $companyCode): ?string
+    private static function libraryOf(string $CodeActivité): ?string
     {
-        $company = Company::get($companyCode);
+        $company = Dépot::get($CodeActivité);
         if (!$company) return null;
 
-        $library = (string)($company['reflex_library'] ?? '');
+        $library = (string)($company['library'] ?? '');
         return $library !== '' ? $library : null;
+    }
+
+    public static function readModels(\PDO $pdo, string $CodeActivité, string $CodeArticle, string $CodeConditionnement, string $Propriétaire, string $Qualité) : ? array
+    {
+        $library = self::libraryOf($CodeActivité);
+        if (!$library) return null;
+        return self::for($pdo,$library)
+            ->whereEq("SBCACT",$CodeActivité)
+            ->whereEq("SBCART",$CodeArticle)
+            ->whereEq("SBCVLA",$CodeConditionnement)
+            ->whereEq("SBCPRP",$Propriétaire)
+            ->whereEq("SBCQAL",$Qualité)
+            ->getModels();
+
     }
 }

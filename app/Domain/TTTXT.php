@@ -101,7 +101,7 @@ final class TTTXT extends clFichier
         }
     }
 
-    public static function allModels( PDO $pdo, string $companyCode, string $objectCode, string $typeCode , string $typeCommentaire): ?array 
+    public static function readModels( PDO $pdo, string $companyCode, string $objectCode, string $typeCode , string $typeCommentaire): ?array 
     {
         try {
             $companyKey = trim($companyCode);            

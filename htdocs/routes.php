@@ -36,6 +36,7 @@ use App\Prices\Prices;
 use App\Phone\Phone;
 use App\Suppliers\Suppliers;
 use App\Digital\Digital;
+use App\Reflex\Reflex;
 
 // ------------------------------------------------------------
 // Debug / errors bootstrap (via ton module Debug)
@@ -589,6 +590,47 @@ if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([A-Za-z0-9]+)$#
     }
 
     Http::respond(200, ['product' => $product], $__REQUEST_START__);
+}
+
+if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)/stock$#', $path, $m)) {
+    [, $company, $product] = $m;
+    $companyCode = Company::codeOf((string)$company);
+    if ($companyCode === null) {
+        Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
+    }
+    $productCode = trim((string)$product);
+    if ($productCode === '') {
+        Http::respond(400, ['error' => 'Missing product code'], $__REQUEST_START__);
+    }
+    $pdo = $pdoProvider();  
+    $stocks = Reflex::stockArticle($pdo, $companyCode, $productCode);
+    Http::respond(200, [
+        'product' => $productCode,
+        'company' => $companyCode,
+        'stocks' => $stocks,
+    ], $__REQUEST_START__);
+}
+
+// Stock article multi-sociétés (06, 38, 40, 15)
+if ($method === 'GET' && preg_match('#^/(?:product|article)/([^/]+)/stock$#i', $path, $m)) {
+    [, $productCode] = $m;
+    $productCode = trim((string)$productCode);
+    if ($productCode === '') {
+        Http::respond(400, ['error' => 'Missing product code'], $__REQUEST_START__);
+    }
+
+    $pdo = $pdoProvider();
+    $companies = ['06', '38', '40', '15'];
+    $stocksByCompany = [];
+
+    foreach ($companies as $companyCode) {
+        $stocksByCompany[$companyCode] = Reflex::stockArticle($pdo, $companyCode, $productCode);
+    }
+
+    Http::respond(200, [
+        'product' => $productCode,
+        'stocks' => $stocksByCompany,
+    ], $__REQUEST_START__);
 }
 
 // --------------------

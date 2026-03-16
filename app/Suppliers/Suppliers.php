@@ -91,9 +91,9 @@ final class Suppliers
             if (!$row) {
                 return null;
             }
-            //W1REFBAN::getModel($pdo, $companyCode, $row['A6FOUR']);
-            //U3FOURN::getModel($pdo, $companyCode, $row['A6FOUR']);
-            //FSFOUSOC::getModel($pdo, $companyCode, $row['A6FOUR']);
+            //W1REFBAN::readModel($pdo, $companyCode, $row['A6FOUR']);
+            //U3FOURN::readModel($pdo, $companyCode, $row['A6FOUR']);
+            //FSFOUSOC::readModel($pdo, $companyCode, $row['A6FOUR']);
             //C2LANGUE::getById($pdo, $companyCode, $row['A6CLGU']);
             //H7ZONECO::get($pdo, $companyCode, $row['A6ZECO']);
             //B8ACTFOU::get($pdo, $companyCode, $row['A6ACTI']);

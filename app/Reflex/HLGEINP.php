@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Reflex;
 
-use App\Domain\Company;
+use App\Reflex\Dépot;
 use App\Core\clFichier;
 
 final class HLGEINP extends clFichier
@@ -102,12 +102,29 @@ final class HLGEINP extends clFichier
         'GECPCR' => ['label' => 'Code programme creation',                                      'type' => 'CHAR',    'nullable' => false],
     ];
 
-    private static function libraryOf(string $companyCode): ?string
+   private static function libraryOf(string $CodeActivité): ?string
     {
-        $company = Company::get($companyCode);
+        $company = Dépot::get($CodeActivité);
         if (!$company) return null;
 
-        $library = (string)($company['reflex_library'] ?? '');
+        $library = (string)($company['library'] ?? '');
         return $library !== '' ? $library : null;
+    }
+
+    public static function readModels(\PDO $pdo, string $DPOPhysique, string $CodeActivité, string $CodeArticle, string $CodeConditionnement, string $Propriétaire, string $Qualité) : ? array
+    {
+        $library = self::libraryOf($CodeActivité);
+        if (!$library) return null;
+        return self::for($pdo,$library)
+            ->whereEq("GECDPO",$DPOPhysique)
+            ->whereEq("GECACT",$CodeActivité)
+            ->whereEq("GECART",$CodeArticle)
+            ->whereEq("GECVLA",$CodeConditionnement)
+            ->whereEq("GECPRP",$Propriétaire)
+            ->whereEq("GECQAL",$Qualité)
+            ->whereEq("GECTST","200")
+            ->whereEq("GETGDI","0")
+            ->getModels();
+
     }
 }

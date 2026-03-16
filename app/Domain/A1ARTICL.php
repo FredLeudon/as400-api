@@ -123,6 +123,23 @@ final class A1ARTICL extends clFichier
         }
     }
 
+    public static function getLocalModelById(\PDO $pdo, string $companyCode, string $articleId ): ? static
+    {
+        try {
+             $company = Company::get($companyCode);
+            if (!$company) return null;
+            $library = (string)($company['library'] ?? '');
+            $articleId = trim($articleId);
+            if ($articleId === '') return null;
+            return self::for($pdo, $library)                
+                ->whereEq('A1ART', $articleId)
+                ->firstModel();
+
+        } catch (\Throwable $e) {
+            Http::respond(500, Http::exceptionPayload($e, __METHOD__));
+        }
+    }
+
     /**
      * Quick existence check.
      */

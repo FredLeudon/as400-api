@@ -43,7 +43,7 @@ final class B6DEVISE extends clFichier
         return $library !== '' ? $library : null;
     }
 
-    public static function getModel(PDO $pdo, string $companyCode, string $Id): static
+    public static function readModel(PDO $pdo, string $companyCode, string $Id): static
     {
         try {
             $companyCode = trim($companyCode);

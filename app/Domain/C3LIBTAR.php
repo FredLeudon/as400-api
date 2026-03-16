@@ -35,7 +35,7 @@ final class C3LIBTAR extends clFichier
         return $library !== '' ? $library : null;
     }
 
-    public static function allModels( PDO $pdo, string $companyCode ): array 
+    public static function readModels( PDO $pdo, string $companyCode ): array 
     {
         try {
             $companyKey = trim($companyCode);            

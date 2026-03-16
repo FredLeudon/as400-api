@@ -87,7 +87,7 @@ final class CATALOGUE extends clFichier
      * @return array<int,static>
      */
     
-    public static function allModels(PDO $pdo, string $companyCode): ?array
+    public static function readModels(PDO $pdo, string $companyCode): ?array
     {
         try {
             $library = self::libraryOf($companyCode);

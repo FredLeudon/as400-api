@@ -80,7 +80,7 @@ final class Products
 
 	public static function getPrices(PDO $pdo, string $companyCode, string $productCode) :? array {
 		$prices = [];
-		$c3libtar = C3LIBTAR::allModels($pdo, $companyCode);
+		$c3libtar = C3LIBTAR::getModels($pdo, $companyCode);
 		foreach($c3libtar as $c3) {
 			$c3Row						= $c3->toArrayLower();
 			$c3Row['extra']['nombre']	= B3CLIENT::getNombreParCodeTarif($pdo,$companyCode,$c3->c3indi);			
@@ -104,7 +104,7 @@ final class Products
 	public static function getPagesCatalogues(PDO $pdo, string $companyCode, string $productCode) :? array {
 		$pages = [];
 		if (in_array($companyCode, ['','06','38','40'],true)) {
-			$catalogues = CATALOGUE::allModels($pdo, $companyCode);
+			$catalogues = CATALOGUE::getModels($pdo, $companyCode);
 			foreach($catalogues as $c) {
 				$caid = $c->caid;
 				$datas = ACARTCAT::getModelsByCompanyCatalogArticle($pdo,'',$caid,$productCode);
@@ -178,7 +178,7 @@ final class Products
 	{
 		$datas = [];
 		foreach(cst::cstLangues as $langue) {
-			$rows = C0LIBART::allModels($pdo, $companyCode,$productCode,$langue);
+			$rows = C0LIBART::getModels($pdo, $companyCode,$productCode,$langue);
 			$lib = [];
 			if($rows) {
 				foreach($rows as $row) {
@@ -196,14 +196,14 @@ final class Products
 	private static function getControleReception(PDO $pdo, string $productCode) :? array
 	{
 		$datas = [];
-		$reflex = TTTXT::allModels($pdo,'',$productCode,'ART',cst::cstTexteReflex);
+		$reflex = TTTXT::getModels($pdo,'',$productCode,'ART',cst::cstTexteReflex);
 		$dataReflex = [];
 		if ($reflex) {
 			foreach($reflex as $r) {
 				$dataReflex[] = $r->toArrayLower();
 			}
 		}
-		$texte = TTTXT::allModels($pdo,'',$productCode,'ART',cst::cstTexteControleReception);
+		$texte = TTTXT::getModels($pdo,'',$productCode,'ART',cst::cstTexteControleReception);
 		$dataCtrl = [];
 		if($texte) {
 			foreach($texte as $t) {
@@ -314,7 +314,7 @@ final class Products
 				foreach(cst::cstLangues as $langue ) {
 					$txtLangue = [];
 					$tttypcmt = $typeTTTXT.$langue;					
-					$txt = TTTXT::allModels($pdo, $companyCode, $productCode, 'ART', $tttypcmt);
+					$txt = TTTXT::getModels($pdo, $companyCode, $productCode, 'ART', $tttypcmt);
 					$datas = [];
 					foreach($txt as $t) {
 						$datas[] = $t->toArrayLower();
@@ -331,7 +331,7 @@ final class Products
 				];					
 			} else {
 				$tttypcmt = $typeTTTXT;				
-				$txt = TTTXT::allModels($pdo, $companyCode, $productCode, 'ART', $tttypcmt);
+				$txt = TTTXT::getModels($pdo, $companyCode, $productCode, 'ART', $tttypcmt);
 				$txtLangue = [];
 				$datas = [];
 				foreach($txt as $t) {

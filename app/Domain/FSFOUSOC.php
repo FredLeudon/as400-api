@@ -46,7 +46,7 @@ final class FSFOUSOC extends clFichier
     /**
      * Get one row by supplier + company (FSFOUR, FSSOC).
      */
-    public static function getModel(PDO $pdo, string $companyCode, string $supplierId): static
+    public static function readModel(PDO $pdo, string $companyCode, string $supplierId): static
     {
         try {
             $companyCode = trim($companyCode);

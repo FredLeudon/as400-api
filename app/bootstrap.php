@@ -91,8 +91,12 @@ require_once $APP_DIR . '/Digital/VUE_TATABATT.php';
 require_once $APP_DIR . '/Domain/Company.php';
 require_once $APP_DIR . '/Digital/Digital.php';
 // Reflex
+require_once $APP_DIR . '/Reflex/Depot.php';
 require_once $APP_DIR . '/Reflex/HLACTIP.php';
 require_once $APP_DIR . '/Reflex/HLARTIP.php';
+require_once $APP_DIR . '/Reflex/HLTYSKP.php';
+require_once $APP_DIR . '/Reflex/HLGEINP.php';
+require_once $APP_DIR . '/Reflex/HLSTOCP.php';
 // A*
 require_once $APP_DIR . '/Domain/A1ARTICL.php';
 require_once $APP_DIR . '/Domain/A3GESPVP.php';
@@ -125,7 +129,6 @@ require_once $APP_DIR . '/Domain/G0ISO.php';
 // H
 require_once $APP_DIR . '/Domain/H6TRANSP.php';
 require_once $APP_DIR . '/Domain/H7ZONECO.php';
-require_once $APP_DIR . '/Domain/HLACTIP.php';
 // I 
 require_once $APP_DIR . '/Domain/IAFAPPFOUR.php';
 // J 
@@ -136,6 +139,7 @@ require_once $APP_DIR . '/Domain/K1ARTCP.php';
 // N
 // O 
 // P 
+require_once $APP_DIR . '/Domain/PLPTFLOG.php';
 require_once $APP_DIR . '/Domain/PXROUGE.php';
 require_once $APP_DIR . '/Domain/PXNROUGE.php';
 // Q 
@@ -157,6 +161,7 @@ require_once $APP_DIR . '/Enums/Enums.php';
 require_once $APP_DIR . '/Utils/Sql.php';
 
 // Modules
+require_once $APP_DIR . '/Programmes/Programmes.php';
 require_once $APP_DIR . '/Help/Help.php';
 require_once $APP_DIR . '/Customers/Customers.php';
 require_once $APP_DIR . '/Products/Products.php';

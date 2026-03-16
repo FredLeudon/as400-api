@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Reflex;
 
-use App\Domain\Company;
+use App\Reflex\Dépot;
 use App\Core\clFichier;
 
 final class HLSTOCP extends clFichier
@@ -25,12 +25,28 @@ final class HLSTOCP extends clFichier
         'SKMTST' => ['label' => 'Montant du stock',                            'type' => 'DECIMAL', 'nullable' => false],
     ];
 
-    private static function libraryOf(string $companyCode): ?string
+    private static function libraryOf(string $CodeActivité): ?string
     {
-        $company = Company::get($companyCode);
+        $company = Dépot::get($CodeActivité);
         if (!$company) return null;
 
-        $library = (string)($company['reflex_library'] ?? '');
+        $library = (string)($company['library'] ?? '');
         return $library !== '' ? $library : null;
+    }
+
+    public static function readModel(\PDO $pdo, string $DPOPhysique, string $TypeStock , string $CodeActivité, string $CodeArticle, string $CodeConditionnement, string $Propriétaire, string $Qualité) : ? static
+    {
+        $library = self::libraryOf($CodeActivité);
+        if (!$library) return null;
+        $row =  self::for($pdo,$library)
+            ->whereEq("SKCDPO",$DPOPhysique)
+            ->whereEq("SKCTST",$TypeStock)
+            ->whereEq("SKCACT",$CodeActivité)
+            ->whereEq("SKCART",$CodeArticle)
+            ->whereEq("SKCVLA",$CodeConditionnement)
+            ->whereEq("SKCPRP",$Propriétaire)
+            ->whereEq("SKCQAL",$Qualité)
+            ->firstModel();
+        return $row;
     }
 }

@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace App\Reflex;
 
-use App\Domain\Company;
+
+use App\Reflex\Dépot;
 use App\Core\clFichier;
+use DateTimeImmutable;
 
 final class HLVIDP extends clFichier
 {
@@ -33,12 +35,21 @@ final class HLVIDP extends clFichier
         'VITOPD' => ['label' => 'Top desactivation',                       'type' => 'CHAR',    'nullable' => false],
     ];
 
-    private static function libraryOf(string $companyCode): ?string
+    private static function libraryOf(string $CodeActivité): ?string
     {
-        $company = Company::get($companyCode);
+        $company = Dépot::get($CodeActivité);
         if (!$company) return null;
 
-        $library = (string)($company['reflex_library'] ?? '');
+        $library = (string)($company['library'] ?? '');
         return $library !== '' ? $library : null;
+    }
+
+    
+    public static function DonneCodeBarreVL(\PDO $pdo, string $CodeActivité, string $CodeArticle, ? string $CodeConditionnement = '01', ? string $CodeIdentifiant = 'EAN13', ? DateTimeImmutable $DateCAB = null ): ? static
+    {
+        $library = self::libraryOf($CodeActivité);
+        if ($library === null) return null;
+        $DateCAB ??= new DateTimeImmutable();
+        return null;
     }
 }

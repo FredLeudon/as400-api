@@ -103,7 +103,7 @@ final class C0LIBART extends clFichier
         }
     }    
 
-    public static function allModels(PDO $pdo, string $companyCode, string $productId, ?string $codeLangue = ''): ?array
+    public static function readModels(PDO $pdo, string $companyCode, string $productId, ?string $codeLangue = ''): ?array
     {        
         try {
             $company = Company::get($companyCode);

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Reflex;
 
-use App\Domain\Company;
+use App\Reflex\Dépot;
 use App\Core\clFichier;
 
 final class HLPRPLP extends clFichier
@@ -128,12 +128,12 @@ final class HLPRPLP extends clFichier
         'P1TOPD' => ['label' => 'Top desactivation',                                           'type' => 'CHAR',    'nullable' => false],
     ];
 
-    private static function libraryOf(string $companyCode): ?string
+    private static function libraryOf(string $CodeActivité): ?string
     {
-        $company = Company::get($companyCode);
+        $company = Dépot::get($CodeActivité);
         if (!$company) return null;
 
-        $library = (string)($company['reflex_library'] ?? '');
+        $library = (string)($company['library'] ?? '');
         return $library !== '' ? $library : null;
     }
 }
