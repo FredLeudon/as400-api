@@ -69,8 +69,8 @@ $path = rtrim((string)$path, '/') ?: '/';
 // ------------------------------------------------------------
 $expectedToken = getenv('API_TOKEN') ?: '';
 $dsn  = getenv('API_DSN')  ?: 'odbc:DRIVER={IBM i Access ODBC Driver};SYSTEM=localhost;CommitMode=2;CCSID=1208;TranslationOption=1;';
-$user = getenv('API_USER') ?: 'LEDUR';
-$pass = getenv('API_PASS') ?: 'ifcubmdp';
+$user = getenv('API_USER') ?: '';
+$pass = getenv('API_PASS') ?: '';
 
 // ------------------------------------------------------------
 // Auth helpers (car tu n’as pas Core/Auth.php)
