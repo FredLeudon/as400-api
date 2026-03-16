@@ -352,7 +352,7 @@ HTML;
                         [
                             'curl' => "curl -X POST -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
                                     . "  -d '{\"date\":\"2026-01-01\",\"defaultQuantity\":1,\"items\":[{\"code\":\"707634\",\"quantity\":5},{\"code\":\"707635\"}]}' \\\n"
-                                    . "  http://<host>:8080/company/matfer/customer/03188/products/prices",
+                                    . "  https://<host>:8483/company/matfer/customer/03188/products/prices",
                         ],
                     ],
                 ],
@@ -372,7 +372,7 @@ HTML;
                         [
                             'curl' => "curl -X POST -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
                                     . "  -d '{\"date\":\"2026-01-01\",\"defaultQuantity\":1,\"items\":[{\"code\":\"707634\",\"quantity\":5},{\"code\":\"707635\"}]}' \\\n"
-                                    . "  http://<host>:8080/company/matfer/customer/03188/products/full_prices",
+                                    . "  https://<host>:8483/company/matfer/customer/03188/products/full_prices",
                         ],
                     ],
                 ],
@@ -469,7 +469,7 @@ HTML;
                         [
                             'curl' => "curl -X PUT -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
                                     . "  -d '{\"confirmed\":true,\"date\":\"2026-01-20\"}' \\\n"
-                                    . "  http://<host>:8080/company/matfer/supplier/order/123456",
+                                    . "  https://<host>:8483/company/matfer/supplier/order/123456",
                         ],
                     ],
                 ],
@@ -484,7 +484,7 @@ HTML;
                         [
                             'curl' => "curl -X PUT -H 'Authorization: Bearer <token>' -H 'Content-Type: application/json' \\\n"
                                     . "  -d '{\"delay\":4}' \\\n"
-                                    . "  http://<host>:8080/company/matfer/supplier/order/123456/product/707634/delay",
+                                    . "  https://<host>:8483/company/matfer/supplier/order/123456/product/707634/delay",
                         ],
                     ],
                 ],
@@ -492,6 +492,7 @@ HTML;
             'notes' => [
                 'company can be an alias (ex: matfer) or a company code (ex: 06).',
                 'Most routes require Authorization: Bearer <token>.',
+                'Base URL: https://<host>:8483',
             ],
         ];
     }
