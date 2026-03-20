@@ -132,4 +132,33 @@ final class C0LIBART extends clFichier
             Http::respond(500, Http::exceptionPayload($e, __METHOD__));
         }
     }    
+    public static function readModel(PDO $pdo, string $companyCode, string $productId, ?string $codeLangue = ''): ? static
+    {        
+        try {
+            $company = Company::get($companyCode);
+            if (!$company) {
+                return null;
+            }
+            $c0soc = self::c0socOf($companyCode);
+            $library = (string)($company['main_library'] ?? '');
+            if ($library === '') {
+                return null;
+            }
+            $query = self::for($pdo, $library)
+                ->whereEq('C0ART', $productId)
+                ->whereEq('C0SOC', $c0soc);
+
+            if ($codeLangue !== null && $codeLangue !== '') {
+                $query->whereEq('C0LANG', $codeLangue);
+            }
+
+            $rows = $query->orderBy('C0NUM')
+                ->orderBy('C0LANG')             
+                ->firstModel();  
+
+            return $rows !== [] ? $rows : null;
+        } catch (\Throwable $e) {
+            Http::respond(500, Http::exceptionPayload($e, __METHOD__));
+        }
+    }    
 }

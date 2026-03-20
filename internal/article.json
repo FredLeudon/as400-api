@@ -1,0 +1,3453 @@
+{
+  "utilisateur": "LEDUR",
+  "programme": "",
+  "action": "ajout",
+  "product": {
+    "A1ARTICL": {
+      "a1art": "210655",
+      "a1cnuf": 1,
+      "a1sais": null,
+      "a1poid": 12.5,
+      "a1unvt": 1,
+      "a1dns": 0,
+      "a1qtmc": 1,
+      "a1tva": 20,
+      "a1fami": "21125",
+      "a1qtst": 0,
+      "a1mtro": null,
+      "a1mati": "920",
+      "a1datc": 112013,
+      "a1type": "PF",
+      "a1doua": "84388099",
+      "a1empl": null,
+      "a1ctva": "2",
+      "a1di10": 318,
+      "a1di11": 465,
+      "a1di12": 400,
+      "a1di20": 0,
+      "a1di21": 0,
+      "a1di22": 0,
+      "a1ecav": 0,
+      "a1moyv": 0,
+      "a1tend": "F",
+      "a1saso": null,
+      "a1priv": 895,
+      "numenreg": "30524"
+    },
+    "bNomenclature": false,
+    "SOCIETES": [
+      {
+        "SOCIETE": "00",
+        "DATAS": {
+          "ASARTSOC": {
+            "asart": "210655",
+            "assusp": "N",
+            "asanci": null,
+            "asmins": 1,
+            "asmaxs": 9999,
+            "assoc": "06",
+            "numenreg": "132937"
+          },
+          "LIBELLE": [
+            {
+              "langue": "FRA",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "0",
+                "c0lang": "FRA",
+                "c0soc": null,
+                "c0lib": "BATTEUR ALPHAMIX2- 5L 230V",
+                "c0base": 0,
+                "numenreg": "195093"
+              }
+            },
+            {
+              "langue": "FRB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ANG",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "2",
+                "c0lang": "ANG",
+                "c0soc": null,
+                "c0lib": "ALPHAMIX2 STANDMIXER 5L/230V",
+                "c0base": 0,
+                "numenreg": "190922"
+              }
+            },
+            {
+              "langue": "ANB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ALL",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "4",
+                "c0lang": "ALL",
+                "c0soc": null,
+                "c0lib": "RÜHRGERÄT ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "195052"
+              }
+            },
+            {
+              "langue": "ITA",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "6",
+                "c0lang": "ITA",
+                "c0soc": null,
+                "c0lib": "SBATTITORE ALPHAMIX2- 5L 230V",
+                "c0base": 0,
+                "numenreg": "224456"
+              }
+            },
+            {
+              "langue": "ESP",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "5",
+                "c0lang": "ESP",
+                "c0soc": null,
+                "c0lib": "BATIDORA ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "195053"
+              }
+            }
+          ],
+          "K1ARTCP": {
+            "06": null,
+            "38": null,
+            "40": null
+          },
+          "ADARTDEP": {
+            "drop": {
+              "is_drop": false
+            },
+            "06": {
+              "is_depot": true,
+              "is_main": true
+            },
+            "38": {
+              "is_depot": false
+            },
+            "40": {
+              "is_depot": false
+            }
+          },
+          "FOURNISSEUR": [
+            {
+              "D7RFARFO": {
+                "d7art": "210655",
+                "d7four": "01653",
+                "d7nord": 0,
+                "d7reff": "26400",
+                "d7soc": "06",
+                "d7qtmf": 1,
+                "d7dela": 6,
+                "d7cond": 100,
+                "d7datr": 29112013,
+                "d7base": 502671063,
+                "d7bare": 3334492106559,
+                "numenreg": "110951"
+              },
+              "IAFAPPFOUR": null,
+              "R5GESPRA": [
+                {
+                  "r5art": "210655",
+                  "r5fou": "01653",
+                  "r5pnba": 346.43,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 346.43,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 346.43,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 346.43,
+                  "r5dapl": "2021",
+                  "r5dmpl": "01",
+                  "r5djpl": "01",
+                  "r5dmaj": 4012021,
+                  "r5base": 119173331,
+                  "r5soc": "06",
+                  "numenreg": "381001"
+                },
+                {
+                  "r5art": "210655",
+                  "r5fou": "01653",
+                  "r5pnba": 346.43,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 346.43,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 346.43,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 346.43,
+                  "r5dapl": "2020",
+                  "r5dmpl": "01",
+                  "r5djpl": "01",
+                  "r5dmaj": 23122019,
+                  "r5base": 117113990,
+                  "r5soc": "06",
+                  "numenreg": "351345"
+                }
+              ]
+            }
+          ],
+          "PRIX_VENTE": [
+            {
+              "C3LIBTAR": {
+                "c3indi": "A",
+                "c3lib": "Tarif préparatoire",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "12"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "B",
+                "c3lib": "TARIF de controle avec K Franc",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "1"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "C",
+                "c3lib": "TARIF PRÉP. BOURGEAT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "13"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "D",
+                "c3lib": "Tarif CONTRÔLE BOURGEAT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "14"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "E",
+                "c3lib": "CP T5 (01/01/25)->(24/12/24)",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "26"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "E",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-12-24",
+                  "pgm": "ProGesCom - Tarifs 30.0.143.0",
+                  "numenreg": "1679780"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "F",
+                "c3lib": "CP T0 (26-12-24)->(26-12-24)",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "27"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "F",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-12-26",
+                  "pgm": "ProGesCom - Tarifs 30.0.143.0",
+                  "numenreg": "1796159"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "G",
+                "c3lib": "CP T0 (26-12-24)->(26-12-24)",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "24"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "G",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-12-26",
+                  "pgm": "ProGesCom - Tarifs 30.0.143.0",
+                  "numenreg": "1716520"
+                },
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "G",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-12-24",
+                  "pgm": "ProGesCom - Tarifs 30.0.143.0",
+                  "numenreg": "1636894"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "H",
+                "c3lib": "TARIF 5 AU 10-10-2021",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "25"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "H",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-12-26",
+                  "pgm": "ProGesCom - Tarifs 30.0.143.0",
+                  "numenreg": "1752734"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "J",
+                "c3lib": "PRÉPARATOIRE 0 06/15",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "20"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "K",
+                "c3lib": "PRÉPARATOIRE 5 06/15",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "21"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "P",
+                "c3lib": "TARIF DU PERSONNEL",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "19"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "P",
+                  "a3priv": 401,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "864694"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "S",
+                "c3lib": "TARIF 0 AU 31.05.2015",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "22"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "T",
+                "c3lib": "TARIF 5 AU 31.05.2015",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "23"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "W",
+                "c3lib": "TARIF 2016 FRANCE MTF/IS",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "15"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "X",
+                "c3lib": "TARIF 2016 EXPORT MTF/IS",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "16"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "Y",
+                "c3lib": "TARIF 2013 FRANCE BGT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "17"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "Z",
+                "c3lib": "TARIF 2013 EXPORT BGT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "18"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "0",
+                "c3lib": "TARIF CATALOGUE",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "2"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "0",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "782945"
+                },
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "0",
+                  "a3priv": 995,
+                  "a3dteapl": "2023-01-01",
+                  "pgm": "initialisation",
+                  "numenreg": "5656"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "1",
+                "c3lib": "TARIF EXPORT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "3"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "2",
+                "c3lib": "METRO",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "4"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "3",
+                "c3lib": "TARIF B.P.",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "5"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "4",
+                "c3lib": "TARIF HORECO",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "6"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "5",
+                "c3lib": "TARIF CATALOGUE BOURGEAT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "7"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "5",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "823493"
+                },
+                {
+                  "a3soc": null,
+                  "a3art": "210655",
+                  "a3ntar": "5",
+                  "a3priv": 995,
+                  "a3dteapl": "2023-01-01",
+                  "pgm": "initialisation",
+                  "numenreg": "45955"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "6",
+                "c3lib": "TARIF 2016 FRANCE BGT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "8"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "7",
+                "c3lib": "LIVRE GRATUIT",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "9"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "8",
+                "c3lib": "HORS CATALOGUE SS-TRAITANCE",
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "10"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "9",
+                "c3lib": null,
+                "c3soc": null,
+                "c3date": 0,
+                "numenreg": "11"
+              },
+              "A3GESPVP": []
+            }
+          ],
+          "CATALOGUES": [
+            {
+              "CATALOGUE": {
+                "caid": 0,
+                "calib": "Catalogue de reprise oct.2008",
+                "numenreg": "1"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 1,
+                "calib": "Matfer",
+                "numenreg": "2"
+              },
+              "ACARTCAT": [
+                {
+                  "acart": "210655",
+                  "acsoc": null,
+                  "acid": 1,
+                  "acpagc": 185,
+                  "acnord": 0,
+                  "acnajt": 0,
+                  "numenreg": "14404"
+                }
+              ],
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 2,
+                "calib": "In-Situ",
+                "numenreg": "3"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 3,
+                "calib": "Bourgeat",
+                "numenreg": "4"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 4,
+                "calib": "Usage Unique",
+                "numenreg": "5"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 5,
+                "calib": "codes internes",
+                "numenreg": "6"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 6,
+                "calib": "Néo",
+                "numenreg": "7"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 7,
+                "calib": "EUROCHEF",
+                "numenreg": "8"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 901,
+                "calib": "Matfer - 2017",
+                "numenreg": "13"
+              },
+              "ACARTCAT": [
+                {
+                  "acart": "210655",
+                  "acsoc": null,
+                  "acid": 901,
+                  "acpagc": 176,
+                  "acnord": 0,
+                  "acnajt": 0,
+                  "numenreg": "72475"
+                }
+              ],
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 902,
+                "calib": "InSitu - 2017",
+                "numenreg": "14"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 903,
+                "calib": "Bourgeat - 2017",
+                "numenreg": "16"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 904,
+                "calib": "Flo - 2017",
+                "numenreg": "15"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 991,
+                "calib": "Sgv Cat 1 - Matfer 2013",
+                "numenreg": "9"
+              },
+              "ACARTCAT": [
+                {
+                  "acart": "210655",
+                  "acsoc": null,
+                  "acid": 991,
+                  "acpagc": 171,
+                  "acnord": 0,
+                  "acnajt": 0,
+                  "numenreg": "17417"
+                }
+              ],
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 992,
+                "calib": "Svg Cat 2 - InSitu 2013",
+                "numenreg": "10"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 993,
+                "calib": "Svg Cat 3 - Bourgeat 2013",
+                "numenreg": "11"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            },
+            {
+              "CATALOGUE": {
+                "caid": 994,
+                "calib": "Svg Cat 4 - Usage Unique 2013",
+                "numenreg": "12"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            }
+          ],
+          "CTRL_RECEP": {
+            "REFLEX": [],
+            "CTRLRECEP": []
+          }
+        }
+      },
+      {
+        "SOCIETE": "69",
+        "DATAS": {
+          "ASARTSOC": {
+            "asart": "210655",
+            "assusp": "N",
+            "asanci": null,
+            "asmins": 1,
+            "asmaxs": 9999,
+            "assoc": "69",
+            "numenreg": "132940"
+          },
+          "LIBELLE": [
+            {
+              "langue": "FRA",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "0",
+                "c0lang": "FRA",
+                "c0soc": "69",
+                "c0lib": "BATTEUR ALPHAMIX2- 5L 230V",
+                "c0base": 0,
+                "numenreg": "194974"
+              }
+            },
+            {
+              "langue": "FRB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ANG",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "2",
+                "c0lang": "ANG",
+                "c0soc": "69",
+                "c0lib": "ALPHAMIX2 STANDMIXER 5L/230V",
+                "c0base": 0,
+                "numenreg": "195094"
+              }
+            },
+            {
+              "langue": "ANB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ALL",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "4",
+                "c0lang": "ALL",
+                "c0soc": "69",
+                "c0lib": "RÜHRGERÄT ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "6441"
+              }
+            },
+            {
+              "langue": "ITA",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ESP",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "5",
+                "c0lang": "ESP",
+                "c0soc": "69",
+                "c0lib": "BATIDORA ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "16813"
+              }
+            }
+          ],
+          "K1ARTCP": null,
+          "FOURNISSEUR": [
+            {
+              "D7RFARFO": {
+                "d7art": "210655",
+                "d7four": "63840",
+                "d7nord": 0,
+                "d7reff": "210655",
+                "d7soc": "69",
+                "d7qtmf": 1,
+                "d7dela": 1,
+                "d7cond": 1,
+                "d7datr": 29112013,
+                "d7base": 8732674,
+                "d7bare": 0,
+                "numenreg": "254135"
+              },
+              "IAFAPPFOUR": null,
+              "R5GESPRA": [
+                {
+                  "r5art": "210655",
+                  "r5fou": "63840",
+                  "r5pnba": 633,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 633,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 633,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 633,
+                  "r5dapl": "2024",
+                  "r5dmpl": "04",
+                  "r5djpl": "10",
+                  "r5dmaj": 10042024,
+                  "r5base": 6374598,
+                  "r5soc": "69",
+                  "numenreg": "385327"
+                },
+                {
+                  "r5art": "210655",
+                  "r5fou": "63840",
+                  "r5pnba": 597,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 597,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 597,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 597,
+                  "r5dapl": "2024",
+                  "r5dmpl": "03",
+                  "r5djpl": "27",
+                  "r5dmaj": 27032024,
+                  "r5base": 6364809,
+                  "r5soc": "69",
+                  "numenreg": "375595"
+                }
+              ]
+            }
+          ],
+          "PRIX_VENTE": [
+            {
+              "C3LIBTAR": {
+                "c3indi": "0",
+                "c3lib": "TARIF CATALOGUE",
+                "c3soc": "69",
+                "c3date": 16112000,
+                "numenreg": "2"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "69",
+                  "a3art": "210655",
+                  "a3ntar": "0",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "875878"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "1",
+                "c3lib": "TARIF 2011",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "1"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "2",
+                "c3lib": "TARIF 2012",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "5"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "3",
+                "c3lib": "TARIF 2013",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "6"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "4",
+                "c3lib": "TARIF 2014",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "7"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "5",
+                "c3lib": "TARIF 2015",
+                "c3soc": "69",
+                "c3date": 1012010,
+                "numenreg": "4"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "6",
+                "c3lib": "TARIF 2006",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "8"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "7",
+                "c3lib": "TARIF --> MAI 2015",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "9"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "8",
+                "c3lib": "TARIF 2008",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "10"
+              },
+              "A3GESPVP": []
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "9",
+                "c3lib": "TARIF 2009",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "3"
+              },
+              "A3GESPVP": []
+            }
+          ],
+          "CATALOGUES": [
+            {
+              "CATALOGUE": {
+                "caid": "0",
+                "calib": "catalogue"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            }
+          ]
+        }
+      },
+      {
+        "SOCIETE": "31",
+        "DATAS": {
+          "ASARTSOC": {
+            "asart": "210655",
+            "assusp": "N",
+            "asanci": null,
+            "asmins": 1,
+            "asmaxs": 9999,
+            "assoc": "31",
+            "numenreg": "132942"
+          },
+          "LIBELLE": [
+            {
+              "langue": "FRA",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "0",
+                "c0lang": "FRA",
+                "c0soc": "31",
+                "c0lib": "BATTEUR ALPHAMIX2- 5L 230V",
+                "c0base": 0,
+                "numenreg": "195055"
+              }
+            },
+            {
+              "langue": "FRB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ANG",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "2",
+                "c0lang": "ANG",
+                "c0soc": "31",
+                "c0lib": "ALPHAMIX2 STANDMIXER 5L/230V",
+                "c0base": 0,
+                "numenreg": "194975"
+              }
+            },
+            {
+              "langue": "ANB",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ALL",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "4",
+                "c0lang": "ALL",
+                "c0soc": "31",
+                "c0lib": "RÜHRGERÄT ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "194976"
+              }
+            },
+            {
+              "langue": "ITA",
+              "C0LIBART": null
+            },
+            {
+              "langue": "ESP",
+              "C0LIBART": {
+                "c0art": "210655",
+                "c0num": "5",
+                "c0lang": "ESP",
+                "c0soc": "31",
+                "c0lib": "BATIDORA ALPHAMIX2- 5L/230V",
+                "c0base": 0,
+                "numenreg": "194977"
+              }
+            }
+          ],
+          "K1ARTCP": null,
+          "FOURNISSEUR": [
+            {
+              "D7RFARFO": {
+                "d7art": "210655",
+                "d7four": "63840",
+                "d7nord": 0,
+                "d7reff": "210655",
+                "d7soc": "31",
+                "d7qtmf": 1,
+                "d7dela": 1,
+                "d7cond": 1,
+                "d7datr": 29112013,
+                "d7base": 114890419,
+                "d7bare": 0,
+                "numenreg": "254134"
+              },
+              "IAFAPPFOUR": null,
+              "R5GESPRA": [
+                {
+                  "r5art": "210655",
+                  "r5fou": "63840",
+                  "r5pnba": 633,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 633,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 633,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 633,
+                  "r5dapl": "2024",
+                  "r5dmpl": "04",
+                  "r5djpl": "03",
+                  "r5dmaj": 3042024,
+                  "r5base": 121377175,
+                  "r5soc": "31",
+                  "numenreg": "206075"
+                },
+                {
+                  "r5art": "210655",
+                  "r5fou": "63840",
+                  "r5pnba": 597,
+                  "r5rbas": 0,
+                  "r5r1co": 0,
+                  "r5r2co": 0,
+                  "r5pnre": 597,
+                  "r5doua": 0,
+                  "r5cas": 0,
+                  "r5port": 0,
+                  "r5emb": 0,
+                  "r5reco": 0,
+                  "r5pnfr": 597,
+                  "r5cdev": "EUR",
+                  "r5tdev": 1,
+                  "r5paff": 597,
+                  "r5dapl": "2024",
+                  "r5dmpl": "03",
+                  "r5djpl": "27",
+                  "r5dmaj": 27032024,
+                  "r5base": 121351261,
+                  "r5soc": "31",
+                  "numenreg": "198289"
+                }
+              ]
+            }
+          ],
+          "PRIX_VENTE": [
+            {
+              "C3LIBTAR": {
+                "c3indi": "0",
+                "c3lib": "TARIF GMB 2015",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "1"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "0",
+                  "a3priv": 895,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1232101"
+                },
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "0",
+                  "a3priv": 895,
+                  "a3dteapl": "2023-01-01",
+                  "pgm": "initialisation",
+                  "numenreg": "544457"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "1",
+                "c3lib": "TARIF NEO JUIN 2014",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "2"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "1",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1158065"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "2",
+                "c3lib": "TARIF GMB 2015 + NEO 2015",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "3"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "2",
+                  "a3priv": 838.94,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1383067"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "3",
+                "c3lib": "TARIF GMB2015 + NEO JUIN",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "4"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "3",
+                  "a3priv": 799,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1379138"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "4",
+                "c3lib": "TARIF NEO JUIN 2015",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "5"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "4",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1158068"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "5",
+                "c3lib": "TARIF GMB 2016",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "6"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "5",
+                  "a3priv": 941,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1156540"
+                },
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "5",
+                  "a3priv": 941,
+                  "a3dteapl": "2022-06-20",
+                  "pgm": "initialisation",
+                  "numenreg": "591557"
+                }
+              ]
+            },
+            {
+              "C3LIBTAR": {
+                "c3indi": "6",
+                "c3lib": "GMB 2016 - NEO 2015",
+                "c3soc": "69",
+                "c3date": 0,
+                "numenreg": "7"
+              },
+              "A3GESPVP": [
+                {
+                  "a3soc": "31",
+                  "a3art": "210655",
+                  "a3ntar": "6",
+                  "a3priv": 1055,
+                  "a3dteapl": "2024-01-31",
+                  "pgm": "init FR 25.03.2024",
+                  "numenreg": "1158069"
+                }
+              ]
+            }
+          ],
+          "CATALOGUES": [
+            {
+              "CATALOGUE": {
+                "caid": "0",
+                "calib": "catalogue"
+              },
+              "ACARTCAT": null,
+              "ACNARTCAT": null
+            }
+          ]
+        }
+      }
+    ],
+    "ARTNOWEB": {
+      "code_article": null
+    },
+    "PXROUGE": {
+      "prart": null,
+      "prsoc": null,
+      "prnet": null,
+      "prddeb": null,
+      "prdfin": null
+    },
+    "PXNROUGE": {
+      "prart": null,
+      "prsoc": null,
+      "prnet": null,
+      "prddeb": null,
+      "prdfin": null
+    },
+    "EAECOART": {
+      "eaart": null,
+      "eateco": null,
+      "eaprix": null,
+      "eahoro": null,
+      "numenreg": null
+    },
+    "TEXTES": [
+      {
+        "TYPE": "ARGU",
+        "AFFICHE": false,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      },
+      {
+        "TYPE": "DIGIT",
+        "AFFICHE": false,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      },
+      {
+        "TYPE": "TITOFF",
+        "AFFICHE": false,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      },
+      {
+        "TYPE": "TITPRO",
+        "AFFICHE": false,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      },
+      {
+        "TYPE": "TXTCDC",
+        "AFFICHE": true,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      },
+      {
+        "TYPE": "TXTD",
+        "AFFICHE": true,
+        "DATAS": [
+          {
+            "LANGUE": "ESP",
+            "TTTXT": []
+          }
+        ]
+      }
+    ],
+    "NOMENCLATURE_DIGITALE": [
+      {
+        "NANOMART": {
+          "naart": "210655",
+          "nacodseg": 1,
+          "nacodfam": 3,
+          "nacodssf": 2,
+          "nacodgam": 1,
+          "nacodser": 1,
+          "nacodmod": 1,
+          "numenreg": "1644"
+        },
+        "LNLIBNOM": {
+          "segment": {
+            "ALL": "Kleinger te",
+            "ANG": "Small cookware and bakeware",
+            "ESP": "Menaje de cocina",
+            "FRA": "Petit Matériel",
+            "ITA": "Utensili e accessori"
+          },
+          "famille": {
+            "ALL": "Zubereitung",
+            "ANG": "preparation",
+            "ESP": "preparación",
+            "FRA": "préparation",
+            "ITA": "preparazione"
+          },
+          "categorie": {
+            "valeur": "1",
+            "FRA": "1 - Principal"
+          },
+          "sous_famille": {
+            "ALL": "Elektroger te",
+            "ANG": "electrical appliances",
+            "ESP": "aparatos eléctricos",
+            "FRA": "appareils électriques",
+            "ITA": "apparecchi elettrici"
+          },
+          "gamme": {
+            "ALL": "Rührger te",
+            "ANG": "stand mixers",
+            "ESP": "batidoras-mezcladoras",
+            "FRA": "batteurs-mélangeurs",
+            "ITA": "battitori-miscelatori"
+          },
+          "serie": {
+            "ALL": "Alphamix 2 Rührger t 5 l",
+            "ANG": "Alphamix 2 stand mixer 5 l",
+            "ESP": "Alphamix 2 batidora-mezcladora 5 l",
+            "FRA": "Alphamix 2 batteur-mélangeur 5 L",
+            "ITA": "Alphamix 2 miscelatore 5 L"
+          },
+          "modele": {
+            "ALL": "Alphamix 2 Rührger t 5 l",
+            "ANG": "Alphamix 2 stand mixer 5 l",
+            "ESP": "Alphamix 2 batidora-mezcladora 5 l",
+            "FRA": "Alphamix 2 batteur-mélangeur 5 L",
+            "ITA": "Alphamix 2 miscelatore 5 L"
+          }
+        }
+      }
+    ],
+    "DAT_PUB_CATA_PRT": null,
+    "CAT_FONCT": null,
+    "AVANTAGES": [
+      {
+        "TYPE": "COMC",
+        "APAVTPRD": []
+      },
+      {
+        "TYPE": "MEAP",
+        "APAVTPRD": []
+      },
+      {
+        "TYPE": "LOT",
+        "APAVTPRD": []
+      },
+      {
+        "TYPE": "DESC",
+        "APAVTPRD": [
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 1,
+              "ap_id_avt": 3967,
+              "numenreg": "3953"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 3967,
+                "at_code_langue": "ALL",
+                "at_textes": "Vielseitiges Profi-Handrührgerät für Backstube und Küche",
+                "numenreg": "230272"
+              },
+              "ANG": {
+                "at_id_avt": 3967,
+                "at_code_langue": "ANG",
+                "at_textes": "Professional multi-purpose blender for baking and cooking",
+                "numenreg": "117880"
+              },
+              "ESP": {
+                "at_id_avt": 3967,
+                "at_code_langue": "ESP",
+                "at_textes": "Batidora profesional polivalente para pastelería y cocina",
+                "numenreg": "156166"
+              },
+              "FRA": {
+                "at_id_avt": 3967,
+                "at_code_langue": "FRA",
+                "at_textes": "Batteur professionnel polyvalent pour la pâtisserie et la cuisine",
+                "numenreg": "3967"
+              },
+              "ITA": {
+                "at_id_avt": 3967,
+                "at_code_langue": "ITA",
+                "at_textes": "Sbattitore per dolci e cucina professionale versatile",
+                "numenreg": "260976"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 2,
+              "ap_id_avt": 15732,
+              "numenreg": "15525"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 15732,
+                "at_code_langue": "ALL",
+                "at_textes": "Robuster, universeller Motor, mit einem Drehmoment, das ihm beispiellose Arbeitskapazitäten verleiht",
+                "numenreg": "217126"
+              },
+              "ANG": {
+                "at_id_avt": 15732,
+                "at_code_langue": "ANG",
+                "at_textes": "Robust universal motor, equipped with a torque giving it unparalleled work capacities",
+                "numenreg": "98063"
+              },
+              "ESP": {
+                "at_id_avt": 15732,
+                "at_code_langue": "ESP",
+                "at_textes": "Motor universal robusto, con par que le proporciona capacidades de trabajo innegables",
+                "numenreg": "143651"
+              },
+              "FRA": {
+                "at_id_avt": 15732,
+                "at_code_langue": "FRA",
+                "at_textes": "Moteur universel robuste, doté d'un couple lui conférant des capacités de travail inégalables",
+                "numenreg": "15732"
+              },
+              "ITA": {
+                "at_id_avt": 15732,
+                "at_code_langue": "ITA",
+                "at_textes": "Motore universale robusto, dotato di una coppia che gli conferisce capacità di lavoro senza pari",
+                "numenreg": "285886"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 3,
+              "ap_id_avt": 26075,
+              "numenreg": "25193"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 26075,
+                "at_code_langue": "ALL",
+                "at_textes": "Bedienfeld vorne an der Abdeckung, praktisch und ablesbar",
+                "numenreg": "198323"
+              },
+              "ANG": {
+                "at_id_avt": 26075,
+                "at_code_langue": "ANG",
+                "at_textes": "Control panel on the front on the hood, practical and readable",
+                "numenreg": "122927"
+              },
+              "ESP": {
+                "at_id_avt": 26075,
+                "at_code_langue": "ESP",
+                "at_textes": "Panel de control en el frontal encima de la tapa, práctico y legible",
+                "numenreg": "91213"
+              },
+              "FRA": {
+                "at_id_avt": 26075,
+                "at_code_langue": "FRA",
+                "at_textes": "Tableau de commande en façade sur le capot, pratique et lisible",
+                "numenreg": "26075"
+              },
+              "ITA": {
+                "at_id_avt": 26075,
+                "at_code_langue": "ITA",
+                "at_textes": "Pannello comandi in facciata sul coperchio, pratico e leggibile",
+                "numenreg": "237909"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 4,
+              "ap_id_avt": 34919,
+              "numenreg": "33164"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 34919,
+                "at_code_langue": "ALL",
+                "at_textes": "Der polierte Metallrahmen garantiert große Stabilität und einfache Wartung",
+                "numenreg": "198737"
+              },
+              "ANG": {
+                "at_id_avt": 34919,
+                "at_code_langue": "ANG",
+                "at_textes": "Polished metal frame provides great stability and easy maintenance",
+                "numenreg": "73477"
+              },
+              "ESP": {
+                "at_id_avt": 34919,
+                "at_code_langue": "ESP",
+                "at_textes": "El chasis metálico pulido aporta estabilidad y facilita su limpieza",
+                "numenreg": "166404"
+              },
+              "FRA": {
+                "at_id_avt": 34919,
+                "at_code_langue": "FRA",
+                "at_textes": "Bâti métallique poli procure une grande stabilité et facilite l'entretien",
+                "numenreg": "34919"
+              },
+              "ITA": {
+                "at_id_avt": 34919,
+                "at_code_langue": "ITA",
+                "at_textes": "Telaio metallico poli procure una grande stabilità e facilita la manutenzione",
+                "numenreg": "238096"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 5,
+              "ap_id_avt": 42205,
+              "numenreg": "39426"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 42205,
+                "at_code_langue": "ALL",
+                "at_textes": "Geschwindigkeitswähler für präzises Arbeiten und konstante Geschwindigkeitsauswahl",
+                "numenreg": "181255"
+              },
+              "ANG": {
+                "at_id_avt": 42205,
+                "at_code_langue": "ANG",
+                "at_textes": "Speed selector allows precise work and constant speed selection",
+                "numenreg": "80574"
+              },
+              "ESP": {
+                "at_id_avt": 42205,
+                "at_code_langue": "ESP",
+                "at_textes": "El selector de velocidad permite un trabajo preciso y una selección de velocidad constante",
+                "numenreg": "159265"
+              },
+              "FRA": {
+                "at_id_avt": 42205,
+                "at_code_langue": "FRA",
+                "at_textes": "Sélecteur 9 vitesses permettant un travail précis et un choix de vitesse constante",
+                "numenreg": "42205"
+              },
+              "ITA": {
+                "at_id_avt": 42205,
+                "at_code_langue": "ITA",
+                "at_textes": "Selettore di velocità permette un lavoro preciso e una scelta di velocità costante",
+                "numenreg": "275618"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 6,
+              "ap_id_avt": 48084,
+              "numenreg": "44396"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 48084,
+                "at_code_langue": "ALL",
+                "at_textes": "Beckenverriegelung, patentiert, einfach und sicher",
+                "numenreg": "209518"
+              },
+              "ANG": {
+                "at_id_avt": 48084,
+                "at_code_langue": "ANG",
+                "at_textes": "Patented bowl lock is simple and secure",
+                "numenreg": "72562"
+              },
+              "ESP": {
+                "at_id_avt": 48084,
+                "at_code_langue": "ESP",
+                "at_textes": "Bloqueo de cuba patentado, simple y seguro",
+                "numenreg": "164620"
+              },
+              "FRA": {
+                "at_id_avt": 48084,
+                "at_code_langue": "FRA",
+                "at_textes": "Tête basculante avec maintien en position ouverte pour faciliter la mise en place et le dégagement des outils et verrouillage de cuve, breveté, simple et sécurisant",
+                "numenreg": "48084"
+              },
+              "ITA": {
+                "at_id_avt": 48084,
+                "at_code_langue": "ITA",
+                "at_textes": "Blocco di vasca, brevettato, è semplice e sicuro",
+                "numenreg": "252205"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 7,
+              "ap_id_avt": 70167,
+              "numenreg": "43880"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 70167,
+                "at_code_langue": "ALL",
+                "at_textes": "Edelstahlbecken mit ergonomischem Griff und großem Fassungsvermögen, der gewölbte Boden ermöglicht das Verarbeiten sehr kleiner Mengen und fördert ein effizientes Kneten",
+                "numenreg": "279149"
+              },
+              "ANG": {
+                "at_id_avt": 70167,
+                "at_code_langue": "ANG",
+                "at_textes": "Stainless steel bowl with ergonomic handle has a high capacity, its convex bottom allows very small quantities to be worked and promotes efficient kneading",
+                "numenreg": "286383"
+              },
+              "ESP": {
+                "at_id_avt": 70167,
+                "at_code_langue": "ESP",
+                "at_textes": "Cuba de acero inoxidable con asa ergonómica de gran capacidad, su fondo abombado permite trabajar cantidades muy pequeñas y facilita un amasado eficaz",
+                "numenreg": "292028"
+              },
+              "FRA": {
+                "at_id_avt": 70167,
+                "at_code_langue": "FRA",
+                "at_textes": "Cuve en inox avec poignée ergonomique  contenance 5,5 l avec fond bombé qui permet de travailler de très petites quantités et favorise un pétrissage efficace",
+                "numenreg": "179224"
+              },
+              "ITA": {
+                "at_id_avt": 70167,
+                "at_code_langue": "ITA",
+                "at_textes": "Vasca in inox con maniglia ergonomica a una grande capacità, il suo fondo arrotondato permette di lavare quantità molto piccole e favorisce un'efficace impastatura",
+                "numenreg": "302758"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 8,
+              "ap_id_avt": 52405,
+              "numenreg": "48081"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 52405,
+                "at_code_langue": "ALL",
+                "at_textes": "Werkzeuge: Schneebesen, Spatel und Haken aus Edelstahl",
+                "numenreg": "180848"
+              },
+              "ANG": {
+                "at_id_avt": 52405,
+                "at_code_langue": "ANG",
+                "at_textes": "Tools: stainless steel whisk, pallet, and hook",
+                "numenreg": "76320"
+              },
+              "ESP": {
+                "at_id_avt": 52405,
+                "at_code_langue": "ESP",
+                "at_textes": "Herramientas: batidor, paleta y gancho de acero inoxidable",
+                "numenreg": "166796"
+              },
+              "FRA": {
+                "at_id_avt": 52405,
+                "at_code_langue": "FRA",
+                "at_textes": "Outils : fouet, palette et crochet en acier inoxydable",
+                "numenreg": "52405"
+              },
+              "ITA": {
+                "at_id_avt": 52405,
+                "at_code_langue": "ITA",
+                "at_textes": "Strumenti: frusta, paletta e gancio in acciaio inox",
+                "numenreg": "267189"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 9,
+              "ap_id_avt": 55194,
+              "numenreg": "50250"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 55194,
+                "at_code_langue": "ALL",
+                "at_textes": "Ideal für den sehr intensiven Einsatz in Konditoreien, Cateringbetrieben, Restaurants und kleinen Gemeinschaftsküchen",
+                "numenreg": "218966"
+              },
+              "ANG": {
+                "at_id_avt": 55194,
+                "at_code_langue": "ANG",
+                "at_textes": "Ideal for very intensive use in pastry shops or by caterers, restaurants, and in small institutional catering",
+                "numenreg": "68301"
+              },
+              "ESP": {
+                "at_id_avt": 55194,
+                "at_code_langue": "ESP",
+                "at_textes": "Ideal para un uso intensivo en pastelería, catering, restaurante y pequeñas colectividades",
+                "numenreg": "161319"
+              },
+              "FRA": {
+                "at_id_avt": 55194,
+                "at_code_langue": "FRA",
+                "at_textes": "Idéal pour répondre à une utilisation polyvalente en pâtisserie, traiteur, restaurant et petites collectivités",
+                "numenreg": "55194"
+              },
+              "ITA": {
+                "at_id_avt": 55194,
+                "at_code_langue": "ITA",
+                "at_textes": "Ideale per rispondere a un utilizzo molto intensivo in pasticceria, gastronomia, ristorante e piccole collettività",
+                "numenreg": "281124"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 10,
+              "ap_id_avt": 56931,
+              "numenreg": "51818"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 56931,
+                "at_code_langue": "ALL",
+                "at_textes": "Schnell können damit 600 g bis zu 1,2 kg Brotteig geknetet werden (Luftfeuchtigkeit 60 %)",
+                "numenreg": "270057"
+              },
+              "ANG": {
+                "at_id_avt": 56931,
+                "at_code_langue": "ANG",
+                "at_textes": "Quick, it can knead 600 g to 1.2 kg of bread dough (humidity 60 %)",
+                "numenreg": "285634"
+              },
+              "ESP": {
+                "at_id_avt": 56931,
+                "at_code_langue": "ESP",
+                "at_textes": "Rápido, puede amasar de 600 g a 1,2 kg de masa de pan (humedad 60 %)",
+                "numenreg": "298728"
+              },
+              "FRA": {
+                "at_id_avt": 56931,
+                "at_code_langue": "FRA",
+                "at_textes": "Rapide, il peut pétrir de 600g jusqu'à 1,2kg de pâte à pain (humidité 60%)",
+                "numenreg": "56931"
+              },
+              "ITA": {
+                "at_id_avt": 56931,
+                "at_code_langue": "ITA",
+                "at_textes": "Rapido può impastare da 600g fino a 1,2kg di impasto per il pane (umidità 60%)",
+                "numenreg": "305514"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 11,
+              "ap_id_avt": 62178,
+              "numenreg": "56522"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 62178,
+                "at_code_langue": "ALL",
+                "at_textes": "r",
+                "numenreg": "194651"
+              },
+              "ANG": {
+                "at_id_avt": 62178,
+                "at_code_langue": "ANG",
+                "at_textes": "It can beat 1 to 10 egg whites (240 g) for up to 4.5 l of meringue",
+                "numenreg": "122973"
+              },
+              "ESP": {
+                "at_id_avt": 62178,
+                "at_code_langue": "ESP",
+                "at_textes": "Puede batir de 1 a 8 claras de huevo (240 g) y obtener hasta 4,5 l de claras a punto de nieve",
+                "numenreg": "136782"
+              },
+              "FRA": {
+                "at_id_avt": 62178,
+                "at_code_langue": "FRA",
+                "at_textes": "Peut fouetter de 1 à 10 blancs d'oeufs (300 g) et obtenir jusqu'à 4,5 l de blancs en neige",
+                "numenreg": "28150"
+              },
+              "ITA": {
+                "at_id_avt": 62178,
+                "at_code_langue": "ITA",
+                "at_textes": "Può montare da 1 a 8 albumi (240g) e ottenere fino a 4,5l di albumi montati a neve",
+                "numenreg": "239522"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 12,
+              "ap_id_avt": 62179,
+              "numenreg": "56523"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 62179,
+                "at_code_langue": "ALL",
+                "at_textes": "Kann dank der Form des Werkzeugs, das die Zubereitung immer wieder  zurück zur Mitte der Schüssel bringt, bis zu 2,1 kg süßen Teig oder 1 kg weiche Butter sehr effizient mit der Spatel verkneten",
+                "numenreg": "173314"
+              },
+              "ANG": {
+                "at_id_avt": 62179,
+                "at_code_langue": "ANG",
+                "at_textes": "Can knead, with the pallet, up to 2.1 kg of sweet dough or 1 kg of softened butter, with maximum efficiency thanks to the shape of the tool that pulls the mixture back into the centre of the bowl",
+                "numenreg": "139494"
+              },
+              "ESP": {
+                "at_id_avt": 62179,
+                "at_code_langue": "ESP",
+                "at_textes": "Puede mezclar en la paleta hasta 2,1 kg de masa dulce o 1 kg de mantequilla blanda, con la máxima eficiencia gracias a la forma del utensilio, que lleva el producto al centro del bol",
+                "numenreg": "181505"
+              },
+              "FRA": {
+                "at_id_avt": 62179,
+                "at_code_langue": "FRA",
+                "at_textes": "Peut malaxer à la palette jusqu'à 2,1 kg de pâte sucrée ou 1 kg de beurre pommade, avec un maximum d'efficacité grâce à la forme de l'outil qui ramène la préparation vers le centre du bol",
+                "numenreg": "28484"
+              },
+              "ITA": {
+                "at_id_avt": 62179,
+                "at_code_langue": "ITA",
+                "at_textes": "Può impastare fino a 2,1 kg di pasta dolce o 1 kg di burro ammorbidito con una paletta, con la massima efficienza grazie alla forma dell'utensile che porta la preparazione verso il centro della ciotola",
+                "numenreg": "192643"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 13,
+              "ap_id_avt": 62180,
+              "numenreg": "56524"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 62180,
+                "at_code_langue": "ALL",
+                "at_textes": "Patentierter Spiral-Rollenhaken für optimales Kneten von bis zu 1,2 kg Brotteig",
+                "numenreg": "99518"
+              },
+              "ANG": {
+                "at_id_avt": 62180,
+                "at_code_langue": "ANG",
+                "at_textes": "Patented spiral hook with roller for optimal kneading of up to 1.2 kg bread dough",
+                "numenreg": "142665"
+              },
+              "ESP": {
+                "at_id_avt": 62180,
+                "at_code_langue": "ESP",
+                "at_textes": "Gancho en espiral con rodillo patentado para un amasado óptimo de hasta 1,2 kg de masa de pan",
+                "numenreg": "180038"
+              },
+              "FRA": {
+                "at_id_avt": 62180,
+                "at_code_langue": "FRA",
+                "at_textes": "Crochet spirale à galet breveté favorisant un pétrissage optimal jusqu'à 1,2 kg de pâte à pain",
+                "numenreg": "28485"
+              },
+              "ITA": {
+                "at_id_avt": 62180,
+                "at_code_langue": "ITA",
+                "at_textes": "Conforme alla specifica Normativa CE Miscelatori EN 454",
+                "numenreg": "188581"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 14,
+              "ap_id_avt": 71633,
+              "numenreg": "48143"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 71633,
+                "at_code_langue": "ALL",
+                "at_textes": "Wirksam bei kleinen Mengen durch Behälterform mit gewölbtem Boden und Werkzeugform",
+                "numenreg": "90341"
+              },
+              "ANG": {
+                "at_id_avt": 71633,
+                "at_code_langue": "ANG",
+                "at_textes": "Effective with small quantities thanks to the curved bottom of the bowl and tool shape",
+                "numenreg": "148458"
+              },
+              "ESP": {
+                "at_id_avt": 71633,
+                "at_code_langue": "ESP",
+                "at_textes": "Eficaz con pequeñas cantidades gracias a la forma de la cuba con fondo abombado y a la forma de los utensilios",
+                "numenreg": "176774"
+              },
+              "FRA": {
+                "at_id_avt": 71633,
+                "at_code_langue": "FRA",
+                "at_textes": "Efficace avec des petites quantités grâce la forme de la cuve à fond bombé et à la forme des outils",
+                "numenreg": "96052"
+              },
+              "ITA": {
+                "at_id_avt": 71633,
+                "at_code_langue": "ITA",
+                "at_textes": "Efficace con piccole quantità grazie alla forma della vasca con fondo bombato e alla forma degli utensili",
+                "numenreg": "187237"
+              }
+            }
+          },
+          {
+            "AVTPRD": {
+              "ap_code_article": "210655",
+              "ap_type_arg": "DESC",
+              "ap_num_ordre": 15,
+              "ap_id_avt": 71634,
+              "numenreg": "48144"
+            },
+            "AVTTXT": {
+              "ALL": {
+                "at_id_avt": 71634,
+                "at_code_langue": "ALL",
+                "at_textes": "Entspricht der spezifischen CE-Norm für Rührstäbe EN 454",
+                "numenreg": "97481"
+              },
+              "ANG": {
+                "at_id_avt": 71634,
+                "at_code_langue": "ANG",
+                "at_textes": "Compliant with CE standard EN 454 for stand mixers",
+                "numenreg": "145197"
+              },
+              "ESP": {
+                "at_id_avt": 71634,
+                "at_code_langue": "ESP",
+                "at_textes": "Cumple con la norma CE específica para batidoras mezcladoras EN 454",
+                "numenreg": "176957"
+              },
+              "FRA": {
+                "at_id_avt": 71634,
+                "at_code_langue": "FRA",
+                "at_textes": "Conforme à la norme CE spécifique Batteurs mélangeurs EN 454",
+                "numenreg": "96087"
+              },
+              "ITA": {
+                "at_id_avt": 71634,
+                "at_code_langue": "ITA",
+                "at_textes": "Conforme alla specifica Normativa CE Miscelatori EN 454",
+                "numenreg": "193214"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "MEDIAS": [
+      {
+        "na_code_segment": "1",
+        "na_code_famille": "3",
+        "na_code_ssf": "2",
+        "na_code_gamme": "1",
+        "na_code_serie": "1",
+        "na_code_modele": "1",
+        "tf_url": "PC/photos/modele/210655.jpg",
+        "nf_num_ordre": "1"
+      },
+      {
+        "na_code_segment": "1",
+        "na_code_famille": "3",
+        "na_code_ssf": "2",
+        "na_code_gamme": "1",
+        "na_code_serie": "1",
+        "na_code_modele": "1",
+        "tf_url": "PC/photos/modele/210655-1.jpg",
+        "nf_num_ordre": "2"
+      },
+      {
+        "na_code_segment": "1",
+        "na_code_famille": "3",
+        "na_code_ssf": "2",
+        "na_code_gamme": "1",
+        "na_code_serie": "1",
+        "na_code_modele": "1",
+        "tf_url": "PC/photos/modele/210655-4.jpg",
+        "nf_num_ordre": "3"
+      },
+      {
+        "na_code_segment": "1",
+        "na_code_famille": "3",
+        "na_code_ssf": "2",
+        "na_code_gamme": "1",
+        "na_code_serie": "1",
+        "na_code_modele": "1",
+        "tf_url": "PC/photos/modele/210655-2.jpg",
+        "nf_num_ordre": "4"
+      },
+      {
+        "na_code_segment": "1",
+        "na_code_famille": "3",
+        "na_code_ssf": "2",
+        "na_code_gamme": "1",
+        "na_code_serie": "1",
+        "na_code_modele": "1",
+        "tf_url": "PC/photos/modele/210655-3.jpg",
+        "nf_num_ordre": "5"
+      }
+    ],
+    "ATTRIBUTS": {
+      "AAACCART": {
+        "210655,CD": [
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "CD",
+              "AA_CODE_ACC": "210680",
+              "NUMENREG": "4490"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "CD",
+              "AA_CODE_ACC": "210681",
+              "NUMENREG": "4491"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "CD",
+              "AA_CODE_ACC": "210682",
+              "NUMENREG": "4492"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "CD",
+              "AA_CODE_ACC": "210683",
+              "NUMENREG": "4493"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "CD",
+              "AA_CODE_ACC": "210684",
+              "NUMENREG": "4494"
+            }
+          }
+        ],
+        "210655,CP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PD": [
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "PD",
+              "AA_CODE_ACC": "210680",
+              "NUMENREG": "4495"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "PD",
+              "AA_CODE_ACC": "210681",
+              "NUMENREG": "4496"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "PD",
+              "AA_CODE_ACC": "210682",
+              "NUMENREG": "4497"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "PD",
+              "AA_CODE_ACC": "210683",
+              "NUMENREG": "4498"
+            }
+          },
+          {
+            "DATAS": {
+              "AA_CODE_ART": "210655",
+              "AA_TYPE": "PD",
+              "AA_CODE_ACC": "210684",
+              "NUMENREG": "4499"
+            }
+          }
+        ],
+        "210655,OP": [
+          {
+            "DATAS": null
+          }
+        ]
+      },
+      "AEATTETE": {
+        "210655,A_BRUL_GAZ": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,A_ELECTRIQUE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,A_ELECTRONIQUE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ABS_NANOPART": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ACHETEUR": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "ACHETEUR",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "IL",
+              "AE_UNITE_STOCKAGE": "",
+              "NUMENREG": "228231"
+            }
+          }
+        ],
+        "210655,AMM": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ART_C_A_N": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ART_CATA_PRT_GMB": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "ART_CATA_PRT_GMB",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "1",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "21546"
+            }
+          }
+        ],
+        "210655,ART_CATA_PRT_NEO": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "ART_CATA_PRT_NEO",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "1",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "21547"
+            }
+          }
+        ],
+        "210655,ART_SVHC": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "ART_SVHC",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101013"
+            }
+          }
+        ],
+        "210655,ATT_DEC_CONF_ALIM": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ATT_DEC_CONF_ALIM_UE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ATT_REACH": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ATT_ROHS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,BIOCIDE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "BIOCIDE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101014"
+            }
+          }
+        ],
+        "210655,CAPACITE_COUPE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CAPACITE_NB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CAPACITE_TYPE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CERTIF_ISO": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CFC": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "CFC",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101015"
+            }
+          }
+        ],
+        "210655,CHARGE_MAXI": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CHARGE_MAXI_NIV": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CIBLE_CLIENT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CLAS_ENERG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CLASS_CLIM": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,COM_LONG_UTIL": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "COM_LONG_UTIL",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "465",
+              "AE_UNITE_STOCKAGE": "mm",
+              "NUMENREG": "164613"
+            }
+          }
+        ],
+        "210655,CONSO_ANNUELLE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,CONTACT_ALIM": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "CONTACT_ALIM",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "1",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101016"
+            }
+          }
+        ],
+        "210655,CONTENANCE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "CONTENANCE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "500",
+              "AE_UNITE_STOCKAGE": "cl",
+              "NUMENREG": "14168"
+            }
+          }
+        ],
+        "210655,CONTENANCE_RAZ_BORD": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,COULEUR": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "COULEUR",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "INOX",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101017"
+            }
+          }
+        ],
+        "210655,DATE_FICHE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DATE_1ERE_LIV": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DDS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DEA": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "DEA",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101018"
+            }
+          }
+        ],
+        "210655,DEEE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "DEEE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101019"
+            }
+          }
+        ],
+        "210655,DGX_CL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_CLS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_CT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_DS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_E": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_EMS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_G": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_ID": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_LQ": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_PE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_QE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_TU": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DGX_UN": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_ARR_FROID": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_CONDENSAT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_ECOUL_DEGIVR": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_EXT_BAS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_EXT_HAUT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_FIL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_INT_HAUT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_TRAVERSE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIAM_VID_CHAUD": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIM_SOUFFLET": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DIS_MEDICAL": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "DIS_MEDICAL",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101020"
+            }
+          }
+        ],
+        "210655,DLC": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DLUO": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,DOCFOUCONF": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ECHANTILLON": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ECLATE_TECH": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMB_PERSO": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_DIAM": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_HAUT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_LARG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_LONG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_NB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_POIDS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_TYPE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EMPREINTE_VOL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,ENTRE_GLISS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EPI": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "EPI",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101021"
+            }
+          }
+        ],
+        "210655,EQUIP_SS_PRESSION": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,EXCLU_ECOM_ON": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,FDS": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "FDS",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101022"
+            }
+          }
+        ],
+        "210655,FIGUR_BIM": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,FIGUR_DWG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,FINITION": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "FINITION",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "BROSSE",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101023"
+            }
+          }
+        ],
+        "210655,FREQUENCE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "FREQUENCE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "50-60",
+              "AE_UNITE_STOCKAGE": "Hz",
+              "NUMENREG": "101024"
+            }
+          }
+        ],
+        "210655,FT_FOURNISSEUR": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,GARANTIE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,INFO_EMB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,INFO_SUB_MODIF": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,INTRO_CATA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,IP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,JAUGE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,KIT_RFX": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,LARG_INF": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,LARGEUR_ENTREE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,LIB_COURT_VCS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,LONG_INF": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,MARQ_PART_DIG": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "MARQ_PART_DIG",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "1",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101025"
+            }
+          }
+        ],
+        "210655,MARQUAGE_CE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "MARQUAGE_CE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "1",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101026"
+            }
+          }
+        ],
+        "210655,MASS_FRIGORI": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,MAT_DGX": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "MAT_DGX",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "0",
+              "AE_UNITE_STOCKAGE": null,
+              "NUMENREG": "101027"
+            }
+          }
+        ],
+        "210655,MNOM_EN_STK": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,MODIFICTION": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,N_SERIE_APP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,N_SERIE_CAB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,N_SERIE_EMB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NBR_TOURS_MINUTE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NIV_SONORE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NOTICE_FR": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NOTICE_GB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NOUVEAUTE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NUM_AFFILIATION": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NUM_LOT_ON": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,NUM_UFI": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PAYS_ORIG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PLAGE_UTIL_TMAX": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PLAGE_UTIL_TMIN": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PLAN_COUPE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PLAN_IMPLANT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,POIDS_PATE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,POINTURE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,POURCENT_FSC_PEFC": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRA_TARIF_N1": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_DROP_ON": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_FSC_PEFC": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_FSC_PEFC_ON": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_PERSO_GMB": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_RECYCLABLE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PRD_RECYCLEE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PROFONDEUR_FERMEE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PROFONDEUR_OUVERT": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,PUISSANCE_ELECT": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "PUISSANCE_ELECT",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "550",
+              "AE_UNITE_STOCKAGE": "",
+              "NUMENREG": "9283"
+            }
+          }
+        ],
+        "210655,PUISSANCE_GAZ": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_ANNEE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_ASSIETTE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_BAC_GN": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_BOUTEILLE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_RAMEQUIN": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,QTE_1ERE_CDE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,RAPPORT_ROHS": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,RAPPORT_TEST": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,RCP_PRESSION_S": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,REACTIVATION": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,REDIGEE_PAR": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,SUBSTITUTION": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,SURFACE_IMP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TAILLE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TAILLE_MAILLE": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TAILLE_QUADRI": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TEMP_EVAP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TOLERANCE_TEMP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,TYPE_DS_SERIE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "TYPE_DS_SERIE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "batteur-mélangeur",
+              "AE_UNITE_STOCKAGE": "",
+              "NUMENREG": "22510"
+            }
+          }
+        ],
+        "210655,TYPE_FRIGORI": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,VISUEL_FOUR": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,VOLTAGE": [
+          {
+            "DATAS": {
+              "AE_CODE_ART": "210655",
+              "AE_CODE_ATTRIBUT": "VOLTAGE",
+              "AE_NUM_ORDRE": "1",
+              "AE_DATA": "230",
+              "AE_UNITE_STOCKAGE": "V",
+              "NUMENREG": "101028"
+            }
+          }
+        ]
+      },
+      "CACOMART": {
+        "210655": [
+          {
+            "DATAS": {
+              "CA_CODE_ART": "210655",
+              "CA_NIV_FONCT": "15",
+              "CA_TOP_CAT_ATTEINTES": "0",
+              "CA_MARCHE_CIBLE": null,
+              "CA_TYPE_DOUAN": "",
+              "CA_GLN_MARQUE": "",
+              "CA_CLASS_GPC": null,
+              "CA_DATE_DEB_EXPED": null,
+              "CA_DATE_DEB_DCOMM": null,
+              "CA_DATE_MAJ": null,
+              "CA_DATE_DEB_VALFP": null,
+              "CA_DATE_PUBLI": null,
+              "CA_ID_MARQUE": "23",
+              "CA_PERSONNALISABLE": "0",
+              "CA_SERVICE": "0",
+              "CA_MESURE_VARIABLE": "0",
+              "CA_CONFORMITE_EMBETIQ": null,
+              "CA_QTE_EA_M1": null,
+              "CA_QTE_EA_M2": null,
+              "NUMENREG": "3664"
+            }
+          },
+          {
+            "DATAS": {
+              "CA_CODE_ART": "210655",
+              "CA_NIV_FONCT": "15",
+              "CA_TOP_CAT_ATTEINTES": "0",
+              "CA_MARCHE_CIBLE": null,
+              "CA_TYPE_DOUAN": "",
+              "CA_GLN_MARQUE": "",
+              "CA_CLASS_GPC": null,
+              "CA_DATE_DEB_EXPED": null,
+              "CA_DATE_DEB_DCOMM": null,
+              "CA_DATE_MAJ": null,
+              "CA_DATE_DEB_VALFP": null,
+              "CA_DATE_PUBLI": null,
+              "CA_ID_MARQUE": "23",
+              "CA_PERSONNALISABLE": "0",
+              "CA_SERVICE": "0",
+              "CA_MESURE_VARIABLE": "0",
+              "CA_CONFORMITE_EMBETIQ": null,
+              "CA_QTE_EA_M1": null,
+              "CA_QTE_EA_M2": null,
+              "NUMENREG": "3664"
+            }
+          }
+        ]
+      },
+      "CACOMARTVC": {
+        "210655,-2": [
+          {
+            "DATAS": null
+          },
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1": [
+          {
+            "DATAS": null
+          },
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1": [
+          {
+            "DATAS": {
+              "CA_CODE_ARTICLE": "210655",
+              "CA_VARIANTE_COMMERCIAL": " 1",
+              "CA_CODE_BARRES": "3665075243140",
+              "CA_HAUTEUR_MM": "400.000",
+              "CA_LARGEUR_MM": "318.000",
+              "CA_LONGUEUR_MM": "465.000",
+              "CA_VOLUME_CM3": "0",
+              "CA_POIDS_BRUT_G": "0",
+              "CA_POIDS_NET_G": "17000.000",
+              "NUMENREG": "2548"
+            }
+          },
+          {
+            "DATAS": {
+              "CA_CODE_ARTICLE": "210655",
+              "CA_VARIANTE_COMMERCIAL": " 1",
+              "CA_CODE_BARRES": "3665075243140",
+              "CA_HAUTEUR_MM": "400.000",
+              "CA_LARGEUR_MM": "318.000",
+              "CA_LONGUEUR_MM": "465.000",
+              "CA_VOLUME_CM3": "0",
+              "CA_POIDS_BRUT_G": "0",
+              "CA_POIDS_NET_G": "17000.000",
+              "NUMENREG": "2548"
+            }
+          }
+        ]
+      },
+      "EVEMBVCVL": {
+        "210655,-2": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1": [
+          {
+            "DATAS": null
+          }
+        ]
+      },
+      "LVLIBVCART": {
+        "210655,-2,FRA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-2,ANG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-2,ALL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-2,ESP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-2,ITA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1,FRA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1,ANG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1,ALL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1,ESP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655,-1,ITA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1,FRA": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1,ANG": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1,ALL": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1,ESP": [
+          {
+            "DATAS": null
+          }
+        ],
+        "210655, 1,ITA": [
+          {
+            "DATAS": null
+          }
+        ]
+      },
+      "MAMATART": {
+        "210655": [
+          {
+            "DATAS": {
+              "MA_ART": "210655",
+              "MA_NUM_ORDRE": "1",
+              "MA_CODE_MAT": "920",
+              "MA_DIFFUSION_INTERDITE": null,
+              "MA_EPAISSEUR": null,
+              "MA_DENSITE": null,
+              "MA_MAT_RECYCLEE": "0",
+              "MA_POURCENT_MAT_RECYCLEE": null,
+              "MA_MAT_RECYCLABLE": "0",
+              "MA_POURCENT_MAT_RECYCLABLE": null,
+              "NUMENREG": "10775"
+            }
+          },
+          {
+            "DATAS": {
+              "MA_ART": "210655",
+              "MA_NUM_ORDRE": "1",
+              "MA_CODE_MAT": "920",
+              "MA_DIFFUSION_INTERDITE": null,
+              "MA_EPAISSEUR": null,
+              "MA_DENSITE": null,
+              "MA_MAT_RECYCLEE": "0",
+              "MA_POURCENT_MAT_RECYCLEE": null,
+              "MA_MAT_RECYCLABLE": "0",
+              "MA_POURCENT_MAT_RECYCLABLE": null,
+              "NUMENREG": "10775"
+            }
+          }
+        ]
+      },
+      "TIVARLOG": {
+        "210655": [
+          {
+            "DATAS": null
+          },
+          {
+            "DATAS": null
+          }
+        ]
+      }
+    }
+  }
+}

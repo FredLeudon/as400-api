@@ -747,11 +747,13 @@ final class Digital
 					if($rows) {
 						foreach($rows as $numRow => $row) {
 							$datas[$sFichier][$sKey][]				= ['DATAS'		=> $row, 																		
-																		'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping,$row)];	
+																	//'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping,$row)
+																	];
 						}
 					} else {
 							$datas[$sFichier][$sKey][]				= ['DATAS'		=> null, 																		
-																		'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping, null)];	;
+																		//'HTML'		=> self::buildHtml($pdo,[$unAttribut],$mapping, null)
+																		];	
 					}									
 				} 
 			} else {
@@ -771,11 +773,13 @@ final class Digital
 					if($rows) {
 						foreach($rows as $numRow => $row) {
 							$datas[$sFichier][$sKey][]				= ['DATAS'		=> $row, 																		
-																		'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,$row)];		
+																		//'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,$row)
+																		];		
 						}
 					} else {
 						$datas[$sFichier][$sKey][]					= ['DATAS'		=> null, 																		
-																		'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,null)];	
+																		//'HTML'		=> self::buildHtml($pdo,$Attributs,$mapping,null)
+																		];	
 					}		
 				} else {
 					//echo "Erreur crit $sBibliothèque, $sFichier,$sLogique, $sKeys \n";

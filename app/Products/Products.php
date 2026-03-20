@@ -45,6 +45,205 @@ use App\Domain\TTTXT;
 
 final class Products
 {
+
+
+	// API de création d'article
+	// Partie 1 : les contrôles
+	public static function contrôle(PDO $pdo, array|string $product) : array
+	{
+		unset($pdo);
+		$errorMessage = null;
+		$payload = self::normaliserPayloadControle($product, $errorMessage);
+		if ($payload === null) {
+			return [
+				'error' => true,
+				'warning' => false,
+				'message' => $errorMessage ?? 'Impossible de lire product',
+				'details' => [],
+			];
+		}
+
+		$productData = $payload;
+		if (array_key_exists('product', $payload)) {
+			if (!is_array($payload['product'])) {
+				return [
+					'error' => true,
+					'warning' => false,
+					'message' => 'La clé product doit être un objet JSON',
+					'details' => [],
+				];
+			}
+			$productData = $payload['product'];
+		}
+
+		$details = [];
+		$details[] = self::contrôle_A1ARTICL($productData['A1ARTICL'] ?? null);
+		$details = array_merge(
+			$details,
+			self::contrôle_SOCIETE($productData['SOCIETES'] ?? null)
+		);
+
+		$hasError = false;
+		$hasWarning = false;
+		foreach ($details as $detail) {
+			$hasError = $hasError || (bool)($detail['error'] ?? false);
+			$hasWarning = $hasWarning || (bool)($detail['warning'] ?? false);
+		}
+
+		$message = 'Contrôle terminé';
+		if ($hasError) {
+			$message = 'Contrôle terminé avec erreurs';
+		} elseif ($hasWarning) {
+			$message = 'Contrôle terminé avec avertissements';
+		}
+
+		return [
+			'error' => $hasError,
+			'warning' => $hasWarning,
+			'message' => $message,
+			'details' => $details,
+		];
+	}
+
+	private static function normaliserPayloadControle(array|string $product, ?string &$errorMessage = null): ?array
+	{
+		if (is_array($product)) {
+			return $product;
+		}
+		$payload = trim($product);
+		if ($payload === '') {
+			$errorMessage = 'Product JSON vide';
+			return null;
+		}
+		try {
+			$decoded = json_decode($payload, true, 512, JSON_THROW_ON_ERROR);
+		} catch (\JsonException $e) {
+			$errorMessage = 'JSON invalide: ' . $e->getMessage();
+			return null;
+		}
+		if (!is_array($decoded)) {
+			$errorMessage = 'Le JSON doit représenter un objet ou un tableau';
+			return null;
+		}
+		return $decoded;
+	}
+
+	private static function contrôle_A1ARTICL(mixed $a1articl): array
+	{
+		if ($a1articl === null) {
+			return [
+				'element' => 'product.A1ARTICL',
+				'error' => true,
+				'warning' => false,
+				'message' => 'A1ARTICL manquant',
+			];
+		}
+		if (!is_array($a1articl)) {
+			return [
+				'element' => 'product.A1ARTICL',
+				'error' => true,
+				'warning' => false,
+				'message' => 'A1ARTICL doit être un objet',
+			];
+		}
+		if ($a1articl === []) {
+			return [
+				'element' => 'product.A1ARTICL',
+				'error' => false,
+				'warning' => true,
+				'message' => 'A1ARTICL est vide',
+			];
+		}
+		
+		return [
+			'element' => 'product.A1ARTICL',
+			'error' => false,
+			'warning' => false,
+			'message' => 'A1ARTICL valide',
+		];
+	}
+
+	private static function contrôle_SOCIETE(mixed $societes): array
+	{
+		if ($societes === null) {
+			return [[
+				'element' => 'product.SOCIETES',
+				'error' => true,
+				'warning' => false,
+				'message' => 'SOCIETES manquant',
+			]];
+		}
+		if (!is_array($societes)) {
+			return [[
+				'element' => 'product.SOCIETES',
+				'error' => true,
+				'warning' => false,
+				'message' => 'SOCIETES doit être un tableau',
+			]];
+		}
+		if ($societes === []) {
+			return [[
+				'element' => 'product.SOCIETES',
+				'error' => false,
+				'warning' => true,
+				'message' => 'SOCIETES est vide',
+			]];
+		}
+
+		$results = [];
+		foreach ($societes as $index => $societe) {
+			$elementPath = 'product.SOCIETES[' . $index . ']';
+			if (!is_array($societe)) {
+				$results[] = [
+					'element' => $elementPath,
+					'error' => true,
+					'warning' => false,
+					'message' => 'La société doit être un objet',
+				];
+				continue;
+			}
+			if (!array_key_exists('SOCIETE', $societe) || trim((string)$societe['SOCIETE']) === '') {
+				$results[] = [
+					'element' => $elementPath . '.SOCIETE',
+					'error' => true,
+					'warning' => false,
+					'message' => 'Code société manquant',
+				];
+			} else {
+				$results[] = [
+					'element' => $elementPath . '.SOCIETE',
+					'error' => false,
+					'warning' => false,
+					'message' => 'Code société valide',
+				];
+			}
+			if (!array_key_exists('DATAS', $societe) || !is_array($societe['DATAS'])) {
+				$results[] = [
+					'element' => $elementPath . '.DATAS',
+					'error' => true,
+					'warning' => false,
+					'message' => 'DATAS manquant ou invalide',
+				];
+			} elseif ($societe['DATAS'] === []) {
+				$results[] = [
+					'element' => $elementPath . '.DATAS',
+					'error' => false,
+					'warning' => true,
+					'message' => 'DATAS vide',
+				];
+			} else {
+				$results[] = [
+					'element' => $elementPath . '.DATAS',
+					'error' => false,
+					'warning' => false,
+					'message' => 'DATAS valide',
+				];
+			}
+		}
+		return $results;
+	}
+	
+	
 	public static function getSuppliers(PDO $pdo, string $companyCode, string $productCode) :? array 
 	{
 		$supplier = [];
@@ -78,7 +277,8 @@ final class Products
 		return $supplier;	
 	}
 
-	public static function getPrices(PDO $pdo, string $companyCode, string $productCode) :? array {
+	public static function getPrices(PDO $pdo, string $companyCode, string $productCode) :? array 
+	{
 		$prices = [];
 		$c3libtar = C3LIBTAR::readModels($pdo, $companyCode);
 		foreach($c3libtar as $c3) {
@@ -101,7 +301,8 @@ final class Products
 		return $prices;
 	}
 
-	public static function getPagesCatalogues(PDO $pdo, string $companyCode, string $productCode) :? array {
+	public static function getPagesCatalogues(PDO $pdo, string $companyCode, string $productCode) :? array 
+	{
 		$pages = [];
 		if (in_array($companyCode, ['','06','38','40'],true)) {
 			$catalogues = CATALOGUE::readModels($pdo, $companyCode);
@@ -178,12 +379,10 @@ final class Products
 	{
 		$datas = [];
 		foreach(cst::cstLangues as $langue) {
-			$rows = C0LIBART::readModels($pdo, $companyCode,$productCode,$langue);
-			$lib = [];
-			if($rows) {
-				foreach($rows as $row) {
-					$lib[] = $row->toArrayLower();
-				}
+			$row = C0LIBART::readModel($pdo, $companyCode,$productCode,$langue);
+			$lib = null;
+			if($row) {
+				$lib = $row->toArrayLower();				
 			}
 			$datas[] = [
 				'langue' => $langue,
