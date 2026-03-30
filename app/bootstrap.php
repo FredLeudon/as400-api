@@ -100,6 +100,8 @@ require_once $APP_DIR . '/Reflex/HLSTOCP.php';
 // A*
 require_once $APP_DIR . '/Domain/A1ARTICL.php';
 require_once $APP_DIR . '/Domain/A3GESPVP.php';
+require_once $APP_DIR . '/Domain/A4TVA.php';
+require_once $APP_DIR . '/Domain/A9FAMIL.php';
 require_once $APP_DIR . '/Domain/ACARTCAT.php';
 require_once $APP_DIR . '/Domain/ACNARTCAT.php';
 require_once $APP_DIR . '/Domain/ADARTDEP.php';
@@ -109,6 +111,7 @@ require_once $APP_DIR . '/Domain/ASARTSOC.php';
 require_once $APP_DIR . '/Domain/B3CLIENT.php';
 require_once $APP_DIR . '/Domain/B6DEVISE.php';
 require_once $APP_DIR . '/Domain/B8ACTFOU.php';
+require_once $APP_DIR . '/Domain/B9INDUTI.php';
 // C*
 require_once $APP_DIR . '/Domain/C0LIBART.php';
 require_once $APP_DIR . '/Domain/C2LANGUE.php';

@@ -14,12 +14,15 @@ use App\Digital\Digital;
 
 use App\Domain\A1ARTICL;
 use App\Domain\A3GESPVP;
+use App\Domain\A4TVA;
+use App\Domain\A9FAMIL;
 use App\Domain\ACARTCAT;
 use App\Domain\ACNARTCAT;
 use App\Domain\ADARTDEP;
 use App\Domain\ARTNOWEB;
 use App\Domain\ASARTSOC;
 use App\Domain\B3CLIENT;
+use App\Domain\B9INDUTI;
 use App\Domain\CATALOGUE;
 use App\Domain\C0LIBART;
 use App\Domain\C3LIBTAR;
@@ -45,13 +48,17 @@ use App\Domain\TTTXT;
 
 final class Products
 {
+	private static array $contexte = [
+		'utilisateur' => '',
+		'programme' => '',
+		'action' => 'ajout',
+	];
 
 
 	// API de création d'article
 	// Partie 1 : les contrôles
 	public static function contrôle(PDO $pdo, array|string $product) : array
 	{
-		unset($pdo);
 		$errorMessage = null;
 		$payload = self::normaliserPayloadControle($product, $errorMessage);
 		if ($payload === null) {
@@ -63,21 +70,27 @@ final class Products
 			];
 		}
 
+		$details = self::initialiserContexteControle($payload);
+
 		$productData = $payload;
 		if (array_key_exists('product', $payload)) {
 			if (!is_array($payload['product'])) {
+				$hasWarning = false;
+				foreach ($details as $detail) {
+					$hasWarning = $hasWarning || (bool)($detail['warning'] ?? false);
+				}
 				return [
 					'error' => true,
-					'warning' => false,
+					'warning' => $hasWarning,
 					'message' => 'La clé product doit être un objet JSON',
-					'details' => [],
+					'contexte' => self::$contexte,
+					'details' => $details,
 				];
 			}
 			$productData = $payload['product'];
 		}
 
-		$details = [];
-		$details[] = self::contrôle_A1ARTICL($productData['A1ARTICL'] ?? null);
+		$details[] = self::contrôle_A1ARTICL($pdo, $productData['A1ARTICL'] ?? null);
 		$details = array_merge(
 			$details,
 			self::contrôle_SOCIETE($productData['SOCIETES'] ?? null)
@@ -101,8 +114,42 @@ final class Products
 			'error' => $hasError,
 			'warning' => $hasWarning,
 			'message' => $message,
+			'contexte' => self::$contexte,
 			'details' => $details,
 		];
+	}
+
+	private static function initialiserContexteControle(array $payload): array
+	{
+		$details = [];
+		$utilisateur = trim((string)($payload['utilisateur'] ?? $payload['Utilisateur'] ?? ''));
+		$programme = trim((string)($payload['programme'] ?? $payload['Programme'] ?? ''));
+		$action = strtolower(trim((string)($payload['action'] ?? $payload['Action'] ?? '')));
+
+		if ($action === '') {
+			$action = 'ajout';
+			$details[] = [
+				'element' => 'action',
+				'error' => false,
+				'warning' => true,
+				'message' => "Action absente ou vide, valeur par défaut appliquée: 'ajout'",
+			];
+		} elseif (!in_array($action, ['ajout', 'modification'], true)) {
+			$details[] = [
+				'element' => 'action',
+				'error' => true,
+				'warning' => false,
+				'message' => "Action invalide '{$action}'. Valeurs autorisées: ajout, modification",
+			];
+		}
+
+		self::$contexte = [
+			'utilisateur' => $utilisateur,
+			'programme' => $programme,
+			'action' => $action,
+		];
+
+		return $details;
 	}
 
 	private static function normaliserPayloadControle(array|string $product, ?string &$errorMessage = null): ?array
@@ -128,7 +175,7 @@ final class Products
 		return $decoded;
 	}
 
-	private static function contrôle_A1ARTICL(mixed $a1articl): array
+	private static function contrôle_A1ARTICL(PDO $pdo, mixed $a1articl): array
 	{
 		if ($a1articl === null) {
 			return [
@@ -153,13 +200,139 @@ final class Products
 				'warning' => true,
 				'message' => 'A1ARTICL est vide',
 			];
+		}		
+		$errors = [];
+		$warnings = [];
+
+		// A1ART : Code article [Mandatory]
+		if(!array_key_exists('a1art', $a1articl)) {
+			$errors[] = ['rubrique' => 'a1art', 'message' => 'code article manquant'];
+		}		
+		$a1art = trim((string)($a1articl['a1art'] ?? ''));
+		if ($a1art === '' || !preg_match('/^[A-Z0-9]{6}$/', $a1art)) {
+			$errors[] = ['rubrique' => 'a1art', 'message' => 'code article ('.$a1art.') invalide: attendu 6 caractères [A-Z0-9]'];
+			goto fin;
 		}
+		if ((self::$contexte['action'] ?? '') === 'ajout') {
+			if(A1ARTICL::exists($pdo,cst::MBI,$a1art)) {
+				$errors[] = ['rubrique' => 'a1art', 'message' => 'code article '.$a1art.' existe déjà !'];
+				goto fin;
+			}
+		}
+		// A1CNUF : Code pays d'odigine [Mandatory] Lien : G0ISO
+		if(array_key_exists('a1cnuf',$a1articl)) {
+			$a1cnuf = sprintf('%03d', (int) $a1articl['a1cnuf']);
+			if(!G0ISO::exists($pdo,$a1cnuf)) {
+				$errors[] = ['rubrique' => 'a1cnuf', 'message' => 'code pays ('.$a1cnuf.') inconnu dans G0ISO.'];	
+			}
+		} else {
+			 $errors[] = ['rubrique' => 'a1cnuf', 'message' => 'code pays manquant.'];
+		}
+		// A1SAIS : Indice de saison d'utilisation [Facultatif] Lien : B9INDUTI Valeur par défaut ''
+		if(array_key_exists('a1sais',$a1articl)) {
+			if(!$a1articl['a1sais']) {
+				$warnings[] = ['rubrique' => 'a1sais', 'message' => "Indice de saison d'utilisation : valeur nulle fournie."];	
+			} 			
+			$a1sais = $a1articl['a1sais'] ?? '';
+		} else {
+			$warnings[] = ['rubrique' => 'a1sais', 'message' => "Indice de saison d'utilisation non renseigné, valeur par défaut utilisée"];
+			$a1sais = '';
+		}		
+		if($a1sais != '') {
+			if(!B9INDUTI::exists($pdo, cst::MBI, $a1sais)) {
+				$errors[] = ['rubrique' => 'a1sais', 'message' => "Indice de saison d'utilisation (".$a1sais.") non trouvé dans B9INDUTI."];	
+			}			
+		}			
+		// A1POID : Poids unitaire de l'article en (kg) [Facultatif]
+		// A1UNVT : Unite de vente [Facultatif] dft : 1
+		$a1unvt = 1;
+		if(array_key_exists('a1unvt',$a1articl)) {
+			if((int) $a1articl['a1unvt'] != 0 ) {
+				$a1unvt = (int) $a1articl['a1unvt'];
+			}
+		}
+		// A1QTMC : Quantite mini de commande client [Facultatif] dft : 1
+		$a1qtmc = $a1unvt;
+		if(array_key_exists('a1qtmc',$a1articl)) {
+			if((int) $a1articl['a1qtmc'] != 0 ) {
+				$a1qtmc = (int) $a1articl['a1qtmc'];				
+			}
+		}
+		// A1QTMC doit etre un multiple de A1UNVT
+		if (($a1qtmc % $a1unvt) !== 0) {
+			$errors[] = [
+				'rubrique' => 'a1qtmc',
+				'message' => 'A1QTMC ('.$a1qtmc.') doit etre un multiple de A1UNVT ('.$a1unvt.').',
+			];
+		}		
+		// A1DNS  : Demande non satisfaite [Facultatif]
 		
+		// A1CTVA / A1TVA : Code T.V.A. / T.V.A. appliquee a l'article [Mandatory]
+		$a1ctva = '2'; // Code TVA par défaut
+		if(array_key_exists('a1ctva',$a1articl)) {
+			if($a1articl['a1ctva'] != '') {
+				$a1ctva = $a1articl['a1ctva'];
+			}		
+		}
+		if(!A4TVA::exists($pdo,cst::MBI,$a1ctva)) {
+			$errors[] = [
+				'rubrique' => 'a1ctva',
+				'message' => "Code de TVA (".$a1ctva.") non trouvé dans A4TVA."
+			];
+		}
+		// A1FAMI : Code de la famille [Mandatory] Lien : A9FAMI
+		if(array_key_exists('a1fami',$a1articl)) {
+			$a1fami = $a1articl['a1fami'];
+			if($a1fami === '') {
+				$errors[] = ['rubrique' => 'a1fami', 'message' => 'Code famille renseigné mais vide.'];
+			} else {
+				if(!A9FAMIL::exists($pdo,cst::MBI,$a1fami)) {
+					$errors[] = [
+						'rubrique' => 'a1fami',
+						'message' => "Code famille (".$a1fami.") non trouvé dans A9FAMIL."
+					];
+				}
+			}
+		} else {
+			$errors[] = ['rubrique' => 'a1fami', 'message' => 'Code famille manquant.'];
+		}
+		// A1QTST : Quantite de conditionnement stockage [Mandatory]
+		// A1MTRO : Reference article chez le client (O/N) [Mandatory]
+		// A1MATI : Code matiere [Mandatory] Lien : C6MATIER
+		// A1DATC : Date de creation MM/AAAA [Mandatory]
+		// A1TYPE : Type ou niveau de finition de l'article" [Mandatory]
+		$a1type = 'PF';
+		if(array_key_exists('a1type',$a1articl)) {
+			if(in_array($a1articl['a1type'], ['PF','CO','SF','MP',''],true )) {
+				$a1type = $a1articl['a1type'];
+				if($a1type === '') $a1type = 'PF';
+			} else {
+				$errors[] = ['rubrique' => 'a1type', 'message' => 'Code type de produit ('.$a1articl['a1type'].') invalide [ PF / CO / SF / MP ].'];
+			}
+		} else {
+			// Warning ?
+		}
+		// A1DOUA : No de tarif douanier [Mandatory] Lien : COMEX (simple vérif)
+		// A1EMPL : Tag conservation dernier emplacement (O/N) [Mandatory]
+		// A1DI10 : Dimension 1 longueur [Mandatory]
+		// A1DI11 : Dimension 1 largeur [Mandatory]
+		// A1DI12 : Dimension 1 hauteur [Mandatory]
+		// A1DI20 : Dimension 2 longueur [Mandatory]
+		// A1DI21 : Dimension 2 largeur [Mandatory]
+		// A1DI22 : Dimension 2 hauteur [Mandatory]
+		// A1ECAV : Dernier P.R.A. [Mandatory]
+		// A1MOYV : Filler [Mandatory]
+		// A1TEND : Type acces (Libre/Fixe) [Mandatory]
+		// A1SASO : H = Supprimer Article en historique REDA09 [Mandatory]
+		// A1PRIV : Prix Vente Cata creation [Mandatory]
+		fin:
 		return [
 			'element' => 'product.A1ARTICL',
-			'error' => false,
-			'warning' => false,
+			'error' => (count($errors) > 0),
+			'warning' => (count($warnings) > 0),
 			'message' => 'A1ARTICL valide',
+			'erreurs' => $errors,
+			'warnings' => $warnings
 		];
 	}
 
@@ -168,6 +341,7 @@ final class Products
 		if ($societes === null) {
 			return [[
 				'element' => 'product.SOCIETES',
+				'code_societe' => null,
 				'error' => true,
 				'warning' => false,
 				'message' => 'SOCIETES manquant',
@@ -176,6 +350,7 @@ final class Products
 		if (!is_array($societes)) {
 			return [[
 				'element' => 'product.SOCIETES',
+				'code_societe' => null,
 				'error' => true,
 				'warning' => false,
 				'message' => 'SOCIETES doit être un tableau',
@@ -184,6 +359,7 @@ final class Products
 		if ($societes === []) {
 			return [[
 				'element' => 'product.SOCIETES',
+				'code_societe' => null,
 				'error' => false,
 				'warning' => true,
 				'message' => 'SOCIETES est vide',
@@ -193,9 +369,18 @@ final class Products
 		$results = [];
 		foreach ($societes as $index => $societe) {
 			$elementPath = 'product.SOCIETES[' . $index . ']';
+			$codeSociete = null;
+			if (is_array($societe) && array_key_exists('SOCIETE', $societe)) {
+				$codeSocieteValue = trim((string)$societe['SOCIETE']);
+				if ($codeSocieteValue !== '') {
+					$codeSociete = $codeSocieteValue;
+				}
+			}
+
 			if (!is_array($societe)) {
 				$results[] = [
 					'element' => $elementPath,
+					'code_societe' => $codeSociete,
 					'error' => true,
 					'warning' => false,
 					'message' => 'La société doit être un objet',
@@ -205,6 +390,7 @@ final class Products
 			if (!array_key_exists('SOCIETE', $societe) || trim((string)$societe['SOCIETE']) === '') {
 				$results[] = [
 					'element' => $elementPath . '.SOCIETE',
+					'code_societe' => $codeSociete,
 					'error' => true,
 					'warning' => false,
 					'message' => 'Code société manquant',
@@ -212,6 +398,7 @@ final class Products
 			} else {
 				$results[] = [
 					'element' => $elementPath . '.SOCIETE',
+					'code_societe' => $codeSociete,
 					'error' => false,
 					'warning' => false,
 					'message' => 'Code société valide',
@@ -220,6 +407,7 @@ final class Products
 			if (!array_key_exists('DATAS', $societe) || !is_array($societe['DATAS'])) {
 				$results[] = [
 					'element' => $elementPath . '.DATAS',
+					'code_societe' => $codeSociete,
 					'error' => true,
 					'warning' => false,
 					'message' => 'DATAS manquant ou invalide',
@@ -227,6 +415,7 @@ final class Products
 			} elseif ($societe['DATAS'] === []) {
 				$results[] = [
 					'element' => $elementPath . '.DATAS',
+					'code_societe' => $codeSociete,
 					'error' => false,
 					'warning' => true,
 					'message' => 'DATAS vide',
@@ -234,6 +423,7 @@ final class Products
 			} else {
 				$results[] = [
 					'element' => $elementPath . '.DATAS',
+					'code_societe' => $codeSociete,
 					'error' => false,
 					'warning' => false,
 					'message' => 'DATAS valide',
@@ -610,9 +800,9 @@ final class Products
 			$product['libelle']					= C0LIBART::labelFor($pdo,$companyCode,$productCode,'FRA');
 			$product['logistic_label']			= C0LIBART::labelFor($pdo,'06',$productCode,'LOG');
 			$codePays							= str_pad((string) $model->A1CNUF, 3, '0', STR_PAD_LEFT);
-			$g0iso								= G0ISO::get($pdo,$codePays);
+			$g0iso								= G0ISO::readModel($pdo,$codePays);
 			if($g0iso) {
-				$product['G0ISO']				= $g0iso;
+				$product['G0ISO']				= $g0iso->toArrayLower();
 			}						
 			// Ici, il faut distinguier Flovending qui est à part et MBI / Filiales qui gèrent les articles de façon commune					
 			$product['SOCIETES'] = [];

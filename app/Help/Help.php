@@ -276,6 +276,19 @@ HTML;
                 ],
                 [
                     'method' => 'GET',
+                    'path' => '/api/product/{article}/delai',
+                    'description' => 'Get supplier delivery delay for one article (alias: /api/article/{article}/delai).',
+                    'examples' => [
+                        '/api/product/707634/delai',
+                        '/api/article/707634/delai',
+                    ],
+                    'response' => [
+                        'article' => '707634',
+                        'delai_livraison' => '2-4',
+                    ],
+                ],
+                [
+                    'method' => 'GET',
                     'path' => '/company/{company}/product/{productCode}/stock',
                     'description' => 'Get stock for one product in one company.',
                     'examples' => [
@@ -308,7 +321,6 @@ HTML;
                         ],
                     ],
                 ],
-
                 // ---------- Pricing ----------
                 [
                     'method' => 'GET',

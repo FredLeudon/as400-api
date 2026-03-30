@@ -186,4 +186,45 @@ final class Reflex
         $DateCAB ??= new DateTimeImmutable();
 
     }
+
+    public static function DélaiFournisseur(PDO $pdo, string $code_article): ?string
+    {
+        $sql = 'select A1ART as "Code_article", "Délai_Livraison"
+                from matis.A1ARTICL
+                left join (
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    from MATFER.A8CDEFOU
+                    inner join MATFER.E6CDEFOC on A8NCDE = E6NCDE
+                    where E6ETAT <> \'FIN\'
+                      and (A8QTLI - A8QTCD) <> 0
+                    group by A8ART
+                    UNION
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    from BOURGEAT.A8CDEFOU
+                    inner join BOURGEAT.E6CDEFOC on A8NCDE = E6NCDE
+                    where E6ETAT <> \'FIN\'
+                      and (A8QTLI - A8QTCD) <> 0
+                    group by A8ART
+                    UNION
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    from INSITU.A8CDEFOU
+                    inner join INSITU.E6CDEFOC on A8NCDE = E6NCDE
+                    where E6ETAT <> \'FIN\'
+                      and (A8QTLI - A8QTCD) <> 0
+                    group by A8ART
+                ) DELAI on DELAI.A8ART = A1ART
+                where A1ART = :code_article
+                group by A1ART, "Délai_Livraison"';
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':code_article', $code_article, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$row) {
+            return null;
+        }
+
+        return $row['Délai_Livraison'] ?? null;
+    }
 }

@@ -592,6 +592,22 @@ if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([A-Za-z0-9]+)$#
     Http::respond(200, ['product' => $product], $__REQUEST_START__);
 }
 
+if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([^/]+)/delai$#i', $path, $m)) {
+    [, $productCode] = $m;
+    $productCode = strtoupper(trim((string)$productCode));
+    if ($productCode === '') {
+        Http::respond(400, ['error' => 'Missing product code'], $__REQUEST_START__);
+    }
+
+    $pdo = $pdoProvider();
+    $delaiLivraison = Reflex::DélaiFournisseur($pdo, $productCode);
+
+    Http::respond(200, [
+        'article' => $productCode,
+        'delai_livraison' => $delaiLivraison,
+    ], $__REQUEST_START__);
+}
+
 if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)/stock$#', $path, $m)) {
     [, $company, $product] = $m;
     $companyCode = Company::codeOf((string)$company);
