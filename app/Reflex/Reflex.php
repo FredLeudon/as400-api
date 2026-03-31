@@ -189,24 +189,24 @@ final class Reflex
 
     public static function DélaiFournisseur(PDO $pdo, string $code_article): ?string
     {
-        $sql = 'select A1ART as "Code_article", "Délai_Livraison"
+        $sql = 'select A1ART as "code", "delai"
                 from matis.A1ARTICL
                 left join (
-                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "delai"
                     from MATFER.A8CDEFOU
                     inner join MATFER.E6CDEFOC on A8NCDE = E6NCDE
                     where E6ETAT <> \'FIN\'
                       and (A8QTLI - A8QTCD) <> 0
                     group by A8ART
                     UNION
-                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "delai"
                     from BOURGEAT.A8CDEFOU
                     inner join BOURGEAT.E6CDEFOC on A8NCDE = E6NCDE
                     where E6ETAT <> \'FIN\'
                       and (A8QTLI - A8QTCD) <> 0
                     group by A8ART
                     UNION
-                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "Délai_Livraison"
+                    select distinct(A8ART), Listagg(A8DELD, \'-\') as "delai"
                     from INSITU.A8CDEFOU
                     inner join INSITU.E6CDEFOC on A8NCDE = E6NCDE
                     where E6ETAT <> \'FIN\'
@@ -214,17 +214,18 @@ final class Reflex
                     group by A8ART
                 ) DELAI on DELAI.A8ART = A1ART
                 where A1ART = :code_article
-                group by A1ART, "Délai_Livraison"';
+                group by A1ART, "delai"';
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':code_article', $code_article, PDO::PARAM_STR);
         $stmt->execute();
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        //var_dump($row);
         if (!$row) {
             return null;
         }
 
-        return $row['Délai_Livraison'] ?? null;
+        return $row['delai'] ?? null;
     }
 }

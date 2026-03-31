@@ -574,7 +574,7 @@ if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)$#', $pat
 }
 
 // Anciennes routes:
-if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([A-Za-z0-9]+)$#', $path, $m)) {
+if ($method === 'GET' && preg_match('#^/(?:product|article)/([A-Za-z0-9]+)$#', $path, $m)) {
     [, $productCode] = $m;
     $productCode = strtoupper($productCode);
     
@@ -592,7 +592,7 @@ if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([A-Za-z0-9]+)$#
     Http::respond(200, ['product' => $product], $__REQUEST_START__);
 }
 
-if ($method === 'GET' && preg_match('#^/api/(?:product|article)/([^/]+)/delai$#i', $path, $m)) {
+if ($method === 'GET' && preg_match('#^/(?:product|article)/([^/]+)/delai$#i', $path, $m)) {
     [, $productCode] = $m;
     $productCode = strtoupper(trim((string)$productCode));
     if ($productCode === '') {
@@ -624,6 +624,54 @@ if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)/stock$#'
         'product' => $productCode,
         'company' => $companyCode,
         'stocks' => $stocks,
+    ], $__REQUEST_START__);
+}
+
+if ($method === 'POST' && preg_match('#^/company/([^/]+)/product/stocks$#', $path, $m)) {
+    [, $company] = $m;
+    $companyCode = Company::codeOf((string)$company);
+    if ($companyCode === null) {
+        Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
+    }
+
+    $body = Http::readJsonBody();
+    $items = $body['articles'] ?? $body['items'] ?? null;
+    if (!is_array($items) || count($items) === 0) {
+        Http::respond(400, ['error' => '`articles` (array) is required'], $__REQUEST_START__);
+    }
+
+    $productCodes = [];
+    foreach ($items as $idx => $item) {
+        if (is_array($item)) {
+            $code = trim((string)($item['code'] ?? ''));
+        } else {
+            $code = trim((string)$item);
+        }
+
+        if ($code === '') {
+            Http::respond(400, [
+                'error' => 'Missing product code',
+                'index' => $idx,
+            ], $__REQUEST_START__);
+        }
+
+        $productCodes[] = $code;
+    }
+
+    $pdo = $pdoProvider();
+    $results = [];
+    foreach ($productCodes as $productCode) {
+        $results[] = [
+            'product' => $productCode,
+            'company' => $companyCode,
+            'stocks' => Reflex::stockArticle($pdo, $companyCode, $productCode),
+        ];
+    }
+
+    Http::respond(200, [
+        'company' => $companyCode,
+        'count' => count($results),
+        'results' => $results,
     ], $__REQUEST_START__);
 }
 

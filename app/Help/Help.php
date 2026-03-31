@@ -304,6 +304,40 @@ HTML;
                     ],
                 ],
                 [
+                    'method' => 'POST',
+                    'path' => '/company/{company}/product/stocks',
+                    'description' => 'Get stock for multiple products in one company (`articles` array, `items` alias accepted).',
+                    'body' => [
+                        'articles' => [
+                            '707634',
+                            '707635',
+                        ],
+                    ],
+                    'examples' => [
+                        '/company/matfer/product/stocks',
+                    ],
+                    'response' => [
+                        'company' => '06',
+                        'count' => 2,
+                        'results' => [
+                            [
+                                'product' => '707634',
+                                'company' => '06',
+                                'stocks' => [
+                                    '010' => ['type' => '010', 'libellé' => '...', 'stock' => 12],
+                                ],
+                            ],
+                            [
+                                'product' => '707635',
+                                'company' => '06',
+                                'stocks' => [
+                                    '010' => ['type' => '010', 'libellé' => '...', 'stock' => 8],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
                     'method' => 'GET',
                     'path' => '/product/{productCode}/stock',
                     'description' => 'Get stock by company code for 06, 38, 40 and 15 (alias: /article/{productCode}/stock).',
