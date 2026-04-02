@@ -5,6 +5,8 @@ namespace App\Products;
 
 use PDO;
 use Throwable;
+use DateTimeInterface;
+use DateTimeImmutable;
 
 use App\Core\Http;
 use App\Core\cst;
@@ -881,6 +883,125 @@ final class Products
 		$product['time'] = microtime(true) - $start;
 		return $product;
     }
+	public static function getPRA(PDO $pdo, string $companyCode, string $productCode, ? DateTimeInterface $date = null) : ? array 
+	{
+		$companyCode = trim($companyCode);
+		$productCode = strtoupper(trim($productCode));
+		if ($companyCode === '' || $productCode === '') return null;
+
+		$company = Company::get($companyCode);
+		if (!$company) return null;
+
+		$dateObj = $date ? DateTimeImmutable::createFromInterface($date) : new DateTimeImmutable('now');
+		$dateRef = $dateObj->format('Y-m-d');
+
+		$sql = "SELECT * FROM TABLE(
+					SQLPGS.FULLPRADATE(
+						CODART => :product_code,
+						CODSOC => :company_code,
+						DATE_REFF => :date_ref
+					)
+				)";
+		$stmt = $pdo->prepare($sql);
+		$stmt->bindValue(':product_code', $productCode, PDO::PARAM_STR);
+		$stmt->bindValue(':company_code', $companyCode, PDO::PARAM_STR);
+		$stmt->bindValue(':date_ref', $dateRef, PDO::PARAM_STR);
+		$stmt->execute();
+
+		$row = $stmt->fetch();
+		return $row ?: null;
+	}
+
+	public static function getDangerousGoodDatas(PDO $pdo, string $productCode) : ? array
+	{
+		$bMatDGX			= false;
+		$data				= [];
+		$productCode		= strtoupper(trim($productCode));
+		if ($productCode === '') {
+			return [$bMatDGX, $data];
+		}
+
+		$attributs = cst::gtabAttributsMatDGX;
+		$placeholders = [];
+		foreach ($attributs as $index => $unused) {
+			$placeholders[] = ':attribut' . $index;
+		}
+
+		$Sql = "select ae_code_attribut, ae_num_ordre, ae_data from matis.aeattete where ae_code_art = :product and ae_code_attribut in (" . implode(',', $placeholders) . ") order by ae_code_attribut, ae_num_ordre";
+		$stmt = $pdo->prepare($Sql);
+		$stmt->bindValue(':product', $productCode, PDO::PARAM_STR);
+		foreach ($attributs as $index => $attribut) {
+			$stmt->bindValue(':attribut' . $index, (string)$attribut, PDO::PARAM_STR);
+		}
+		$stmt->execute();
+		$rows= $stmt->fetchAll();
+		if($rows) {			
+			foreach($rows as $row) {
+				switch($row['AE_CODE_ATTRIBUT'])
+				{
+					case "MAT_DGX":				// Flag matière dangereuse O/N
+						$bMatDGX = ((string)$row['AE_DATA'] === "1");
+						break;
+					case  "NUM_UFI":
+					case  "DGX_UFI": 	// Numéro UFI 
+						$data['UEFI'] = $row['AE_DATA'];
+						break;
+					case "DGX_UN":				//Le numéro ONU						Numéro d' identification  matières dangereuses
+						$data['UN'] = $row['AE_DATA'];
+						$un = $row['AE_DATA'];
+						$sql = "SELECT * FROM MATIS.DGX_UN_CODES WHERE UN_CODE = :UN_CODE";
+						$stmt_un = $pdo->prepare($sql);
+						$stmt_un->bindValue(':UN_CODE', $un, PDO::PARAM_STR);
+						$stmt_un->execute();
+						$row_un= $stmt_un->fetch();
+						if($row_un) {
+							$data['Designation'] = $row_un['UN_DESIGNATION'];
+						} else {
+							$data['Designation'] = 'n/c';
+						}				
+						break;
+					case "DGX_CL":				//Classe de danger						Classification risque associé à produit dangereux
+						$data['CL'] = $row['AE_DATA'];
+						break;
+					case "DGX_G":				//Groupe d'emballage					Classification des emballages
+						$data['G'] = $row['AE_DATA'];
+						break;
+					case "DGX_E":				//Étiquette								Étiquette information danger
+						$data['ETIQ'][$row['AE_NUM_ORDRE']] = $row['AE_DATA'];
+						break;
+					case "DGX_CLS":			//Code de classement					Classification risque associé à produit dangereux
+						$data['CLS'] = $row['AE_DATA'];
+						break;
+					case "DGX_DS":			//Dispositions spéciales				instructions et exigences spéciales
+						$data['DS'] = $row['AE_DATA'];
+						break;
+					case "DGX_LQ":			//Quantités limitées					Quantités expédiées limitées
+						$data['LQ'] = $row['AE_DATA'];
+						break;
+					case "DGX_CT":			//Catégorie transport					Classification par codification transport
+						$data['CT'] = $row['AE_DATA'];
+						break;
+					case "DGX_TU":			//Code de restrictions des tunnels		Codes spécifiques de restrictions des tunnels
+						$data['PU'] = $row['AE_DATA'];
+						break;
+					case "DGX_PE":			//Point d'éclair						Point d'éclair
+						$data['PE'] = $row['AE_DATA'];
+						break;
+					case "DGX_EMS":			//EmS - Emergency Schedule				Informations sur le programme d'urgence
+						$data['EMS'] = $row['AE_DATA'];
+						break;
+					case "DGX_QE":			//Quantité exceptée						Quantité exceptée
+						$data['QE'] = $row['AE_DATA'];
+						break;
+					case "DGX_ID":			//Numéro identification de danger		Numéro identification de danger 		
+						$data['ID'] = $row['AE_DATA'];
+						break;
+				}
+			}			
+		}
+		return [$bMatDGX, $data];
+
+	}
 
 	public static function get_old(PDO $pdo, string $productCode) :?array
 	{

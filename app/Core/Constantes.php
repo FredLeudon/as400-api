@@ -421,6 +421,9 @@ final class cst
         self::cstAppliCatalogue => 3,
     ];
 
+    public const gtabAttributsMatDGX = [
+        "MAT_DGX", "NUM_UFI", "DGX_UN", "DGX_CL", "DGX_G","DGX_E", "DGX_CLS","DGX_DS","DGX_LQ", "DGX_CT", "DGX_TU","DGX_PE","DGX_EMS","DGX_QE",	"DGX_ID"
+        ];
 
     private function __construct() {}
 }

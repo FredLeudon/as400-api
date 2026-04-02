@@ -276,6 +276,26 @@ HTML;
                 ],
                 [
                     'method' => 'GET',
+                    'path' => '/company/{company}/product/{productCode}/pra',
+                    'description' => 'Get PRA data for one product in one company.',
+                    'query' => [
+                        'date' => 'optional, ISO: YYYY-MM-DD or YYYY-MM-DDTHH:MM or YYYY-MM-DDTHH:MM:SS',
+                    ],
+                    'examples' => [
+                        '/company/matfer/product/707634/pra',
+                        '/company/matfer/product/707634/pra?date=2026-01-01',
+                    ],
+                    'response' => [
+                        'company' => '06',
+                        'product' => '707634',
+                        'pra' => [
+                            'PRIXBRUT' => '...',
+                            'PRIXNET' => '...',
+                        ],
+                    ],
+                ],
+                [
+                    'method' => 'GET',
                     'path' => '/api/product/{article}/delai',
                     'description' => 'Get supplier delivery delay for one article (alias: /api/article/{article}/delai).',
                     'examples' => [
@@ -285,6 +305,24 @@ HTML;
                     'response' => [
                         'article' => '707634',
                         'delai_livraison' => '2-4',
+                    ],
+                ],
+                [
+                    'method' => 'GET',
+                    'path' => '/product/{article}/dgx',
+                    'description' => 'Get dangerous goods data for one article (alias: /article/{article}/dgx).',
+                    'examples' => [
+                        '/product/707634/dgx',
+                        '/article/707634/dgx',
+                    ],
+                    'response' => [
+                        'article' => '707634',
+                        'dangerous_good' => true,
+                        'datas' => [
+                            'UN' => '1993',
+                            'Designation' => 'FLAMMABLE LIQUID, N.O.S.',
+                            'CL' => '3',
+                        ],
                     ],
                 ],
                 [

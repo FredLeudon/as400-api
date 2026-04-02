@@ -573,6 +573,50 @@ if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)$#', $pat
     Http::respond(200, ['product' => $product], $__REQUEST_START__);
 }
 
+if ($method === 'GET' && preg_match('#^/company/([^/]+)/product/([^/]+)/pra$#', $path, $m)) {
+    [, $company, $product] = $m;
+
+    $companyCode = Company::codeOf((string)$company);
+    if ($companyCode === null) {
+        Http::respond(404, ['error' => 'Unknown company', 'company' => (string)$company], $__REQUEST_START__);
+    }
+
+    $productCode = strtoupper(trim((string)$product));
+    if ($productCode === '') {
+        Http::respond(400, ['error' => 'Missing product code'], $__REQUEST_START__);
+    }
+
+    $date = null;
+    if (isset($_GET['date'])) {
+        $date = Http::parseAndValidateDate((string)$_GET['date']);
+        if (!$date) {
+            Http::respond(400, ['error' => 'Invalid date format'], $__REQUEST_START__);
+        }
+    }
+
+    $pdo = $pdoProvider();
+    $pra = Products::getPRA(
+        pdo: $pdo,
+        companyCode: $companyCode,
+        productCode: $productCode,
+        date: $date
+    );
+
+    if ($pra === null) {
+        Http::respond(404, [
+            'error' => 'PRA not found',
+            'company' => $companyCode,
+            'product' => $productCode,
+        ], $__REQUEST_START__);
+    }
+
+    Http::respond(200, [
+        'company' => $companyCode,
+        'product' => $productCode,
+        'pra' => $pra,
+    ], $__REQUEST_START__);
+}
+
 // Anciennes routes:
 if ($method === 'GET' && preg_match('#^/(?:product|article)/([A-Za-z0-9]+)$#', $path, $m)) {
     [, $productCode] = $m;
@@ -605,6 +649,24 @@ if ($method === 'GET' && preg_match('#^/(?:product|article)/([^/]+)/delai$#i', $
     Http::respond(200, [
         'article' => $productCode,
         'delai_livraison' => $delaiLivraison,
+    ], $__REQUEST_START__);
+}
+
+if ($method === 'GET' && preg_match('#^/(?:product|article)/([^/]+)/dgx$#i', $path, $m)) {
+    [, $productCode] = $m;
+    $productCode = strtoupper(trim((string)$productCode));
+    if ($productCode === '') {
+        Http::respond(400, ['error' => 'Missing product code'], $__REQUEST_START__);
+    }
+
+    $pdo = $pdoProvider();
+    $result = Products::getDangerousGoodDatas($pdo, $productCode);
+    [$dangerousGood, $datas] = (is_array($result) && count($result) === 2) ? $result : [false, []];
+
+    Http::respond(200, [
+        'article' => $productCode,
+        'dangerous_good' => (bool)$dangerousGood,
+        'datas' => is_array($datas) ? $datas : [],
     ], $__REQUEST_START__);
 }
 
